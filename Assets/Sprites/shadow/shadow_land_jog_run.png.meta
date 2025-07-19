@@ -1,0 +1,1765 @@
+fileFormatVersion: 2
+guid: daf454d5426db4f4885670f12e1ee431
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: shadow_land_jog_run_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 243
+        width: 28
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dd4556851251e948ab29bcc146be224
+      internalID: -824343444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_1
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 318
+        width: 9
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65a26808f26dc094aa07ab38d45d905a
+      internalID: 115802982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_2
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 312
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e617a47662c213049b8065dfaf334c83
+      internalID: 450031567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_3
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 309
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c463e202f78bef46824ff36f0d31820
+      internalID: 287453476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_4
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 309
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 103b4ce202cb603459c37efbd0da5881
+      internalID: 264711201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_5
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 312
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daddd2ce26cdbe844af87e2ea5548eba
+      internalID: -507003819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_6
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 312
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c7fa1e3dcb01ee4694a8573652d4b21
+      internalID: -547400718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_7
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 310
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fb8c57a68b2fb944b12ed5f0d497305
+      internalID: -677633657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_8
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 244
+        width: 29
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8870c517f4e2fc04e80f8c87c92a756d
+      internalID: -1797613331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_9
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 247
+        width: 29
+        height: 62
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 204b9ecf5d8c62440ad6111582d3bdf3
+      internalID: 1685212399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_10
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 253
+        width: 39
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7054d1d09071714581361cc36cdb78e
+      internalID: -1757140388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_11
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 250
+        width: 41
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa4a890b774f8084984bbfe58102bbb3
+      internalID: 109306033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_12
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 250
+        width: 44
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c60674ac7e474754899517a972020a27
+      internalID: -155051332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_13
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 248
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bc7d8b2ccde761498da3c238ef6032f
+      internalID: -1900432136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_14
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 247
+        width: 51
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f275fdbdb956d254f82c28af3b96b456
+      internalID: 2097321368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_15
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 250
+        width: 52
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ca26c4469accbd4fa92d578ea64d584
+      internalID: -891972198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_16
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 249
+        width: 52
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8a59e6b340b01842abcf42ceec8e7aa
+      internalID: 698563545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_17
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 249
+        width: 53
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34fa6f8f19b3a6a45adea5f449f85ea5
+      internalID: 1132534923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_18
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 248
+        width: 53
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2e5fab61fc407c489c974ff08c2e8c8
+      internalID: 2084814307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 185
+        width: 52
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61b481315b4d56a4ababf28b327bfb43
+      internalID: -235847630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_20
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 185
+        width: 52
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1fbdbf3a68e7a345a198eab718b811e
+      internalID: 1057262141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_21
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 184
+        width: 52
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48506cb2287cbc8449f128fb3247b8b1
+      internalID: -2140227839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_22
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 183
+        width: 52
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ddac236736e48a4090e5de4600b2481
+      internalID: -929867279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_23
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 183
+        width: 50
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79124102b3dff8a468bdd5348b1a60a5
+      internalID: 1350374374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_24
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 184
+        width: 37
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30f3d58be00839d4fb0b76e1b155429e
+      internalID: -339893831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_25
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 186
+        width: 39
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0f75bad7a580da499f12a0f95fbb39b
+      internalID: -973805577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_26
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 185
+        width: 40
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6128b0fc38328db40b23be1224536071
+      internalID: -511545609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_27
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 186
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7d7a309a26d92d4eb3ff80c7c647297
+      internalID: -734817864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_28
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 185
+        width: 43
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aab409849f3a78c4a9bbd5506dbd756c
+      internalID: 697734295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_29
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 186
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dd128f5757711844be187087cfebea1
+      internalID: 193721717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_30
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 188
+        width: 49
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 480e2092bf552374ab58d9855f56a6d7
+      internalID: -1471000688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_31
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 129
+        width: 51
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b56c0da9f6f4ba4086be683cedcd336
+      internalID: 1720925477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_32
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 129
+        width: 51
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e1cbbffcb5b71543905e9b84516389f
+      internalID: -464913112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_33
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 126
+        width: 52
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2428951810724d4fb5a07138f4460ed
+      internalID: 846696081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_34
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 127
+        width: 53
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b780883607c7364fadfc01cba1d0473
+      internalID: 327570981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_35
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 130
+        width: 52
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a1d48f31abdcee43bf498b85938b7f7
+      internalID: 398510526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_36
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 129
+        width: 51
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 934d41a9cc63174429b2e55824bb7214
+      internalID: -537738471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_37
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 128
+        width: 49
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb1e1085024794a4ca2e3ef5fe603108
+      internalID: 2007294527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_38
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 129
+        width: 43
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a357da4b06112d49923aae98d6112e8
+      internalID: 1213526732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_39
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 124
+        width: 35
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 205275c822b32d147b8efbb05fd6538d
+      internalID: 1024333014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_40
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 128
+        width: 43
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61e2dc0faa6cf4b439a5a323b1eac915
+      internalID: -1784940336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_41
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 127
+        width: 43
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2966b5d55a59d046acfde6ee977a2d2
+      internalID: -2005848996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_42
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 126
+        width: 43
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 792db395cc283e24e8bfc314062dd3f1
+      internalID: -1296901679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_43
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 67
+        width: 42
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0e9a637fad12934c82da1c6350b4c11
+      internalID: 1084018185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_44
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 65
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83861a36969cca541a787242975b58f4
+      internalID: -1993788843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_45
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 66
+        width: 39
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 205a9aa47bd709b45ae6a18ff8413ec7
+      internalID: -866634637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_46
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 67
+        width: 37
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56aad2d0c7160cc4da077629713891e7
+      internalID: -1091098861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_47
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 66
+        width: 39
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 210838c3e68f55446b0a15361d837e02
+      internalID: -1445403957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_48
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 67
+        width: 40
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1f5f76bcae5f66478725a437d424cb1
+      internalID: 345814343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_49
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 66
+        width: 40
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34309a39fe1bd554a9edd7becf08bcb5
+      internalID: -967842634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_50
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 66
+        width: 40
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f47439d3b8659f4c99003788b3ec0d6
+      internalID: 2049403062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_51
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 64
+        width: 42
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11f70367f7491b645b4bb36367a0aa37
+      internalID: -1380316619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_52
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 66
+        width: 41
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 069f5f902409315489f96153194aad1e
+      internalID: 1158453931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_53
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 64
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7a15a7c853b6bc419b05217eb51e918
+      internalID: 1620307282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_54
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 63
+        width: 43
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f3df629e03624543a18de17cf11151b
+      internalID: -2049259924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_55
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 61
+        width: 41
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96609ff18e13d3243b5ff7a3672ca1db
+      internalID: 1397867860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_56
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 62
+        width: 38
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a89b2a84cf5a7f4eb3226de32972d19
+      internalID: -360422091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_57
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 62
+        width: 38
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5151d88bdf890d46a865cd4d6bc8f85
+      internalID: 1600674887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_58
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 7
+        width: 39
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8227fbea321001b469b0f3a98732a950
+      internalID: -245610723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_59
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 5
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1c2a3ac6123ee040bfcbfb1e08e48f2
+      internalID: -1085726413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_60
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 5
+        width: 42
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ff22642ee9e1044aaae15c8ece48650
+      internalID: 3945000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_61
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 4
+        width: 59
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a088e7f5a6a5d7941b9a43710d177c55
+      internalID: -287379083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_62
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 53
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02a153ce4b187eb4a81000dec8b8130e
+      internalID: 1750941626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_63
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 0
+        width: 35
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 284985e0b965a1447a73e430c28f589f
+      internalID: 234968078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_64
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 0
+        width: 35
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4587283bdd2b0954993df384ca49dd25
+      internalID: -1564944512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_65
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 0
+        width: 36
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6dcc24918f06df40b0e49afc1d748da
+      internalID: -677194423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_66
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 0
+        width: 36
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85d34171ce6d3e64eb4130b7541a502c
+      internalID: -2111288137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_67
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 1
+        width: 36
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99dcdcb922055964cb984d1c0b91714b
+      internalID: -1275033749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_68
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 1
+        width: 36
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d4ca6ac26d82c447aa6d4273eb09560
+      internalID: -701063513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_69
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 1
+        width: 36
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d0732726b74afc4da3d01293c4b56ab
+      internalID: -880847901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_70
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 1
+        width: 36
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0650ca41a34f58748bcaf2c827394866
+      internalID: -523424304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_71
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 1
+        width: 36
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6a1e7d021e1d7148836a3df3defa99b
+      internalID: -2010119595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_72
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 1
+        width: 36
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 926ffcc403e442d4d8d205f58a6584e1
+      internalID: 1471590612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_73
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 1
+        width: 36
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83f585cbcbc7d0a4ab5e2e4a1d4cf054
+      internalID: -1488009721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_land_jog_run_74
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 0
+        width: 36
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5f544dfe9d888e4c87c857ffa4734f6
+      internalID: -1831023647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      shadow_land_jog_run_0: -824343444
+      shadow_land_jog_run_1: 115802982
+      shadow_land_jog_run_10: -1757140388
+      shadow_land_jog_run_11: 109306033
+      shadow_land_jog_run_12: -155051332
+      shadow_land_jog_run_13: -1900432136
+      shadow_land_jog_run_14: 2097321368
+      shadow_land_jog_run_15: -891972198
+      shadow_land_jog_run_16: 698563545
+      shadow_land_jog_run_17: 1132534923
+      shadow_land_jog_run_18: 2084814307
+      shadow_land_jog_run_19: -235847630
+      shadow_land_jog_run_2: 450031567
+      shadow_land_jog_run_20: 1057262141
+      shadow_land_jog_run_21: -2140227839
+      shadow_land_jog_run_22: -929867279
+      shadow_land_jog_run_23: 1350374374
+      shadow_land_jog_run_24: -339893831
+      shadow_land_jog_run_25: -973805577
+      shadow_land_jog_run_26: -511545609
+      shadow_land_jog_run_27: -734817864
+      shadow_land_jog_run_28: 697734295
+      shadow_land_jog_run_29: 193721717
+      shadow_land_jog_run_3: 287453476
+      shadow_land_jog_run_30: -1471000688
+      shadow_land_jog_run_31: 1720925477
+      shadow_land_jog_run_32: -464913112
+      shadow_land_jog_run_33: 846696081
+      shadow_land_jog_run_34: 327570981
+      shadow_land_jog_run_35: 398510526
+      shadow_land_jog_run_36: -537738471
+      shadow_land_jog_run_37: 2007294527
+      shadow_land_jog_run_38: 1213526732
+      shadow_land_jog_run_39: 1024333014
+      shadow_land_jog_run_4: 264711201
+      shadow_land_jog_run_40: -1784940336
+      shadow_land_jog_run_41: -2005848996
+      shadow_land_jog_run_42: -1296901679
+      shadow_land_jog_run_43: 1084018185
+      shadow_land_jog_run_44: -1993788843
+      shadow_land_jog_run_45: -866634637
+      shadow_land_jog_run_46: -1091098861
+      shadow_land_jog_run_47: -1445403957
+      shadow_land_jog_run_48: 345814343
+      shadow_land_jog_run_49: -967842634
+      shadow_land_jog_run_5: -507003819
+      shadow_land_jog_run_50: 2049403062
+      shadow_land_jog_run_51: -1380316619
+      shadow_land_jog_run_52: 1158453931
+      shadow_land_jog_run_53: 1620307282
+      shadow_land_jog_run_54: -2049259924
+      shadow_land_jog_run_55: 1397867860
+      shadow_land_jog_run_56: -360422091
+      shadow_land_jog_run_57: 1600674887
+      shadow_land_jog_run_58: -245610723
+      shadow_land_jog_run_59: -1085726413
+      shadow_land_jog_run_6: -547400718
+      shadow_land_jog_run_60: 3945000
+      shadow_land_jog_run_61: -287379083
+      shadow_land_jog_run_62: 1750941626
+      shadow_land_jog_run_63: 234968078
+      shadow_land_jog_run_64: -1564944512
+      shadow_land_jog_run_65: -677194423
+      shadow_land_jog_run_66: -2111288137
+      shadow_land_jog_run_67: -1275033749
+      shadow_land_jog_run_68: -701063513
+      shadow_land_jog_run_69: -880847901
+      shadow_land_jog_run_7: -677633657
+      shadow_land_jog_run_70: -523424304
+      shadow_land_jog_run_71: -2010119595
+      shadow_land_jog_run_72: 1471590612
+      shadow_land_jog_run_73: -1488009721
+      shadow_land_jog_run_74: -1831023647
+      shadow_land_jog_run_75: -1772787675
+      shadow_land_jog_run_8: -1797613331
+      shadow_land_jog_run_9: 1685212399
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

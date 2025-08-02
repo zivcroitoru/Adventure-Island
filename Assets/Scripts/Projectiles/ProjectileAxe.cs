@@ -10,12 +10,19 @@ public class ProjectileAxe : MonoBehaviour
 
     private Rigidbody2D _rigid;
 
-    void Awake()
+    private void Awake()
     {
         _rigid = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void OnEnable()
+    {
+        // Reset velocity to avoid buildup when reused
+        if (_rigid != null)
+            _rigid.velocity = Vector2.zero;
+    }
+
+    private void Update()
     {
         transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
     }
@@ -26,13 +33,13 @@ public class ProjectileAxe : MonoBehaviour
         {
             transform.localScale = new Vector3(direction, 1, 1);
             _rigid.AddForce(new Vector3(xSpeed * direction, ySpeed, 0));
-            StartCoroutine(DestroyObject());
+            StartCoroutine(DisableAfterDelay());
         }
     }
 
-    private IEnumerator DestroyObject()
+    private IEnumerator DisableAfterDelay()
     {
         yield return new WaitForSeconds(destroyTime);
-        Destroy(this.gameObject);
+        gameObject.SetActive(false); // ✅ use pooling-safe disable
     }
 }

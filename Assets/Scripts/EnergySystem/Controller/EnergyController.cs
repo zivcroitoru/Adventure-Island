@@ -6,6 +6,7 @@ public class EnergyController : MonoBehaviour, IDamageable
     [SerializeField] private EnergyView energyView;
     [SerializeField] private int totalBars = 15;
     [SerializeField] private float secondsPerBarLoss = 3f;
+    [SerializeField] private LivesController livesManager; // 👈 Add this
 
     private IEnergyModel model;
     private EnergyDecay decay;
@@ -18,12 +19,19 @@ public class EnergyController : MonoBehaviour, IDamageable
         decay.StartDecay(this);
     }
 
-    public void TakeDamage(int amount)
+public void TakeDamage(int amount)
+{
+    model.Decrease(amount);
+    energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
+    Debug.Log($"[EnergyController] Took {amount} damage");
+
+    // 👇 ADD THIS
+    if (model.CurrentEnergy <= 0)
     {
-        model.Decrease(amount);
-        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
-        Debug.Log($"[EnergyController] Took {amount} damage");
+        OnEnergyDepleted();
     }
+}
+
 
     public void AddBars(int bars)
     {
@@ -42,6 +50,10 @@ public class EnergyController : MonoBehaviour, IDamageable
     private void OnEnergyChanged() =>
         energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
 
-    private void OnEnergyDepleted() =>
-        enabled = false;
+    private void OnEnergyDepleted()
+    {
+        Debug.Log("[EnergyController] Energy depleted");
+        livesManager?.LoseLife(); // 👈 Lose a strike when energy runs out
+        ResetEnergy();               // 👈 Optional: Reset and resume decay
+    }
 }

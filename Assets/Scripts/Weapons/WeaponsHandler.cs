@@ -2,20 +2,23 @@ using UnityEngine;
 
 public class WeaponsHandler : MonoBehaviour
 {
-    public FireballWeapon fireballWeapon;
     public AxeWeapon axeWeapon;
-    public LaserWeapon laserWeapon;
+    // public BoomerangWeapon boomerangWeapon;
 
     private Animator animator;
 
     void Start()
     {
-        animator = transform.parent.Find("VisualShadow")?.GetComponent<Animator>();
+        // animator = transform.parent.Find("VisualShadow")?.GetComponent<Animator>();
     }
 
     void Update()
     {
-        ActivateWeapon();
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            ShootEquippedWeapon();
+            SetShootTrigger();
+        }
     }
 
     void SetShootTrigger()
@@ -24,29 +27,20 @@ public class WeaponsHandler : MonoBehaviour
         // animator.SetTrigger("Shoot");
     }
 
-    private void ActivateWeapon()
+    private void ShootEquippedWeapon()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) && fireballWeapon != null)
-        {
-            fireballWeapon.Shoot();
-            SetShootTrigger();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z) && axeWeapon != null)
-        {
-            axeWeapon.Reload();
-        }
-
-        if (Input.GetKeyDown(KeyCode.X) && axeWeapon != null)
+        if (axeWeapon != null)
         {
             axeWeapon.Shoot();
-            SetShootTrigger();
+            return;
         }
 
-        if (Input.GetKeyDown(KeyCode.C) && laserWeapon != null)
-        {
-            laserWeapon.Shoot();
-            SetShootTrigger();
-        }
+        // if (boomerangWeapon != null && boomerangWeapon.IsEquipped())
+        // {
+        //     boomerangWeapon.Shoot();
+        //     return;
+        // }
+
+        Debug.LogWarning("[WeaponsHandler] No weapon equipped.");
     }
 }

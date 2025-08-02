@@ -4,32 +4,27 @@ using VContainer.Unity;
 
 public class GameLifetimeScope : LifetimeScope
 {
-    [Header("Controllers")]
-
-    [Header("Factories")]
-    [SerializeField] private LaserFactory laserFactory;
-
-
-    [Header("Pool Managers")]
-    [SerializeField] private LaserPoolManager laserPoolManager;
-    [SerializeField] private FireballPoolManager fireballPoolManager;
+    [Header("Axe System")]
+    [SerializeField] private AxePoolManager axePoolManager;
+    [SerializeField] private AxeFactory axeFactory;
 
     protected override void Configure(IContainerBuilder builder)
     {
-        // Register energy model (singleton logic)
         var energyModel = new EnergyModel(45f);
         builder.RegisterInstance<IEnergyModel>(energyModel);
 
-        // Register MonoBehaviour components (must be assigned in the Inspector)
-        builder.RegisterComponent(laserFactory);
-        builder.RegisterComponent(laserPoolManager);
-        builder.RegisterComponent(fireballPoolManager);
-        builder.Register<IFireballBuilder, FireballBuilder>(Lifetime.Singleton);
+        if (axeFactory != null)
+        {
+            builder.RegisterComponent(axeFactory);
+        }
 
+        if (axePoolManager != null)
+        {
+            builder.RegisterComponent(axePoolManager);
+        }
 
-        // Register builders & directors
-        builder.Register<ILaserBuilder, LaserBuilder>(Lifetime.Singleton);
-        builder.Register<LaserDirector>(Lifetime.Singleton);
-        builder.Register<FireballDirector>(Lifetime.Singleton);
+        builder.RegisterComponentInHierarchy<AxeWeapon>();
+        builder.Register<IAxeBuilder, AxeBuilder>(Lifetime.Singleton);
+        builder.Register<AxeDirector>(Lifetime.Singleton);
     }
 }

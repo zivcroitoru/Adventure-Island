@@ -1,28 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
-public class PlayerInvincible : MonoBehaviour
+public class PlayerInvincible : MonoBehaviour, IInvincible
 {
     private bool _isInvincible = false;
-    public bool IsInvincible { get => _isInvincible; }
+    public bool IsInvincible => _isInvincible;
 
     public float powerUpDuration = 5f;
-
     private SpriteRenderer _curSpriteRenderer;
 
     private void Awake()
     {
         _curSpriteRenderer = GetComponent<SpriteRenderer>();    
     }
-    
+
     public void ActivateInvincibility()
     {
         Debug.Log("ActivateInvincibility");
         StartCoroutine(ActivateInvincibilityTimer());
     }
 
-    IEnumerator ActivateInvincibilityTimer()
+    private IEnumerator ActivateInvincibilityTimer()
     {
         _isInvincible = true;
         _curSpriteRenderer.color = Color.yellow;

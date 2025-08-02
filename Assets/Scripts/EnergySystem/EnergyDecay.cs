@@ -31,18 +31,24 @@ public class EnergyDecay
             StartDecay(context);
     }
 
-    private IEnumerator DecayLoop()
+private IEnumerator DecayLoop()
+{
+    while (model.CurrentEnergy > 0)
     {
-        while (model.CurrentEnergy > 0)
-        {
-            yield return new WaitForSeconds(interval);
-            model.Decrease(1);
-            onChanged?.Invoke();
-        }
+        yield return new WaitForSeconds(interval);
+        model.Decrease(1);
+        onChanged?.Invoke();
 
-        decayRoutine = null;
-        onDepleted?.Invoke();
+        if (model.CurrentEnergy <= 0f) // 👈 ADD THIS CHECK
+        {
+            break;
+        }
     }
+
+    decayRoutine = null;
+    onDepleted?.Invoke(); // ⏱ will now fire without extra frame delay
+}
+
 
     public void Stop(MonoBehaviour context)
     {

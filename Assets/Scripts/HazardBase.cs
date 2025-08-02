@@ -67,17 +67,28 @@ public abstract class HazardBase : MonoBehaviour
     /// <summary>
     /// Attempts to apply damage to a damageable target.
     /// </summary>
-    protected virtual void TryApplyDamage(Collider2D other)
+/// <summary>
+/// Attempts to apply damage to a damageable target, if not invincible.
+/// </summary>
+protected virtual void TryApplyDamage(Collider2D other)
+{
+    var damageable = other.GetComponent<IDamageable>();
+    if (damageable != null)
     {
-        var damageable = other.GetComponent<IDamageable>();
-        if (damageable != null)
+        var invincible = other.GetComponent<IInvincible>();
+        if (invincible != null && invincible.IsInvincible)
         {
-            Debug.Log($"[HazardBase] Applying {damage} damage to: {other.name}");
-            damageable.TakeDamage(damage);
+            Debug.Log($"[HazardBase] Skipping damage: {other.name} is invincible.");
+            return;
         }
-        else
-        {
-            Debug.Log($"[HazardBase] No IDamageable found on: {other.name}");
-        }
+
+        Debug.Log($"[HazardBase] Applying {damage} damage to: {other.name}");
+        damageable.TakeDamage(damage);
     }
+    else
+    {
+        Debug.Log($"[HazardBase] No IDamageable found on: {other.name}");
+    }
+}
+
 }

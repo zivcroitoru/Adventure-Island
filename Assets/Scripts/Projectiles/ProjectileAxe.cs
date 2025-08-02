@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileAxe : MonoBehaviour
@@ -7,11 +6,18 @@ public class ProjectileAxe : MonoBehaviour
     public float xSpeed = 5.0f;
     public float ySpeed = 5.0f;
     public float destroyTime = 5f;
+    public float spinSpeed = 720f; // Degrees per second
+
     private Rigidbody2D _rigid;
 
-    public void Awake()
+    void Awake()
     {
         _rigid = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
     }
 
     public void Shoot(float direction)

@@ -1,93 +1,47 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnergyController : MonoBehaviour
+public class EnergyController : MonoBehaviour, IDamageable
 {
     [SerializeField] private EnergyView energyView;
-    [SerializeField] private int totalBars = 15; // Total number of bars (also the max energy value)
+    [SerializeField] private int totalBars = 15;
     [SerializeField] private float secondsPerBarLoss = 3f;
 
     private IEnergyModel model;
-    private Coroutine decayCoroutine;
+    private EnergyDecay decay;
 
     void Start()
     {
-        if (model == null)
-        {
-            model = new EnergyModel(totalBars); // model.MaxEnergy = 15
-        }
-
+        model = new EnergyModel(totalBars);
+        decay = new EnergyDecay(model, secondsPerBarLoss, OnEnergyChanged, OnEnergyDepleted);
         energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
-
-        decayCoroutine = StartCoroutine(EnergyDecayLoop());
+        decay.StartDecay(this);
     }
 
-    public void Initialize(IEnergyModel model)
+    public void TakeDamage(int amount)
     {
-        this.model = model;
-
+        model.Decrease(amount);
         energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
-
-        if (decayCoroutine != null)
-            StopCoroutine(decayCoroutine);
-
-        decayCoroutine = StartCoroutine(EnergyDecayLoop());
-    }
-
-    private IEnumerator EnergyDecayLoop()
-    {
-        while (model.CurrentEnergy > 0)
-        {
-            model.Decrease(1); // Lose 1 bar
-            energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
-
-            yield return new WaitForSeconds(secondsPerBarLoss);
-        }
-
-        decayCoroutine = null;
-        enabled = false;
+        Debug.Log($"[EnergyController] Took {amount} damage");
     }
 
     public void AddBars(int bars)
     {
-        float newEnergy = Mathf.Min(model.CurrentEnergy + bars, totalBars);
-        model.Set(newEnergy);
-
+        model.Add(bars);
         energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
-
-        if (decayCoroutine == null && model.CurrentEnergy > 0)
-            decayCoroutine = StartCoroutine(EnergyDecayLoop());
-    }
-
-    public void RemoveBars(int bars)
-    {
-        float newEnergy = Mathf.Max(model.CurrentEnergy - bars, 0);
-        model.Set(newEnergy);
-
-        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
+        decay.ResumeIfNeeded(this);
     }
 
     public void ResetEnergy()
     {
         model.Reset();
         energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
-
-        if (decayCoroutine == null)
-            decayCoroutine = StartCoroutine(EnergyDecayLoop());
+        decay.StartDecay(this);
     }
 
-    public int GetCurrentBars()
-    {
-        return Mathf.FloorToInt(model.CurrentEnergy);
-    }
+    private void OnEnergyChanged() =>
+        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
 
-    public int GetMaxBars()
-    {
-        return totalBars;
-    }
-
-    public bool IsEmpty()
-    {
-        return model.CurrentEnergy <= 0f;
-    }
+    private void OnEnergyDepleted() =>
+        enabled = false;
 }

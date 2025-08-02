@@ -18,7 +18,7 @@ public class EnergyModel : IEnergyModel
 
     public void Decrease(float delta)
     {
-        CurrentEnergy = Mathf.Max(CurrentEnergy - delta, 0f);
+        CurrentEnergy = Mathf.Max(CurrentEnergy - delta, 0);
     }
 
     public void Reset()
@@ -31,3 +31,4 @@ public class EnergyModel : IEnergyModel
         CurrentEnergy = Mathf.Clamp(value, 0, MaxEnergy);
     }
 }
+

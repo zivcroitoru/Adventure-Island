@@ -604,11 +604,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _amountToPool: 5
   projectileHolder: {fileID: 475051763}
---- !u!4 &1116584519 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7507183520791349527, guid: 602f425cc9e34b147beddb4dbfbd1076, type: 3}
-  m_PrefabInstance: {fileID: 1434900955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1214059434
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,7 +900,6 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  damageController: {fileID: 1954677952}
   laserFactory: {fileID: 1374063684}
   laserPoolManager: {fileID: 951773898}
   fireballPoolManager: {fileID: 1920956322}
@@ -1127,17 +1121,14 @@ PrefabInstance:
     - {fileID: 7708993420142994295, guid: 602f425cc9e34b147beddb4dbfbd1076, type: 3}
     - {fileID: 4280609895904662469, guid: 602f425cc9e34b147beddb4dbfbd1076, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7507183520791349527, guid: 602f425cc9e34b147beddb4dbfbd1076, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1894248492}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 42329389962944314, guid: 602f425cc9e34b147beddb4dbfbd1076, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1954677952}
+      addedObject: {fileID: 1954677951}
     - targetCorrespondingSourceObject: {fileID: 42329389962944314, guid: 602f425cc9e34b147beddb4dbfbd1076, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1954677951}
+      addedObject: {fileID: 1954677964}
   m_SourcePrefab: {fileID: 100100000, guid: 602f425cc9e34b147beddb4dbfbd1076, type: 3}
 --- !u!1 &1597936418
 GameObject:
@@ -1450,53 +1441,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1894248491
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1894248492}
-  - component: {fileID: 1894248493}
-  m_Layer: 0
-  m_Name: EnergyController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1894248492
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894248491}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1116584519}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1894248493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894248491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47a8dfca2fb22c94eb457e00fb55b244, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energyView: {fileID: 466668039}
-  totalBars: 15
-  secondsPerBarLoss: 3
 --- !u!1 &1920956319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,7 +1569,7 @@ Transform:
   m_GameObject: {fileID: 1943322461}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 93, y: 5.946145, z: 0}
+  m_LocalPosition: {x: 95.213, y: 5.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1687,14 +1631,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1943322461}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1723,7 +1667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f6df762e87de80448a7ad2110406a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1954677952
+--- !u!114 &1954677964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1732,9 +1676,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1954677938}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ee887cee34dd8a48b907886075c5e7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 47a8dfca2fb22c94eb457e00fb55b244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energyView: {fileID: 466668039}
+  totalBars: 15
+  secondsPerBarLoss: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

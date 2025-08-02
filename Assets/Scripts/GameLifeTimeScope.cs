@@ -5,7 +5,6 @@ using VContainer.Unity;
 public class GameLifetimeScope : LifetimeScope
 {
     [Header("Controllers")]
-    [SerializeField] private PlayerDamageController damageController;
 
     [Header("Factories")]
     [SerializeField] private LaserFactory laserFactory;
@@ -22,7 +21,6 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterInstance<IEnergyModel>(energyModel);
 
         // Register MonoBehaviour components (must be assigned in the Inspector)
-        builder.RegisterComponent(damageController);
         builder.RegisterComponent(laserFactory);
         builder.RegisterComponent(laserPoolManager);
         builder.RegisterComponent(fireballPoolManager);

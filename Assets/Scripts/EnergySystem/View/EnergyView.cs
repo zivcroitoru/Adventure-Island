@@ -3,22 +3,22 @@ using UnityEngine.UI;
 
 public class EnergyView : MonoBehaviour
 {
-    [SerializeField] private Image energyBarFill; // one Image using fillAmount
-    private const int totalBars = 15;
+    [SerializeField] private Image energyBarFill; // One Image using fillAmount
 
     public void UpdateDisplay(float currentEnergy, float maxEnergy)
     {
         if (energyBarFill == null || maxEnergy <= 0f) return;
 
-        // Calculate how many full bars should be shown
-        float energyRatio = currentEnergy / maxEnergy;
-        int filledBars = Mathf.FloorToInt(energyRatio * totalBars);
-        float fillAmount = filledBars / (float)totalBars;
+        // Calculate raw fill ratio
+        float rawFill = currentEnergy / maxEnergy;
 
-        // Set fill amount
+        // Snap to 3-decimal precision (e.g., 0.733)
+        float fillAmount = Mathf.Floor(rawFill * 1000f) / 1000f;
+
+        // Apply to UI
         energyBarFill.fillAmount = fillAmount;
 
         // Debug logs
-        Debug.Log($"[EnergyView] Energy: {currentEnergy}/{maxEnergy} → Bars: {filledBars}/{totalBars}, FillAmount: {fillAmount:0.000}");
+        Debug.Log($"[EnergyView] Energy: {currentEnergy:0.000}/{maxEnergy} → FillAmount: {fillAmount:0.000}");
     }
 }

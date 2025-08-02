@@ -1,19 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponsHandler : MonoBehaviour
 {
-    public FireballWeapon fireballWeapon;   // = Pistol
+    public FireballWeapon fireballWeapon;
     public AxeWeapon axeWeapon;
-    public LaserWeapon laserWeapon;         // = Light Shot
+    public LaserWeapon laserWeapon;
 
     private Animator animator;
 
     void Start()
     {
-       animator = transform.parent.Find("VisualShadow")?.GetComponent<Animator>();
+        animator = transform.parent.Find("VisualShadow")?.GetComponent<Animator>();
     }
 
     void Update()
@@ -23,8 +20,8 @@ public class WeaponsHandler : MonoBehaviour
 
     void SetShootTrigger()
     {
-        animator.ResetTrigger("Shoot");
-        animator.SetTrigger("Shoot");
+        // animator.ResetTrigger("Shoot");
+        // animator.SetTrigger("Shoot");
     }
 
     private void ActivateWeapon()

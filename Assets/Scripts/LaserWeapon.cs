@@ -1,27 +1,27 @@
 using UnityEngine;
-using Zenject;
+using VContainer;
 
-// Controls shooting logic for the laser weapon
 public class LaserWeapon : MonoBehaviour, IUseableWeapon
 {
-    public GameObject laser; 
+    public GameObject laser;
     private bool _isEquip = false;
+    private LaserPoolManager _laserPoolManager;
 
-    [Inject] private LaserPoolManager _laserPoolManager;
+    public void Construct(LaserPoolManager laserPoolManager)
+    {
+        _laserPoolManager = laserPoolManager;
+    }
 
     public void Shoot()
     {
         if (laser != null && _isEquip)
         {
-            // Take laser from pool
             GameObject curLaser = _laserPoolManager.GetPooledLaser();
             Debug.Log("[LaserPool] Laser taken from pool.");
 
-            // Set its position and activate
             curLaser.transform.position = transform.position;
             curLaser.SetActive(true);
 
-            // Tell it to shoot
             ProjectileLaser scLaser = curLaser.GetComponent<ProjectileLaser>();
             if (scLaser != null)
             {

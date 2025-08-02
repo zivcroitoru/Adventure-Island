@@ -1,17 +1,15 @@
 using UnityEngine;
-using Zenject;
+using VContainer;
 using System.Collections.Generic;
 
-// Manages a pool of laser objects using the LaserFactory
 public class LaserPoolManager : MonoBehaviour
 {
-    private List<GameObject> _pooledLasers;       // List of inactive lasers
-    public Transform projectileHolder;            // Optional parent in hierarchy
-    [SerializeField] private int _amountToPool = 5; // Number of lasers to pre-create
+    private List<GameObject> _pooledLasers;
+    [SerializeField] private int _amountToPool = 5;
+    [SerializeField] private Transform projectileHolder;
 
-    private LaserFactory _laserFactory;           // Factory that creates lasers
+    private LaserFactory _laserFactory;
 
-    // Zenject injects the laser factory
     [Inject]
     public void Construct(LaserFactory laserFactory)
     {
@@ -25,18 +23,16 @@ public class LaserPoolManager : MonoBehaviour
 
     private void Start()
     {
-        // Preload the pool with lasers
         for (int i = 0; i < _amountToPool; i++)
             CreateLaser();
     }
 
-    // Creates a new laser via the factory and adds it to the pool
     private GameObject CreateLaser()
     {
         ProjectileLaser laserScript = _laserFactory.CreateLaser();
         GameObject laser = laserScript.gameObject;
 
-        laser.SetActive(false); // Don’t use it yet
+        laser.SetActive(false);
         _pooledLasers.Add(laser);
 
         if (projectileHolder != null)
@@ -45,7 +41,6 @@ public class LaserPoolManager : MonoBehaviour
         return laser;
     }
 
-    // Returns a laser from the pool, or creates a new one if all are used
     public GameObject GetPooledLaser()
     {
         foreach (GameObject laser in _pooledLasers)

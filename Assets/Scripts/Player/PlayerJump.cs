@@ -7,7 +7,6 @@ public class PlayerJump : MonoBehaviour
 
     private Rigidbody2D rigid;
     private Animator animator;
-    private bool canDoubleJump = true;      // Allows one mid-air jump
 
     void Awake()
     {
@@ -33,24 +32,10 @@ public class PlayerJump : MonoBehaviour
         // Check if the player is standing on the ground
         bool isGrounded = transform.IsGrounded(groundLayer);
 
-        // Reset double jump when touching the ground
-        if (isGrounded)
-            canDoubleJump = true;
-
-        // When space is pressed
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Jump only if grounded
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            if (isGrounded)
-            {
-                // Normal jump from the ground
-                Jump();
-            }
-            else if (canDoubleJump)
-            {
-                // If in air and double jump is available, jump again
-                Jump();
-                canDoubleJump = false; // Disable further double jumps
-            }
+            Jump();
         }
     }
 }

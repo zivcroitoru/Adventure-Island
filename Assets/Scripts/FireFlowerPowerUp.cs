@@ -12,7 +12,6 @@ public class FireFlowerPowerUp : IPowerUp
             FireballWeapon fireballWeapon = player.GetComponentInChildren<FireballWeapon>();
             if(fireballWeapon != null)
                 fireballWeapon.Equip();
-               WeaponUI.Instance.UpdateWeaponIcon(WeaponType.Pistol);
 
         }
     }

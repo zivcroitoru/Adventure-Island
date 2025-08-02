@@ -16,10 +16,8 @@ GameObject:
   - component: {fileID: 3298974795843443290}
   - component: {fileID: 7787950241325347385}
   - component: {fileID: 88576017395519708}
-  - component: {fileID: 7708993420142994295}
   - component: {fileID: 4280609895904662469}
   - component: {fileID: 9214897566082419155}
-  - component: {fileID: -7595864522255180199}
   - component: {fileID: 359840409193202075}
   m_Layer: 0
   m_Name: Prefab_Higgens
@@ -202,19 +200,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7708993420142994295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 42329389962944314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff87c8bc489246d49b7b1a291976292e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerUpDuration: 5
 --- !u!114 &4280609895904662469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,18 +223,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5c6da78a4089cb46a45bc2fbb2d403e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-7595864522255180199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 42329389962944314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2aa9cc925401a24d967a28e0cca8e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!58 &359840409193202075

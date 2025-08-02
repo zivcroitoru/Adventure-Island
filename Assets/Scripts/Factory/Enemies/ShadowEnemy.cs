@@ -39,7 +39,7 @@ public abstract class ShadowEnemy : MonoBehaviour
     public virtual void Die()
     {
         SpawnDeathDrop();
-        FindObjectOfType<ScoreManager>()?.AddScore(100);
+        // FindObjectOfType<ScoreManager>()?.AddScore(100);
         Destroy(gameObject);
     }
 

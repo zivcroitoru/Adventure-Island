@@ -15,7 +15,6 @@ public class LaserPowerUp : IPowerUp
             // If found, equip it
             if (laserWeapon != null)
                 laserWeapon.Equip();
-                WeaponUI.Instance.UpdateWeaponIcon(WeaponType.LightShot);
         }
     }
 }

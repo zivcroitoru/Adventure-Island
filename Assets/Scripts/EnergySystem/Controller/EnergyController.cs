@@ -1,65 +1,93 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnergyController : MonoBehaviour
 {
-    [SerializeField] private EnergyView energyView;      // Reference to the UI view that displays energy
-    [SerializeField] private float startEnergy = 45f;    // Starting energy value, adjustable from the Inspector
+    [SerializeField] private EnergyView energyView;
+    [SerializeField] private int totalBars = 15; // Total number of bars (also the max energy value)
+    [SerializeField] private float secondsPerBarLoss = 3f;
 
-    private float energyDecayRate;                       // How much energy is lost per second
-    private IEnergyModel model;                          // The model holding energy state
+    private IEnergyModel model;
+    private Coroutine decayCoroutine;
 
     void Start()
     {
-        // If no model was injected, initialize a default one
         if (model == null)
         {
-            model = new EnergyModel(startEnergy);
-            energyDecayRate = startEnergy / 45f; // Energy drains fully in 45 seconds
+            model = new EnergyModel(totalBars); // model.MaxEnergy = 15
         }
 
-        // Update the energy UI once at start
-        if (energyView != null)
-            energyView.UpdateDisplay(model.CurrentEnergy, model.MaxEnergy);
+        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
+
+        decayCoroutine = StartCoroutine(EnergyDecayLoop());
     }
 
-    // Optional external initializer to support DI or advanced setup
     public void Initialize(IEnergyModel model)
     {
         this.model = model;
-        energyDecayRate = model.MaxEnergy / 45f;
 
-        if (energyView != null)
-            energyView.UpdateDisplay(model.CurrentEnergy, model.MaxEnergy);
+        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
+
+        if (decayCoroutine != null)
+            StopCoroutine(decayCoroutine);
+
+        decayCoroutine = StartCoroutine(EnergyDecayLoop());
     }
 
-    void Update()
+    private IEnumerator EnergyDecayLoop()
     {
-        if (model == null || energyView == null) return;
-
-        // Reduce energy based on time passed
-        model.Decrease(energyDecayRate * Time.deltaTime);
-
-        // Update the UI
-        energyView.UpdateDisplay(model.CurrentEnergy, model.MaxEnergy);
-
-        // Disable this controller if energy is depleted
-        if (model.CurrentEnergy <= 0)
+        while (model.CurrentEnergy > 0)
         {
-            enabled = false;
+            model.Decrease(1); // Lose 1 bar
+            energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
+
+            yield return new WaitForSeconds(secondsPerBarLoss);
         }
+
+        decayCoroutine = null;
+        enabled = false;
     }
 
-    // Public method to add energy manually (e.g., via pickups)
-    public void AddEnergy(int amount)
+    public void AddBars(int bars)
     {
-        model.Add(amount);
-        energyView.UpdateDisplay(model.CurrentEnergy, model.MaxEnergy);
+        float newEnergy = Mathf.Min(model.CurrentEnergy + bars, totalBars);
+        model.Set(newEnergy);
+
+        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
+
+        if (decayCoroutine == null && model.CurrentEnergy > 0)
+            decayCoroutine = StartCoroutine(EnergyDecayLoop());
     }
 
-    // Public method to reset energy to full
+    public void RemoveBars(int bars)
+    {
+        float newEnergy = Mathf.Max(model.CurrentEnergy - bars, 0);
+        model.Set(newEnergy);
+
+        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
+    }
+
     public void ResetEnergy()
     {
         model.Reset();
-        energyView.UpdateDisplay(model.CurrentEnergy, model.MaxEnergy);
+        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
+
+        if (decayCoroutine == null)
+            decayCoroutine = StartCoroutine(EnergyDecayLoop());
+    }
+
+    public int GetCurrentBars()
+    {
+        return Mathf.FloorToInt(model.CurrentEnergy);
+    }
+
+    public int GetMaxBars()
+    {
+        return totalBars;
+    }
+
+    public bool IsEmpty()
+    {
+        return model.CurrentEnergy <= 0f;
     }
 }

@@ -1,19 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+using VContainer;
 
 public class FireballWeapon : MonoBehaviour, IUseableWeapon
 {
     public GameObject fireball;
     private bool _isEquip = false;
-    [Inject] private FireballPoolManager _fireballPoolManager;
+    private FireballPoolManager _fireballPoolManager;
+
+    public void Construct(FireballPoolManager fireballPoolManager)
+    {
+        _fireballPoolManager = fireballPoolManager;
+    }
 
     public void Shoot()
     {
-        if(fireball != null && _isEquip)
+        if (fireball != null && _isEquip)
         {
-            //GameObject curFireball = Instantiate(fireball,transform.position,new Quaternion());
             GameObject curFireball = _fireballPoolManager.GetPooledFireball();
             curFireball.transform.position = transform.position;
             curFireball.SetActive(true);
@@ -29,12 +31,6 @@ public class FireballWeapon : MonoBehaviour, IUseableWeapon
         }
     }
 
-    public void UnEquip()
-    {
-        _isEquip = false;
-    }
-    public void Equip()
-    {
-        _isEquip = true;
-    }
+    public void UnEquip() => _isEquip = false;
+    public void Equip() => _isEquip = true;
 }

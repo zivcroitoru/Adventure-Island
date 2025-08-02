@@ -1,10 +1,9 @@
 using UnityEngine;
-using Zenject;
+using VContainer;
 
-// Factory that builds lasers using the director and a prefab set in the Inspector
 public class LaserFactory : MonoBehaviour
 {
-    [SerializeField] private GameObject _laserPrefab; // Set in Inspector
+    [SerializeField] private GameObject _laserPrefab; // Assigned in Inspector
 
     private LaserDirector _laserDirector;
 

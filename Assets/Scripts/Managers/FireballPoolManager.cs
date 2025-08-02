@@ -1,19 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+using VContainer;
 
 public class FireballPoolManager : MonoBehaviour
 {
     private List<GameObject> _pooledFireBalls;
-    public GameObject fireballPrefab;
-    public Transform projectileHolder;
-
-    [SerializeField]
-    private int _amountToPool = 5;
+    [SerializeField] private GameObject fireballPrefab;
+    [SerializeField] private Transform projectileHolder;
+    [SerializeField] private int _amountToPool = 5;
 
     private FireballDirector _fireballDirector;
-
 
     [Inject]
     public void Construct(FireballDirector fireballDirector)
@@ -29,7 +25,9 @@ public class FireballPoolManager : MonoBehaviour
     private void Start()
     {
         for (int i = 0; i < _amountToPool; i++)
+        {
             CreateFireball();
+        }
     }
 
     private GameObject CreateFireball()
@@ -40,7 +38,7 @@ public class FireballPoolManager : MonoBehaviour
             fireball.SetActive(false);
             _pooledFireBalls.Add(fireball);
             if (projectileHolder != null)
-                fireball.transform.SetParent(projectileHolder.transform);
+                fireball.transform.SetParent(projectileHolder);
             return fireball;
         }
         return null;
@@ -50,7 +48,7 @@ public class FireballPoolManager : MonoBehaviour
     {
         foreach (GameObject fireball in _pooledFireBalls)
         {
-            if(!fireball.activeInHierarchy)
+            if (!fireball.activeInHierarchy)
                 return fireball;
         }
         return CreateFireball();

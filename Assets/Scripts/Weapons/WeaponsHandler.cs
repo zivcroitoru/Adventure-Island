@@ -1,46 +1,59 @@
 using UnityEngine;
 
-public class WeaponsHandler : MonoBehaviour
+public class WeaponsHandler : AnimatorAttackerBase
 {
     public AxeWeapon axeWeapon;
-    // public BoomerangWeapon boomerangWeapon;
+    public BoomerangWeapon boomerangWeapon;
 
-    private Animator animator;
+    [SerializeField] private float attackCooldown = 0.5f; // seconds
+    private float lastAttackTime;
 
-    void Start()
+    private void Awake()
     {
-        // animator = transform.parent.Find("VisualShadow")?.GetComponent<Animator>();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
+        var parent = transform.parent;
+        if (parent != null)
         {
-            ShootEquippedWeapon();
-            SetShootTrigger();
+            var animator = parent.GetComponentInChildren<Animator>();
+            if (animator != null)
+                SetAnimator(animator);
         }
+
+        if (string.IsNullOrEmpty(triggerName))
+            triggerName = "Shoot";
     }
 
-    void SetShootTrigger()
+    public override bool CanAttack()
     {
-        // animator.ResetTrigger("Shoot");
-        // animator.SetTrigger("Shoot");
+        bool weaponReady = axeWeapon?.IsEquipped() == true || boomerangWeapon?.IsEquipped() == true;
+        bool cooldownReady = Time.time >= lastAttackTime + attackCooldown;
+        return weaponReady && cooldownReady;
     }
 
-    private void ShootEquippedWeapon()
+    protected override void OnAttack()
     {
-        if (axeWeapon != null)
+        lastAttackTime = Time.time;
+
+        if (axeWeapon?.IsEquipped() == true)
         {
             axeWeapon.Shoot();
-            return;
+            Debug.Log("[WeaponsHandler] Axe attack.");
         }
-
-        // if (boomerangWeapon != null && boomerangWeapon.IsEquipped())
-        // {
-        //     boomerangWeapon.Shoot();
-        //     return;
-        // }
-
-        Debug.LogWarning("[WeaponsHandler] No weapon equipped.");
+        else if (boomerangWeapon?.IsEquipped() == true)
+        {
+            boomerangWeapon.Shoot();
+            Debug.Log("[WeaponsHandler] Boomerang attack.");
+        }
     }
+    public void Equip(BaseWeapon weapon)
+{
+    // Unequip all
+    axeWeapon?.UnEquip();
+    boomerangWeapon?.UnEquip();
+
+    // Equip selected
+    weapon?.Equip();
+
+    Debug.Log($"[WeaponsHandler] Equipped: {weapon?.GetType().Name}");
+}
+
 }

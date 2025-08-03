@@ -1,51 +1,49 @@
 using UnityEngine;
 using VContainer;
 
-public class AxeWeapon : MonoBehaviour, IUseableWeapon
+public class AxeWeapon : BaseWeapon
 {
-    [SerializeField] private float shootCooldown = 0.5f; // 🔁 Delay between throws in seconds
-    private float _lastShootTime;
+    [Inject] private AxePoolManager _axePoolManager;
 
-    private bool _isEquipped = false;
-    private AxePoolManager _axePoolManager;
-
-    [Inject]
-    public void Construct(AxePoolManager axePoolManager)
+    protected override void Fire()
     {
-        _axePoolManager = axePoolManager;
-    }
-
-    public void Shoot()
-    {
-        if (!_isEquipped || _axePoolManager == null)
+        if (_axePoolManager == null)
+        {
+            Debug.LogError("[AxeWeapon] AxePoolManager is null!");
             return;
-
-        // ⏱ Cooldown check
-        if (Time.time < _lastShootTime + shootCooldown)
-            return;
-
-        _lastShootTime = Time.time;
+        }
 
         GameObject axeGO = _axePoolManager.GetPooledAxe();
         if (axeGO == null)
+        {
+            Debug.LogError("[AxeWeapon] No available axe from pool!");
             return;
+        }
 
-        axeGO.transform.position = transform.position;
+        Debug.Log("[AxeWeapon] Axe obtained from pool.");
 
+        // 🧭 Get player's position (parent), fallback to self
+        Vector3 spawnPos = transform.parent ? transform.parent.position : transform.position;
+        spawnPos.z = 0f;
+        axeGO.transform.position = spawnPos;
+
+        // ↔ Set direction based on player's scale
         float direction = transform.parent != null && transform.parent.localScale.x < 0 ? -1f : 1f;
-        axeGO.transform.localScale = new Vector3(direction, 1, 1);
+        axeGO.transform.localScale = new Vector3(direction, 1f, 1f);
+
         axeGO.SetActive(true);
 
-        var projectile = axeGO.GetComponent<ProjectileAxe>();
-        if (projectile != null)
+        if (axeGO.TryGetComponent(out ProjectileAxe projectile))
         {
             Rigidbody2D playerRb = transform.parent?.GetComponent<Rigidbody2D>();
-            projectile.playerVelocity = playerRb != null ? playerRb.velocity : Vector2.zero;
+            projectile.playerVelocity = playerRb ? playerRb.velocity : Vector2.zero;
 
+            Debug.Log("[AxeWeapon] Calling projectile.Shoot()");
             projectile.Shoot(direction);
         }
+        else
+        {
+            Debug.LogError("[AxeWeapon] Axe GameObject missing ProjectileAxe component!");
+        }
     }
-
-    public void Equip() => _isEquipped = true;
-    public void UnEquip() => _isEquipped = false;
 }

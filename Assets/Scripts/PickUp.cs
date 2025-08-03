@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PickUp : MonoBehaviour
+public abstract class PickUp : MonoBehaviour, IPickable
 {
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.CompareTag("Player"))
         {
-          //  Debug.Log("Mario Collision! " + name);
-            OnPickUp(col.gameObject);
-            this.gameObject.SetActive(false);
+            Collect(col.gameObject); // renamed method
+            gameObject.SetActive(false);
         }
+    }
+
+    public void Collect(GameObject target)
+    {
+        OnPickUp(target);
     }
 
     protected abstract void OnPickUp(GameObject player);

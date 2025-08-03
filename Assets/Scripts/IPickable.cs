@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IPickable
 {
-    void PickUp(GameObject target); // who picked it up
+    void Collect(GameObject target); // renamed to match
 }

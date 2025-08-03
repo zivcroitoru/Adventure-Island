@@ -11,10 +11,15 @@ public class AxePoolManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("[AxePoolManager] Initializing pool...");
+
         for (int i = 0; i < amountToPool; i++)
         {
-            CreateAxe();
+            var axe = CreateAxe();
+            Debug.Log($"[AxePoolManager] Created axe #{i + 1}: {axe?.name}");
         }
+
+        Debug.Log($"[AxePoolManager] Pool initialized with {pooledAxes.Count} projectiles.");
     }
 
     private GameObject CreateAxe()
@@ -29,6 +34,7 @@ public class AxePoolManager : MonoBehaviour
         axe.SetActive(false);
         pooledAxes.Add(axe);
 
+        Debug.Log($"[AxePoolManager] Instantiated new axe: {axe.name}");
         return axe;
     }
 
@@ -40,14 +46,19 @@ public class AxePoolManager : MonoBehaviour
 
             if (axe == null)
             {
+                Debug.LogWarning($"[AxePoolManager] Axe at index {i} is null. Removing from pool.");
                 pooledAxes.RemoveAt(i);
                 continue;
             }
 
             if (!axe.activeInHierarchy)
+            {
+                Debug.Log($"[AxePoolManager] Reusing pooled axe at index {i}: {axe.name}");
                 return axe;
+            }
         }
 
+        Debug.LogWarning("[AxePoolManager] Pool exhausted. Creating additional axe.");
         return CreateAxe(); // Optional: grow pool
     }
 }

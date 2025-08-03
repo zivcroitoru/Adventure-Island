@@ -4,46 +4,65 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float speed = 5f;
+    [SerializeField] private float speed = 5f;
 
     [Header("Ground Check")]
-    public LayerMask groundLayer;
+    [SerializeField] private GroundCheckProvider groundCheck;
+    [SerializeField] private LayerMask groundLayer;
 
     private Rigidbody2D rigid;
-    private float direction;
     private Animator animator;
 
+    private float direction;
     public bool IsGrounded { get; private set; }
 
+void Start()
+{
+    var col = GetComponent<Collider2D>();
+    if (col != null)
+    {
+        groundCheck?.SetCollider(col);
+        Debug.Log("[PlayerMovement] Assigned default player collider to GroundCheckProvider.");
+    }
+}
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
-    }
 
-    void Update()
-    {
-        // Play die animation on Q press
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-                       animator.SetTrigger("Die");
- // Make sure "Die" matches the animation state name in Animator
-        }
+        Debug.Log("[PlayerMovement] Awake called. Rigidbody and Animator assigned.");
     }
 
     void FixedUpdate()
     {
-        // Ground check ray from halfway down the sprite
-        IsGrounded = transform.IsGrounded(groundLayer);
+        var groundCollider = groundCheck?.CurrentGroundCollider;
+
+        if (groundCollider == null)
+        {
+            Debug.LogWarning("[PlayerMovement] No ground collider set. Skipping movement.");
+            return;
+        }
+
+        Debug.Log($"[PlayerMovement] Ground collider detected: {groundCollider.name}");
+
+        IsGrounded = groundCollider.IsGrounded(groundLayer);
+        Debug.Log($"[PlayerMovement] IsGrounded = {IsGrounded}");
+
         animator.SetBool("isGrounded", IsGrounded);
 
-        // Movement
-        direction = Input.GetAxis("Horizontal");
+        direction = Input.GetAxisRaw("Horizontal");
+        Debug.Log($"[PlayerMovement] Input direction: {direction}");
+
         rigid.velocity = new Vector2(direction * speed, rigid.velocity.y);
+        Debug.Log($"[PlayerMovement] Velocity set to: {rigid.velocity}");
+
         animator.SetFloat("speed", Mathf.Abs(direction * speed));
 
-        // Flip sprite
         if (direction != 0)
-            transform.localScale = new Vector3(direction > 0 ? 1 : -1, 1, 1);
+        {
+            float scaleX = direction > 0 ? 1 : -1;
+            transform.localScale = new Vector3(scaleX, 1, 1);
+            Debug.Log($"[PlayerMovement] Facing direction set to: {scaleX}");
+        }
     }
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 220718731292280654}
   m_Layer: 0
   m_Name: Pre_Axe
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,10 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6af906812e1ba24496d697bd5d351cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSpeed: 200
-  ySpeed: 300
-  destroyTime: 5
-  spinSpeed: 720
+  _speed: 100
+  _destroyTime: 5
 --- !u!58 &3789265392145393512
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -1,57 +1,59 @@
 using System.Collections;
 using UnityEngine;
 
-// Base class for all projectiles (like lasers or fireballs)
+/// <summary>
+/// Base class for all projectile behaviors.
+/// Handles movement speed, lifetime, and deactivation logic.
+/// </summary>
 public abstract class BaseProjectile : MonoBehaviour
 {
-    [SerializeField] protected float _speed;         // How fast it moves
-    [SerializeField] protected float _destroyTime;   // How long it stays active
+    [Header("Projectile Settings")]
+    [SerializeField] protected float _speed;
+    [SerializeField] protected float _destroyTime;
 
-    // Stops any timers when the projectile gets turned off
+    private Coroutine _deactivateCoroutine;
+
     protected virtual void OnDisable()
     {
-        StopAllCoroutines();
-        Debug.Log("[Laser] Disabled (pooled)");
+        if (_deactivateCoroutine != null)
+        {
+            StopCoroutine(_deactivateCoroutine);
+            _deactivateCoroutine = null;
+        }
+
+        Debug.Log("[BaseProjectile] Disabled (pooled)");
     }
 
-    // Set speed and lifetime from the outside (usually by the builder)
+    /// <summary>
+    /// Called when the projectile is created or retrieved from pool.
+    /// </summary>
     public virtual void Initialized(float speed, float lifeTime)
     {
         _speed = speed;
         _destroyTime = lifeTime;
+
+        Debug.Log($"[BaseProjectile] Initialized with speed={_speed}, destroyTime={_destroyTime}");
     }
 
-    // Every projectile needs to define how it shoots
     public abstract void Shoot();
 
-    // Starts the timer that turns the projectile off
     protected void StartDeactivateTimer()
     {
-        StartCoroutine(DeactivateLogic());
+        if (_destroyTime <= 0)
+        {
+            Debug.LogWarning("[BaseProjectile] Destroy time is 0 or negative! Disabling immediately.");
+            gameObject.SetActive(false);
+            return;
+        }
+
+        Debug.Log($"[BaseProjectile] Starting deactivate timer for {_destroyTime} seconds");
+        _deactivateCoroutine = StartCoroutine(DeactivateLogic());
     }
 
-    // Waits for a bit, then disables the projectile
     private IEnumerator DeactivateLogic()
     {
         yield return new WaitForSeconds(_destroyTime);
-        StopAllCoroutines();
-        gameObject.SetActive(false); // Just turn off instead of destroying
-    }
-
-    // If the projectile hits something
-    protected virtual void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.TryGetComponent<ShadowEnemy>(out var enemy))
-        {
-            HandleEnemyHit(enemy);
-        }
-    }
-
-    // What to do when we hit an enemy
-    protected virtual void HandleEnemyHit(ShadowEnemy enemy)
-    {
-        Debug.Log($"[Laser Hit] Hit enemy at: {transform.position}");
-        Destroy(enemy.gameObject);     // Remove the enemy
-        gameObject.SetActive(false);   // Turn off the projectile
+        Debug.Log("[BaseProjectile] Deactivation time reached — disabling");
+        gameObject.SetActive(false);
     }
 }

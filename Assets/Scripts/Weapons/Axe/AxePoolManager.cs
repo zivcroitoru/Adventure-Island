@@ -40,7 +40,7 @@ public class AxePoolManager : MonoBehaviour
 
             if (axe == null)
             {
-                pooledAxes.RemoveAt(i); // remove destroyed reference
+                pooledAxes.RemoveAt(i);
                 continue;
             }
 
@@ -48,6 +48,6 @@ public class AxePoolManager : MonoBehaviour
                 return axe;
         }
 
-        return CreateAxe(); // Optional: grow the pool
+        return CreateAxe(); // Optional: grow pool
     }
 }

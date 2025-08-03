@@ -4,6 +4,8 @@ public class AxeController : PickUp
 {
     protected override void OnPickUp(GameObject player)
     {
+        Debug.Log("[AxeController] OnPickUp triggered.");
+
         if (player == null)
         {
             Debug.LogWarning("[AxeController] Player reference is null!");

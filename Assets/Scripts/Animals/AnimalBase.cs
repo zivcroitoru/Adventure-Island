@@ -2,20 +2,17 @@ using UnityEngine;
 
 public abstract class AnimalBase : AnimatorAttackerBase
 {
-    // === FIELDS ===
     [Header("Animal Config")]
-    [SerializeField] private GameObject attackPrefab;
+    [SerializeField] protected GameObject attackPrefab;
     [SerializeField] private AnimatorOverrideController overrideController;
 
-    // === STATE ===
     protected GameObject rider;
 
-    // === PROPERTIES ===
+    // === Properties ===
     public GameObject Rider => rider;
     public virtual AnimatorOverrideController GetOverrideController() => overrideController;
-    public virtual Collider2D GetGroundCheckCollider() => GetComponent<Collider2D>();
 
-    // === LIFECYCLE ===
+    // === Collection ===
     public virtual void OnCollect(GameObject player)
     {
         if (player.TryGetComponent(out RideController rideController))
@@ -24,43 +21,71 @@ public abstract class AnimalBase : AnimatorAttackerBase
         }
     }
 
+    // === Mounting ===
     public virtual void Mount(GameObject player)
     {
+        if (player == null) return;
+
         rider = player;
-        transform.SetParent(player.transform);
-        transform.localPosition = Vector3.zero;
+        AttachToPlayer();
+        AdjustRiderCollider();
         OnMounted();
     }
 
     public virtual void Dismount()
     {
-        transform.SetParent(null);
+        DetachFromPlayer();
         rider = null;
         OnDismounted();
     }
 
-    // === ATTACK ===
+    private void AttachToPlayer()
+    {
+        transform.SetParent(rider.transform);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+    }
+
+    private void DetachFromPlayer()
+    {
+        transform.SetParent(null);
+    }
+
+    private void AdjustRiderCollider()
+    {
+        if (rider.TryGetComponent(out CircleCollider2D collider))
+        {
+            collider.offset = new Vector2(collider.offset.x, -0.5f);
+        }
+        else
+        {
+            Debug.LogWarning("[AnimalBase] Rider has no CircleCollider2D.");
+        }
+    }
+
+    // === Attack ===
     public void TriggerAttackHitbox()
     {
-        if (!attackPrefab)
+        if (attackPrefab == null)
         {
-            Debug.LogWarning("[AnimalBase] No attackPrefab assigned!");
+            Debug.LogWarning("[AnimalBase] No attackPrefab assigned.");
             return;
         }
 
-        GameObject hitbox = Instantiate(attackPrefab, transform.position, Quaternion.identity);
+        var hitbox = Instantiate(attackPrefab, transform.position, Quaternion.identity);
+
         if (hitbox.TryGetComponent(out AnimalAttack attack))
         {
             attack.Owner = this;
         }
 
-        Destroy(hitbox, 0.3f); // basic lifetime control
+        Destroy(hitbox, 0.3f);
     }
 
-    // === HOOKS ===
+    // === Lifecycle Hooks ===
     protected virtual void OnMounted() { }
     protected virtual void OnDismounted() { }
 
-    // === EXTENSION ===
+    // === Custom Logic ===
     public abstract bool CanDestroy(ObstacleType type);
 }

@@ -1,59 +1,72 @@
 using UnityEngine;
 
-public class WeaponsHandler : AnimatorAttackerBase
+public class WeaponsHandler : MonoBehaviour, IAttacker
 {
-    public AxeWeapon axeWeapon;
-    public BoomerangWeapon boomerangWeapon;
+    private IWeapon currentWeapon;
 
-    [SerializeField] private float attackCooldown = 0.5f; // seconds
-    private float lastAttackTime;
-
-    private void Awake()
+    // === EQUIP ===
+    public void Equip(IWeapon weapon)
     {
-        var parent = transform.parent;
-        if (parent != null)
+        if (weapon == null)
         {
-            var animator = parent.GetComponentInChildren<Animator>();
-            if (animator != null)
-                SetAnimator(animator);
+            Debug.LogWarning("[WeaponsHandler] Tried to equip null weapon.");
+            return;
         }
 
-        if (string.IsNullOrEmpty(triggerName))
-            triggerName = "Shoot";
-    }
-
-    public override bool CanAttack()
-    {
-        bool weaponReady = axeWeapon?.IsEquipped() == true || boomerangWeapon?.IsEquipped() == true;
-        bool cooldownReady = Time.time >= lastAttackTime + attackCooldown;
-        return weaponReady && cooldownReady;
-    }
-
-    protected override void OnAttack()
-    {
-        lastAttackTime = Time.time;
-
-        if (axeWeapon?.IsEquipped() == true)
+        // Un-equip current weapon if needed
+        if (currentWeapon != null)
         {
-            axeWeapon.Shoot();
-            Debug.Log("[WeaponsHandler] Axe attack.");
+            Debug.Log("[WeaponsHandler] Un-equipping previous weapon.");
+            currentWeapon.UnEquip();
+
+            if (currentWeapon is MonoBehaviour oldMb)
+                oldMb.gameObject.SetActive(false);
         }
-        else if (boomerangWeapon?.IsEquipped() == true)
+
+        currentWeapon = weapon;
+        currentWeapon.Equip();
+
+        if (currentWeapon is MonoBehaviour weaponMb)
+            weaponMb.gameObject.SetActive(true);
+
+        Debug.Log($"[WeaponsHandler] Equipped weapon: {currentWeapon}");
+    }
+
+    // === USE ===
+    public void UseWeapon()
+    {
+        if (currentWeapon != null && currentWeapon.CanAttack())
         {
-            boomerangWeapon.Shoot();
-            Debug.Log("[WeaponsHandler] Boomerang attack.");
+            currentWeapon.Attack();
+        }
+        else
+        {
+            Debug.Log("[WeaponsHandler] No weapon equipped or cannot attack.");
         }
     }
-    public void Equip(BaseWeapon weapon)
-{
-    // Unequip all
-    axeWeapon?.UnEquip();
-    boomerangWeapon?.UnEquip();
 
-    // Equip selected
-    weapon?.Equip();
+    // === IAttacker Interface ===
+    public void Attack()
+    {
+        UseWeapon();
+    }
 
-    Debug.Log($"[WeaponsHandler] Equipped: {weapon?.GetType().Name}");
-}
+    public bool CanAttack()
+    {
+        return currentWeapon != null && currentWeapon.CanAttack();
+    }
 
+    // === OPTIONAL: UnEquip ===
+    public void ClearWeapon()
+    {
+        if (currentWeapon == null) return;
+
+        currentWeapon.UnEquip();
+
+        if (currentWeapon is MonoBehaviour weaponMb)
+            weaponMb.gameObject.SetActive(false);
+
+        Debug.Log($"[WeaponsHandler] Weapon cleared: {currentWeapon}");
+        currentWeapon = null;
+    }
 }

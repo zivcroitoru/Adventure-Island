@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Ground
   - Hazard
+  - Animal
   layers:
   - Default
   - TransparentFX

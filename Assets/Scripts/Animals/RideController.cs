@@ -7,111 +7,77 @@ public class RideController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private RuntimeAnimatorController baseController;
 
-    [Header("Colliders")]
-    [SerializeField] private Collider2D unmountedCollider;
-    [SerializeField] private Collider2D mountedCollider;
-
-    [Header("Ground Check")]
-    [SerializeField] private GroundCheckProvider groundCheck;
-    [SerializeField] private LayerMask groundLayer;
-
     private Rigidbody2D rb;
-    private AnimalBase currentAnimal;
     private WeaponsHandler weaponHandler;
+    private AnimalBase currentAnimal;
 
+    // === Public Properties ===
     public AnimalBase CurrentAnimal => currentAnimal;
+    public bool IsRiding => currentAnimal != null;
 
     public IAttacker CurrentAttacker =>
         currentAnimal != null ? (IAttacker)currentAnimal : weaponHandler;
 
+    // === Init ===
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         weaponHandler = GetComponentInChildren<WeaponsHandler>();
     }
 
-    private void FixedUpdate()
-    {
-        UpdateAnimatorParameters();
-    }
-
-    private void UpdateAnimatorParameters()
-    {
-        var activeCollider = groundCheck?.CurrentGroundCollider;
-        if (activeCollider == null) return;
-
-        bool isGrounded = activeCollider.IsGrounded(groundLayer);
-        float horizontalSpeed = Mathf.Abs(rb.velocity.x);
-
-        animator.SetBool("isGrounded", isGrounded);
-        animator.SetFloat("speed", horizontalSpeed);
-    }
-
-    public void SwitchAnimal(AnimalBase newAnimal)
+    // === Mounting ===
+    public bool SwitchAnimal(AnimalBase newAnimal)
     {
         if (newAnimal == null)
         {
-            Debug.LogError("[RideController] Attempted to switch to null animal.");
-            return;
+            Debug.LogError("[RideController] Tried to mount a null animal.");
+            return false;
         }
 
         Debug.Log($"[RideController] Switching to animal: {newAnimal.name}");
 
+        newAnimal.transform.SetParent(null); // prevent accidental destruction
         DismountCurrentAnimal();
 
         currentAnimal = newAnimal;
         currentAnimal.Mount(gameObject);
 
-        ToggleColliders(true);
-
-        // Apply animator override
-        var overrideCtrl = currentAnimal.GetOverrideController();
-        animator.runtimeAnimatorController = overrideCtrl ?? baseController;
-
-        // 👇 Inject animator into animal so it can trigger attacks
+        ApplyAnimatorOverride(currentAnimal.GetOverrideController());
         currentAnimal.SetAnimator(animator);
 
+        return true;
+    }
+
+    public void UnmountAnimal()
+    {
+        if (!IsRiding) return;
+
+        Debug.Log("[RideController] Unmounting animal...");
+        DismountCurrentAnimal();
+        ApplyAnimatorOverride(baseController);
+    }
+
+private void DismountCurrentAnimal()
+{
+    if (currentAnimal == null) return;
+
+    currentAnimal.Dismount();
+    Destroy(currentAnimal.gameObject); // 🔥 Destroy after dismount
+    currentAnimal = null;
+}
+
+    private void ApplyAnimatorOverride(RuntimeAnimatorController overrideCtrl)
+    {
+        animator.runtimeAnimatorController = overrideCtrl ?? baseController;
         Debug.Log(overrideCtrl != null
             ? "[RideController] OverrideController applied."
             : "[RideController] Using base animator.");
     }
 
-    public void UnmountAnimal()
-    {
-        Debug.Log("[RideController] Unmounting animal...");
-        DismountCurrentAnimal();
-        ToggleColliders(false);
-        animator.runtimeAnimatorController = baseController;
-        Debug.Log("[RideController] Animator reverted to base.");
-    }
-
-    private void DismountCurrentAnimal()
-    {
-        if (currentAnimal == null) return;
-
-        currentAnimal.Dismount();
-        Destroy(currentAnimal.gameObject);
-        currentAnimal = null;
-    }
-
-    private void ToggleColliders(bool mounted)
-    {
-        if (mountedCollider) mountedCollider.enabled = mounted;
-        if (unmountedCollider) unmountedCollider.enabled = !mounted;
-
-        if (groundCheck != null)
-        {
-            var active = mounted
-                ? currentAnimal?.GetGroundCheckCollider()
-                : unmountedCollider;
-
-            groundCheck.SetCollider(active);
-        }
-    }
-
+    // === Combat ===
     public void UseAttack()
     {
-        if (CurrentAttacker != null && CurrentAttacker.CanAttack())
+        if (CurrentAttacker?.CanAttack() == true)
         {
             CurrentAttacker.Attack();
         }
@@ -123,7 +89,7 @@ public class RideController : MonoBehaviour
 
     public bool TryDestroyObstacle(ObstacleType type)
     {
-        if (currentAnimal == null)
+        if (!IsRiding)
         {
             Debug.LogWarning("[RideController] No animal to check obstacle destruction.");
             return false;
@@ -132,5 +98,18 @@ public class RideController : MonoBehaviour
         bool canDestroy = currentAnimal.CanDestroy(type);
         Debug.Log($"[RideController] Can destroy {type}: {canDestroy}");
         return canDestroy;
+    }
+
+    // === Weapons ===
+    public void EquipWeapon(IWeapon weapon)
+    {
+        if (weaponHandler == null)
+        {
+            Debug.LogWarning("[RideController] No weapon handler found!");
+            return;
+        }
+
+        weaponHandler.Equip(weapon);
+        Debug.Log($"[RideController] Weapon equipped: {weapon}");
     }
 }

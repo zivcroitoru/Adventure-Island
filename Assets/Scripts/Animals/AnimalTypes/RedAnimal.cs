@@ -24,18 +24,19 @@ public class RedAnimal : AnimalBase
             return;
         }
 
-        if (projGO.TryGetComponent(out ProjectileFire fire))
-        {
-            Vector2 direction = GetFacingDirection();
-            Vector2 spawnPos = (Vector2)transform.position + direction * projectileOffset;
-            fire.Shoot(spawnPos, direction);
+if (projGO.TryGetComponent(out ProjectileFire fire))
+{
+    Vector2 direction = GetFacingDirection();
+    Vector2 spawnPos = (Vector2)transform.position + direction * projectileOffset;
 
-            Debug.Log($"[RedAnimal] 🔥 Spit fire ({(direction.x > 0 ? "right" : "left")})");
-        }
-        else
-        {
-            Debug.LogWarning("[RedAnimal] Missing ProjectileFire component.");
-        }
+    float playerSpeed = rider != null && rider.TryGetComponent(out Rigidbody2D riderRb)
+        ? riderRb.velocity.x
+        : 0f;
+
+    fire.Shoot(spawnPos, direction, playerSpeed);
+
+    Debug.Log($"[RedAnimal] 🔥 Spit fire ({(direction.x > 0 ? "right" : "left")})");
+}
     }
 
     private Vector2 GetFacingDirection() => transform.lossyScale.x >= 0 ? Vector2.right : Vector2.left;

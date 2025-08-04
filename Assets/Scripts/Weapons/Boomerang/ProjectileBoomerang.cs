@@ -62,13 +62,34 @@ protected override void OnDisable()
     private void StartReturn() => _isReturning = true;
 
 protected override void OnTriggerEnter2D(Collider2D other)
-    {
-        if (_isReturning && other.CompareTag("Player"))
-        {
-            OnReturned?.Invoke(); // ✅ Notify weapon to allow reuse
-            gameObject.SetActive(false); // Return to pool or destroy
-        }
+{
+    Debug.Log($"[ProjectileBoomerang] Triggered with {other.name}, isReturning={_isReturning}");
 
-        // TODO: Add other hit responses (rocks, enemies, etc.)
+    // 🔁 Return to player
+    if (_isReturning && other.CompareTag("Player"))
+    {
+        Debug.Log("[ProjectileBoomerang] Returning to player — deactivating.");
+        OnReturned?.Invoke();
+        gameObject.SetActive(false);
+        return;
     }
+
+    // 💥 Hit destructible object
+if (other.TryGetComponent(out IObstacle obstacle) && obstacle.Type == ObstacleType.Rock)
+{
+    Debug.Log($"[ProjectileBoomerang] Hit Rock — destroying.");
+    obstacle.DestroyObstacle();
+    gameObject.SetActive(false);
+}
+
+
+    // 🎯 Optional: damage enemy if needed
+    if (other.TryGetComponent(out IDamageable target))
+    {
+        Debug.Log($"[ProjectileBoomerang] Hit IDamageable ({other.name}) — applying damage.");
+        target.TakeDamage(1);
+    }
+}
+
+
 }

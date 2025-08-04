@@ -36,7 +36,7 @@ public class RideController : MonoBehaviour
 
         Debug.Log($"[RideController] Switching to animal: {newAnimal.name}");
 
-        newAnimal.transform.SetParent(null); // prevent accidental destruction
+        newAnimal.transform.SetParent(null); // Detach to avoid accidental destruction
         DismountCurrentAnimal();
 
         currentAnimal = newAnimal;
@@ -54,21 +54,25 @@ public class RideController : MonoBehaviour
 
         Debug.Log("[RideController] Unmounting animal...");
         DismountCurrentAnimal();
-        ApplyAnimatorOverride(baseController);
     }
 
-private void DismountCurrentAnimal()
-{
-    if (currentAnimal == null) return;
+    private void DismountCurrentAnimal()
+    {
+        if (currentAnimal == null) return;
 
-    currentAnimal.Dismount();
-    Destroy(currentAnimal.gameObject); // 🔥 Destroy after dismount
-    currentAnimal = null;
-}
+        currentAnimal.Dismount(); // Handles cleanup and destruction
+        currentAnimal = null;
+    }
+
+    public void ResetAnimatorToBase()
+    {
+        ApplyAnimatorOverride(baseController);
+    }
 
     private void ApplyAnimatorOverride(RuntimeAnimatorController overrideCtrl)
     {
         animator.runtimeAnimatorController = overrideCtrl ?? baseController;
+
         Debug.Log(overrideCtrl != null
             ? "[RideController] OverrideController applied."
             : "[RideController] Using base animator.");

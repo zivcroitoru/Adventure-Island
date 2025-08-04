@@ -1,58 +1,38 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class ProjectileAxe : MonoBehaviour
+public class ProjectileAxe : BaseProjectile
 {
-    [Header("Movement Settings")]
-    public float xSpeed = 5f;
-    public float ySpeed = 5f;
-    public float spinSpeed = 3000f;
-    public Vector2 playerVelocity;
+    [Header("Arc Settings")]
+    [SerializeField] private float ySpeed = 5f;
+    [SerializeField] private float spinSpeed = 3000f;
 
-    private Rigidbody2D _rigid;
-    private SpriteRenderer _spriteRenderer;
+    private Rigidbody2D rigid;
+    private SpriteRenderer spriteRenderer;
+    private IAttacker attacker;
 
-    // Layer cache
-    private int _layerPlayer;
-    private int _layerPickable;
-    private int _layerEnemy;
-    private int _layerGround;
-    private int _layerHazard;
+    private int layerPlayer, layerPickable, layerGround, layerHazard;
+
+    private float direction;
+    public Vector2 PlayerVelocity { get; set; }
 
     private void Awake()
     {
-        _rigid = GetComponent<Rigidbody2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
-        _layerPlayer = LayerMask.NameToLayer("Player");
-        _layerPickable = LayerMask.NameToLayer("Pickable");
-        _layerEnemy = LayerMask.NameToLayer("Enemy");
-        _layerGround = LayerMask.NameToLayer("Ground");
-        _layerHazard = LayerMask.NameToLayer("Hazard");
+        layerPlayer = LayerMask.NameToLayer("Player");
+        layerPickable = LayerMask.NameToLayer("Pickable");
+        layerGround = LayerMask.NameToLayer("Ground");
+        layerHazard = LayerMask.NameToLayer("Hazard");
 
-        Debug.Log("[ProjectileAxe] Awake - Rigidbody and SpriteRenderer initialized");
+        Debug.Log("[ProjectileAxe] Awake - Initialized.");
     }
 
     private void OnEnable()
     {
-        Debug.Log("[ProjectileAxe] OnEnable");
-
-        if (_rigid != null)
-        {
-            _rigid.velocity = Vector2.zero;
-            _rigid.angularVelocity = 0f;
-        }
-
-        Vector3 pos = transform.position;
-        pos.z = 0f;
-        transform.position = pos;
-
-        if (_spriteRenderer != null)
-        {
-            _spriteRenderer.enabled = true;
-            if (_spriteRenderer.sprite == null)
-                Debug.LogWarning("[ProjectileAxe] SpriteRenderer has no sprite assigned!");
-        }
+        ResetPhysics();
+        ResetVisuals();
     }
 
     private void Update()
@@ -60,38 +40,69 @@ public class ProjectileAxe : MonoBehaviour
         transform.Rotate(0f, 0f, spinSpeed * Time.deltaTime);
     }
 
-    public void Shoot(float direction)
+    public override void Shoot()
     {
-        Debug.Log($"[ProjectileAxe] Shoot() called. Direction: {direction}, PlayerVelocity: {playerVelocity}");
+        Debug.Log($"[ProjectileAxe] Shoot() - Direction: {direction}, PlayerVelocity: {PlayerVelocity}");
 
-        if (_rigid == null)
+        if (rigid == null)
         {
-            Debug.LogError("[ProjectileAxe] Rigidbody2D is null in Shoot()");
+            Debug.LogError("[ProjectileAxe] Rigidbody2D is null");
             return;
         }
 
         transform.localScale = new Vector3(direction, 1f, 1f);
 
-        Vector2 launchForce = new Vector2(xSpeed * direction, ySpeed) + new Vector2(playerVelocity.x, 0);
-        _rigid.AddForce(launchForce, ForceMode2D.Impulse);
+        Vector2 launchForce = new Vector2(_speed * direction, ySpeed) + new Vector2(PlayerVelocity.x, 0);
+        rigid.AddForce(launchForce, ForceMode2D.Impulse);
 
         Debug.Log($"[ProjectileAxe] Launch force: {launchForce}");
+
+        attacker?.Attack();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void SetDirection(float dir) => direction = dir;
+    public void SetAttacker(IAttacker newAttacker) => attacker = newAttacker;
+
+    public override void Initialized(float speed)
+    {
+        base.Initialized(speed);
+        PlayerVelocity = Vector2.zero;
+        direction = 1f;
+    }
+
+    private void ResetPhysics()
+    {
+        if (rigid != null)
+        {
+            rigid.velocity = Vector2.zero;
+            rigid.angularVelocity = 0f;
+        }
+
+        Vector3 pos = transform.position;
+        pos.z = 0f;
+        transform.position = pos;
+    }
+
+    private void ResetVisuals()
+    {
+        if (spriteRenderer == null) return;
+
+        spriteRenderer.enabled = true;
+
+        if (spriteRenderer.sprite == null)
+            Debug.LogWarning("[ProjectileAxe] SpriteRenderer has no sprite assigned!");
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
         int otherLayer = other.gameObject.layer;
 
-        if (otherLayer == _layerPlayer || otherLayer == _layerPickable)
+        if (otherLayer == layerPlayer || otherLayer == layerPickable)
             return;
 
-        if (otherLayer == _layerEnemy)
-        {
-            Debug.Log("[ProjectileAxe] Hit enemy!");
-            Destroy(other.gameObject); // Replace with enemy.TakeDamage() if needed
-        }
+        base.OnTriggerEnter2D(other); // applies damage if IDamageable
 
-        if (otherLayer == _layerEnemy || otherLayer == _layerGround || otherLayer == _layerHazard)
+        if (otherLayer == layerGround || otherLayer == layerHazard)
         {
             Debug.Log($"[ProjectileAxe] Triggered with {LayerMask.LayerToName(otherLayer)}, deactivating.");
             gameObject.SetActive(false);

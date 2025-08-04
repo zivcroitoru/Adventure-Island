@@ -12,33 +12,24 @@ public class AnimalObstacleHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.TryGetComponent(out IObstacle obstacle))
-            return;
+        if (!other.TryGetComponent(out IObstacle obstacle)) return;
 
         if (animal.Rider != null)
         {
-            HandleRiderDamage(obstacle);
-            ForceDismount(); // simplified
+            // If the animal can't destroy it, dismount only
+            if (!animal.CanDestroy(obstacle.Type))
+            {
+                animal.Dismount();
+                return;
+            }
+
+            // If it can destroy, dismount and break
+            animal.Dismount();
         }
 
-        obstacle.DestroyObstacle();
-    }
-
-    private void HandleRiderDamage(IObstacle obstacle)
-    {
-        if (obstacle.RidingDamage <= 0) return;
-
-        if (animal.Rider.TryGetComponent(out IDamageable dmg))
+        if (animal.CanDestroy(obstacle.Type))
         {
-            dmg.TakeDamage(obstacle.RidingDamage);
-        }
-    }
-
-    private void ForceDismount()
-    {
-        if (animal.Rider.TryGetComponent(out RideController ride))
-        {
-            ride.UnmountAnimal(); // uses your clean method
+            obstacle.DestroyObstacle();
         }
     }
 }

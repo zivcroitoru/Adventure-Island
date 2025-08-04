@@ -10,6 +10,9 @@ public class GameLifetimeScope : LifetimeScope
     [Header("Fire System")]
     [SerializeField] private FireProjectilePoolManager fireProjectilePoolManager;
 
+    [Header("Spark System")]
+    [SerializeField] private SparkProjectilePoolManager sparkProjectilePoolManager;
+
     protected override void Configure(IContainerBuilder builder)
     {
         // Energy system
@@ -18,24 +21,18 @@ public class GameLifetimeScope : LifetimeScope
 
         // Axe System
         if (axePoolManager != null)
-        {
             builder.RegisterComponent(axePoolManager);
-        }
         builder.RegisterComponentInHierarchy<AxeWeapon>();
 
         // Fire System
         if (fireProjectilePoolManager != null)
-        {
             builder.RegisterComponent(fireProjectilePoolManager);
-        }
+
+        // Spark System
+        if (sparkProjectilePoolManager != null)
+            builder.RegisterComponent(sparkProjectilePoolManager);
 
         // Boomerang Weapon (non-pooled)
         builder.RegisterComponentInHierarchy<BoomerangWeapon>();
-
-        // Register RedAnimal if you want to resolve it via VContainer
-        // builder.Register<RedAnimal>(Lifetime.Transient); // Only if VContainer instantiates it
-
-        // If you're using an AnimalFactory or RedAnimal is spawned manually,
-        // you don’t need to register it here. Instead, inject pool manually post-instantiate.
     }
 }

@@ -3,7 +3,6 @@ using UnityEngine;
 public abstract class AnimalBase : AnimatorAttackerBase
 {
     [Header("Animal Config")]
-    [SerializeField] protected GameObject attackPrefab;
     [SerializeField] private AnimatorOverrideController overrideController;
 
     protected GameObject rider;
@@ -28,15 +27,24 @@ public abstract class AnimalBase : AnimatorAttackerBase
 
         rider = player;
         AttachToPlayer();
-        AdjustRiderCollider();
+        AdjustRiderCollider(-0.5f);
         OnMounted();
     }
 
     public virtual void Dismount()
     {
+        OnDismounted();
+
+        if (rider != null && rider.TryGetComponent(out RideController rideController))
+        {
+            rideController.ResetAnimatorToBase();
+        }
+
+        AdjustRiderCollider(0f);
         DetachFromPlayer();
         rider = null;
-        OnDismounted();
+
+        Destroy(gameObject);
     }
 
     private void AttachToPlayer()
@@ -51,41 +59,26 @@ public abstract class AnimalBase : AnimatorAttackerBase
         transform.SetParent(null);
     }
 
-    private void AdjustRiderCollider()
+    private void AdjustRiderCollider(float offsetY)
     {
-        if (rider.TryGetComponent(out CircleCollider2D collider))
+        if (rider != null && rider.TryGetComponent(out CircleCollider2D collider))
         {
-            collider.offset = new Vector2(collider.offset.x, -0.5f);
-        }
-        else
-        {
-            Debug.LogWarning("[AnimalBase] Rider has no CircleCollider2D.");
+            collider.offset = new Vector2(collider.offset.x, offsetY);
         }
     }
 
-    // === Attack ===
-    public void TriggerAttackHitbox()
+    // === Obstacle & Enemy Logic ===
+    public virtual bool CanDestroy(ObstacleType type)
     {
-        if (attackPrefab == null)
-        {
-            Debug.LogWarning("[AnimalBase] No attackPrefab assigned.");
-            return;
-        }
+        return type != ObstacleType.Fire;
+    }
 
-        var hitbox = Instantiate(attackPrefab, transform.position, Quaternion.identity);
-
-        if (hitbox.TryGetComponent(out AnimalAttack attack))
-        {
-            attack.Owner = this;
-        }
-
-        Destroy(hitbox, 0.3f);
+    public virtual bool CanHurtEnemy(EnemyType type)
+    {
+        return type != EnemyType.Ghost;
     }
 
     // === Lifecycle Hooks ===
     protected virtual void OnMounted() { }
     protected virtual void OnDismounted() { }
-
-    // === Custom Logic ===
-    public abstract bool CanDestroy(ObstacleType type);
 }

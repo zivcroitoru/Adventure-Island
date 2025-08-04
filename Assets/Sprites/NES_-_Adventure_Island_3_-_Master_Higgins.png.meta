@@ -1598,7 +1598,7 @@ TextureImporter:
         serializedVersion: 2
         x: 161
         y: 306
-        width: 32
+        width: 16
         height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -2659,6 +2659,27 @@ TextureImporter:
       bones: []
       spriteID: 23a5b8f8700a56a498f396914c1140dc
       internalID: 1234201188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES_-_Adventure_Island_3_-_Master_Higgins_9
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 565
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9cef8e93509fd74b824b462d53379b6
+      internalID: -18558193
       vertices: []
       indices: 
       edges: []

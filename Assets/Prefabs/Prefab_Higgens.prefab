@@ -18,7 +18,7 @@ GameObject:
   m_Layer: 0
   m_Name: Prefab_Higgens
   m_TagString: Player
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  groundCheck: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -95,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpSpeed: 500
+  groundCheck: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -202,8 +204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8ebd8b7844502498d1dda408b97103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axeWeapon: {fileID: 12495280425453883}
-  boomerangWeapon: {fileID: 0}
 --- !u!114 &12495280425453883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootCooldown: 0.5
+  _projectileSpeed: 5
 --- !u!1 &5799809009901458030
 GameObject:
   m_ObjectHideFlags: 0

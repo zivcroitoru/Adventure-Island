@@ -16,12 +16,18 @@ public class AnimalPickup : PickUp
             return;
         }
 
-        // 🔁 Inject Fire Pool if applicable
-        if (animal is RedAnimal redAnimal)
-        {
-            var firePool = FindObjectOfType<FireProjectilePoolManager>();
-            redAnimal.InjectPool(firePool);
-        }
+    // 🔁 Inject projectile pools if applicable
+    if (animal is RedAnimal redAnimal)
+    {
+        var firePool = FindObjectOfType<FireProjectilePoolManager>();
+        redAnimal.InjectPool(firePool);
+    }
+    else if (animal is BlueAnimal blueAnimal)
+    {
+        var sparkPool = FindObjectOfType<SparkProjectilePoolManager>();
+        blueAnimal.InjectPool(sparkPool);
+    }
+
 
         Debug.Log($"[AnimalPickup] Created animal: {animal.name}");
         animal.OnCollect(player);

@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 331549158342719968}
+  - component: {fileID: 2785049329307221559}
   - component: {fileID: -2690976335894821937}
-  - component: {fileID: -5963514469342421925}
+  - component: {fileID: -6708361674831031366}
   m_Layer: 0
-  m_Name: RedAnimal
+  m_Name: BlueAnimal
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,6 +34,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2785049329307221559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317465740608451009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32f3f979414a02d478c133899282a4c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerName: Shoot
+  attackPrefab: {fileID: 7037526770830062913, guid: 2732649a91062a54d8a9e0691174d215, type: 3}
+  overrideController: {fileID: 22100000, guid: dd0d73ae447face4c8504102afe215c4, type: 2}
 --- !u!114 &-2690976335894821937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,20 +61,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ece597d12112e44a168e7729910c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-5963514469342421925
-MonoBehaviour:
+--- !u!58 &-6708361674831031366
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1317465740608451009}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4244bb8f5078a9249ac0eed9a7c4037f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerName: Shoot
-  attackPrefab: {fileID: 460594579410848658, guid: 4f3c59f1a4e6c2043853cb6ec7cee795, type: 3}
-  overrideController: {fileID: 22100000, guid: d054ab307daed6d45a03692939b7e9fa, type: 2}
-  projectileSpeed: 7
-  projectileLife: 2
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.4375

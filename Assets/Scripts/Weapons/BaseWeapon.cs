@@ -1,29 +1,41 @@
 using UnityEngine;
 
-
-public abstract class BaseWeapon : MonoBehaviour, IWeapon
+/// <summary>
+/// Abstract weapon base that handles equip state, cooldown, animation triggering, and firing.
+/// </summary>
+public abstract class BaseWeapon : AnimatorAttackerBase, IWeapon
 {
+    [Header("Weapon Settings")]
     [SerializeField] protected float shootCooldown = 0.5f;
-    protected float _lastShootTime;
 
-    protected bool _isEquipped = false;
+    protected float lastShootTime;
+    protected bool isEquipped = false;
 
-    public virtual void Equip() => _isEquipped = true;
-    public virtual void UnEquip() => _isEquipped = false;
-    public bool IsEquipped() => _isEquipped;
+    // === IWeapon ===
+    public virtual void Equip() => isEquipped = true;
+    public virtual void UnEquip() => isEquipped = false;
+    public bool IsEquipped() => isEquipped;
 
-    public void Attack()
+    public virtual bool CanAttack() => Time.time >= lastShootTime + shootCooldown;
+
+    public override void Attack()
     {
-        if (!_isEquipped || !CanAttack()) return;
+        if (!isEquipped || !CanAttack()) return;
 
-        _lastShootTime = Time.time;
+        lastShootTime = Time.time;
+        base.Attack(); // triggers animation + OnAttack
+    }
+
+    /// <summary>
+    /// Called after attack animation trigger.
+    /// </summary>
+    protected override void OnAttack()
+    {
         Fire();
     }
 
-    public virtual bool CanAttack()
-    {
-        return Time.time >= _lastShootTime + shootCooldown;
-    }
-
+    /// <summary>
+    /// Subclasses implement actual shooting logic here.
+    /// </summary>
     protected abstract void Fire();
 }

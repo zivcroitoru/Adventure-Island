@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class JumpForwardMove : MonoBehaviour, IMovementStrategy
+public class SnakeJumpForwardMove : MonoBehaviour, IMovementStrategy
 {
     [Header("Jump Settings")]
     [SerializeField] private float jumpInterval = 2f;

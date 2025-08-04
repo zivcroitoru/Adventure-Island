@@ -4,6 +4,7 @@ public class ProjectileFire : BaseProjectile
 {
     [SerializeField] private int damage = 1;
     [SerializeField] private float lifetime = 3f;
+    [SerializeField] private float spawnOffset = 0.3f; // Offset to the side
 
     private Rigidbody2D rb;
 
@@ -26,7 +27,11 @@ public class ProjectileFire : BaseProjectile
     {
         direction *= -1f;
 
-        transform.position = position;
+// Always forward and slightly downward
+Vector2 forwardOffset = direction.normalized * 0.6f; // was 0.3f
+Vector2 verticalOffset = Vector2.down * 0.2f;
+transform.position = position + forwardOffset + verticalOffset;
+
         transform.rotation = Quaternion.identity;
         gameObject.SetActive(true);
 
@@ -82,7 +87,6 @@ public class ProjectileFire : BaseProjectile
 
     protected virtual bool CanDestroy(ObstacleType type)
     {
-        // Default logic: can destroy everything except Fire
         return type != ObstacleType.Fire;
     }
 

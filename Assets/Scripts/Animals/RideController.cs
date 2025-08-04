@@ -56,13 +56,17 @@ public class RideController : MonoBehaviour
         DismountCurrentAnimal();
     }
 
-    private void DismountCurrentAnimal()
-    {
-        if (currentAnimal == null) return;
+public void DismountCurrentAnimal()
+{
+    if (!IsRiding) return;
 
-        currentAnimal.Dismount(); // Handles cleanup and destruction
-        currentAnimal = null;
-    }
+    Debug.Log("[RideController] Dismounting animal.");
+    currentAnimal.Dismount();
+    currentAnimal = null;
+
+    ResetAnimatorToBase();
+}
+
 
     public void ResetAnimatorToBase()
     {

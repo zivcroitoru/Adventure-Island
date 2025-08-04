@@ -73,10 +73,10 @@ public abstract class AnimalBase : AnimatorAttackerBase
         return type != ObstacleType.Fire;
     }
 
-    public virtual bool CanHurtEnemy(EnemyType type)
-    {
-        return type != EnemyType.Ghost;
-    }
+    // public virtual bool CanHurtEnemy(EnemyType type)
+    // {
+    //     return type != EnemyType.Ghost;
+    // }
 
     // === Lifecycle Hooks ===
     protected virtual void OnMounted() { }

@@ -28,4 +28,5 @@ public class PlayerInvincible : MonoBehaviour, IInvincible
         _curSpriteRenderer.color = Color.white;
         _isInvincible = false;
     }
+    
 }

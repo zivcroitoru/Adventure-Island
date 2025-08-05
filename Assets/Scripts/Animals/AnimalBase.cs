@@ -6,90 +6,81 @@ public abstract class AnimalBase : AnimatorAttackerBase
     [SerializeField] private AnimatorOverrideController overrideController;
 
     protected GameObject rider;
-
-    // === Public Properties ===
     public GameObject Rider => rider;
     public virtual AnimatorOverrideController GetOverrideController() => overrideController;
 
-    // === Collection ===
     public virtual void OnCollect(GameObject player)
     {
+        Debug.Log($"[AnimalBase] 🐾 {name} was collected by '{player.name}'");
+
         if (player.TryGetComponent<RideController>(out var rideController))
         {
+            Debug.Log($"[AnimalBase] → Found RideController on '{player.name}', switching animal...");
             rideController.SwitchAnimal(this);
+        }
+        else
+        {
+            Debug.LogWarning($"[AnimalBase] ⚠️ No RideController found on '{player.name}'");
         }
     }
 
-    // === Mounting ===
     public virtual void Mount(GameObject player)
     {
         if (player == null) return;
 
         rider = player;
         AttachToPlayer();
-        AdjustRiderCollider(offsetY: -0.5f);
+        AdjustRiderCollider(-0.5f);
         OnMounted();
     }
 
     public virtual void Dismount()
     {
-
-
-    Debug.Log($"[AnimalBase] Dismount called on {name}");
-    Debug.Log("[AnimalBase] Call stack:\n" + System.Environment.StackTrace);
-
-
+        Debug.Log($"[AnimalBase] 🧍‍♂️ Dismount called on '{name}'");
+        Debug.Log("[AnimalBase] Stack:\n" + System.Environment.StackTrace);
 
         OnDismounted();
 
-        if (rider != null)
+        if (rider == null) return;
+
+        if (rider.TryGetComponent<RideController>(out var rideController))
+            rideController.ResetAnimatorToBase();
+
+        AdjustRiderCollider(0f);
+        DetachFromPlayer();
+
+        // Keep rider alive if invincible, else destroy animal
+        if (rider.TryGetComponent<IInvincible>(out var invincible) && invincible.IsInvincible)
         {
-            if (rider.TryGetComponent<RideController>(out var rideController))
-            {
-                rideController.ResetAnimatorToBase();
-            }
-
-            AdjustRiderCollider(offsetY: 0f);
-            DetachFromPlayer();
-
-            // ❗ Prevent destruction if player is invincible
-            if (rider.TryGetComponent<IInvincible>(out var invincible) && invincible.IsInvincible)
-            {
-                rider = null;
-                return;
-            }
-
             rider = null;
-            Destroy(gameObject);
+            return;
         }
+
+        rider = null;
+        Destroy(gameObject);
     }
 
-    // === Attach/Detach ===
-    private void AttachToPlayer()
+    protected virtual void AttachToPlayer()
     {
         transform.SetParent(rider.transform);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
     }
 
-    private void DetachFromPlayer()
+    protected virtual void DetachFromPlayer()
     {
         transform.SetParent(null);
     }
 
-    private void AdjustRiderCollider(float offsetY)
+    protected virtual void AdjustRiderCollider(float offsetY)
     {
-        if (rider != null && rider.TryGetComponent<CircleCollider2D>(out var collider))
-        {
+        if (rider != null && rider.TryGetComponent(out CircleCollider2D collider))
             collider.offset = new Vector2(collider.offset.x, offsetY);
-        }
     }
 
-    // === Obstacle & Enemy Logic ===
     public virtual bool CanDestroy(ObstacleType type) => type != ObstacleType.Fire;
     public virtual bool CanHurtEnemy(EnemyType type) => type != EnemyType.Ghost;
 
-    // === Lifecycle Hooks ===
     protected virtual void OnMounted() { }
     protected virtual void OnDismounted() { }
 }

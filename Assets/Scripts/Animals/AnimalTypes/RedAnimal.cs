@@ -1,26 +1,35 @@
 using UnityEngine;
+using VContainer;
 
-public class RedAnimal : AnimalBase
+[DisallowMultipleComponent]
+public sealed class RedAnimal : AnimalBase
 {
     [Header("Fire-Spit Settings")]
     [SerializeField] private float projectileOffset = 0.4f;
-    [SerializeField] private ProjectileFirePool firePool; // ✅ Replace custom manager
+
+    private ProjectileFirePool _firePool;
+
+    [Inject]
+    public void Construct(ProjectileFirePool firePool)
+    {
+        _firePool = firePool;
+    }
 
     protected override void OnAttack()
     {
-        if (firePool == null)
+        if (_firePool == null)
         {
-            Debug.LogWarning("[RedAnimal] ❌ Fire pool not assigned.");
+            Debug.LogWarning("[RedAnimal] ❌ Fire pool not injected.");
             return;
         }
 
         Vector2 direction = GetFacingDirection();
-        Vector2 spawnPos = (Vector2)transform.position + direction * projectileOffset;
+        Vector2 spawnPos = transform.position + (Vector3)(direction * projectileOffset);
 
-        var fire = firePool.Get(spawnPos, Quaternion.identity); // ✅ Pooled fireball
+        var fire = _firePool.Get(spawnPos, Quaternion.identity);
         if (fire == null)
         {
-            Debug.LogWarning("[RedAnimal] ❌ Failed to get fire projectile.");
+            Debug.LogWarning("[RedAnimal] ❌ Failed to retrieve fire projectile.");
             return;
         }
 
@@ -30,7 +39,10 @@ public class RedAnimal : AnimalBase
         Debug.Log($"[RedAnimal] 🔥 Spit fire ({(direction.x > 0 ? "→" : "←")})");
     }
 
-    private Vector2 GetFacingDirection() => transform.lossyScale.x >= 0 ? Vector2.right : Vector2.left;
+    private Vector2 GetFacingDirection()
+    {
+        return transform.lossyScale.x >= 0f ? Vector2.right : Vector2.left;
+    }
 
     private float GetPlayerSpeed()
     {

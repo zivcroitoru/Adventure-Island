@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4657560836049139254}
   - component: {fileID: 4588740128798079937}
   - component: {fileID: 7544755427678407536}
+  - component: {fileID: -1005165144222932644}
   m_Layer: 0
   m_Name: AnimalPickup_Green
   m_TagString: Pickable
@@ -133,5 +134,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c54a47fc0637cd4799202eb8fb72046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
-  factory: {fileID: 0}
+  animalPrefab: {fileID: 4851081990196758548, guid: ffef0eac73f21744784935e698c41255, type: 3}
+--- !u!114 &-1005165144222932644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8581662215829488649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b11b5342982140f44a7f42b2e8f39cad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatHeight: 1
+  floatDuration: 0.5
+  pickupCollider: {fileID: 4588740128798079937}

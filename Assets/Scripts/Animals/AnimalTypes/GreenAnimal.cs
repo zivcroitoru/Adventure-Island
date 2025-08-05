@@ -1,14 +1,15 @@
 using UnityEngine;
 
-public class GreenAnimal : AnimalBase
+[DisallowMultipleComponent]
+public sealed class GreenAnimal : AnimalBase
 {
     [Header("Spin Settings")]
     [SerializeField] private float spinSpeed = 180f;
     [SerializeField] private float spinRadius = 0.6f;
     [SerializeField] private float spinDuration = 0.3f;
 
-    private bool isSpinning = false;
-    public bool IsSpinning => isSpinning;
+    private bool _isSpinning = false;
+    public bool IsSpinning => _isSpinning;
 
     private void Update()
     {
@@ -16,24 +17,18 @@ public class GreenAnimal : AnimalBase
             transform.Rotate(Vector3.forward, spinSpeed * Time.deltaTime);
     }
 
-    public override void OnCollect(GameObject player)
-    {
-        Debug.Log("[GreenAnimal] Collected by player.");
-        base.OnCollect(player);
-    }
-
     protected override void OnAttack()
     {
-        if (isSpinning) return;
+        if (_isSpinning) return;
 
-        isSpinning = true;
+        _isSpinning = true;
         Invoke(nameof(EndSpin), spinDuration);
         PerformSpinAttack();
     }
 
     private void PerformSpinAttack()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, spinRadius);
+        var hits = Physics2D.OverlapCircleAll(transform.position, spinRadius);
 
         foreach (var hit in hits)
         {
@@ -42,36 +37,24 @@ public class GreenAnimal : AnimalBase
 
             if (hit.TryGetComponent<IObstacle>(out var obstacle) && CanDestroy(obstacle.Type))
             {
-                Debug.Log("[GreenAnimal] 💥 Spin destroyed obstacle!");
                 obstacle.DestroyObstacle();
+                Debug.Log("[GreenAnimal] 💥 Spin destroyed obstacle!");
                 continue;
             }
 
             if (hit.TryGetComponent<IDamageable>(out var damageable))
             {
-                Debug.Log("[GreenAnimal] 💥 Spin damaged enemy!");
-
-                if (damageable is Component comp)
-                    Debug.Log($"[GreenAnimal] Damaging: {comp.gameObject.name}");
-
                 damageable.TakeDamage(1);
+                Debug.Log($"[GreenAnimal] 💥 Damaged: {hit.gameObject.name}");
             }
         }
     }
 
-    private void EndSpin()
-    {
-        isSpinning = false;
-    }
-
-    public override bool CanDestroy(ObstacleType type)
-    {
-        return type == ObstacleType.Rock;
-    }
+    private void EndSpin() => _isSpinning = false;
 
     public override void Dismount()
     {
-        if (isSpinning)
+        if (_isSpinning)
         {
             Debug.Log("[GreenAnimal] 🚫 Blocked dismount while spinning.");
             return;
@@ -79,6 +62,8 @@ public class GreenAnimal : AnimalBase
 
         base.Dismount();
     }
+
+    public override bool CanDestroy(ObstacleType type) => type == ObstacleType.Rock;
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()

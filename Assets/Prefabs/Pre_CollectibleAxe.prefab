@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3128399289799986672}
   - component: {fileID: -3460905289729604622}
   - component: {fileID: 3789265392145393512}
+  - component: {fileID: -2148048911360190294}
   m_Layer: 0
   m_Name: Pre_CollectibleAxe
   m_TagString: Untagged
@@ -148,3 +149,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.575
+--- !u!114 &-2148048911360190294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460594579410848658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b11b5342982140f44a7f42b2e8f39cad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatHeight: 1
+  floatDuration: 0.5
+  pickupCollider: {fileID: 3789265392145393512}

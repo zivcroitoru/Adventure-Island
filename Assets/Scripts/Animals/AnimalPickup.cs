@@ -1,22 +1,41 @@
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
-public class AnimalPickup : PickUp
+[DisallowMultipleComponent]
+public sealed class AnimalPickup : PickUp
 {
-    [SerializeField] private AnimalType type;
-    [SerializeField] private AnimalFactory factory;
+    [Header("Animal Pickup Config")]
+    [SerializeField] private AnimalBase animalPrefab;
+
+    private IObjectResolver _resolver;
+
+    [Inject]
+    public void Construct(IObjectResolver resolver)
+    {
+        _resolver = resolver;
+    }
+
+    public void SetAnimal(AnimalBase prefab)
+    {
+        animalPrefab = prefab;
+    }
 
     protected override void OnPickUp(GameObject player)
     {
-        Debug.Log($"[AnimalPickup] Player '{player.name}' picked up animal type: {type}");
-
-        var animal = factory.CreateAnimal(type);
-        if (animal == null)
+        if (animalPrefab == null)
         {
-            Debug.LogError("[AnimalPickup] Failed to create animal from factory!");
+            Debug.LogError($"[AnimalPickup] ❌ animalPrefab not assigned on '{gameObject.name}'");
             return;
         }
 
-        Debug.Log($"[AnimalPickup] Created animal: {animal.name}");
+        if (_resolver == null)
+        {
+            Debug.LogError($"[AnimalPickup] ❌ IObjectResolver not injected into '{gameObject.name}'");
+            return;
+        }
+
+        var animal = _resolver.Instantiate(animalPrefab, transform.position, Quaternion.identity);
         animal.OnCollect(player);
     }
 }

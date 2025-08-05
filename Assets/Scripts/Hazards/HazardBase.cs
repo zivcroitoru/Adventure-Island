@@ -19,11 +19,23 @@ public abstract class HazardBase : MonoBehaviour
 
     protected virtual bool HandleDestructionByExternalHit(Collider2D other) => false;
 
-    protected virtual void TryApplyDamage(Collider2D other)
+protected virtual void TryApplyDamage(Collider2D other)
+{
+    // 1. If invincible — destroy the hazard
+    if (other.TryGetComponent<IInvincible>(out var invincible) && invincible.IsInvincible)
     {
-        if (!other.TryGetComponent(out IDamageable damageable)) return;
-        if (other.TryGetComponent(out IInvincible invincible) && invincible.IsInvincible) return;
+        if (TryGetComponent<IDamageable>(out var self))
+            self.TakeDamage(damage);
 
+        return;
+    }
+
+    // 2. Otherwise, apply damage to the other object if damageable
+    if (other.TryGetComponent<IDamageable>(out var damageable))
+    {
         damageable.TakeDamage(damage);
     }
+}
+
+
 }

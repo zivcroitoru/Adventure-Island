@@ -12,22 +12,22 @@ public class AnimalObstacleHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.TryGetComponent(out IObstacle obstacle)) return;
+        if (!other.TryGetComponent<IObstacle>(out var obstacle))
+            return;
 
-        if (animal.Rider != null)
+        bool canDestroy = animal.CanDestroy(obstacle.Type);
+        bool isInvincible = animal.Rider != null &&
+                            animal.Rider.TryGetComponent<IInvincible>(out var inv) &&
+                            inv.IsInvincible;
+
+        // Dismount only if not invincible
+        if (animal.Rider != null && !isInvincible)
         {
-            // If the animal can't destroy it, dismount only
-            if (!animal.CanDestroy(obstacle.Type))
-            {
-                animal.Dismount();
-                return;
-            }
-
-            // If it can destroy, dismount and break
             animal.Dismount();
         }
 
-        if (animal.CanDestroy(obstacle.Type))
+        // Destroy the obstacle only if the animal is allowed
+        if (canDestroy)
         {
             obstacle.DestroyObstacle();
         }

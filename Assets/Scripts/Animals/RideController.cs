@@ -61,11 +61,14 @@ public void DismountCurrentAnimal()
     if (!IsRiding) return;
 
     Debug.Log("[RideController] Dismounting animal.");
+    Debug.Log("[RideController] Dismount called from:\n" + System.Environment.StackTrace);
+
     currentAnimal.Dismount();
     currentAnimal = null;
 
     ResetAnimatorToBase();
 }
+
 
 
     public void ResetAnimatorToBase()

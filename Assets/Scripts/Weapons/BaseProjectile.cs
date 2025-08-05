@@ -1,45 +1,45 @@
 using UnityEngine;
 
-/// <summary>
-/// Base class for all projectile behaviors.
-/// Handles common initialization and damage interaction.
-/// </summary>
-public abstract class BaseProjectile : MonoBehaviour
+[RequireComponent(typeof(Collider2D))]
+public abstract class BaseProjectile : MonoBehaviour, IPoolable
 {
     [Header("Projectile Settings")]
-    [SerializeField] protected float _speed;
+    [SerializeField] protected float _speed = 6f;
+    [SerializeField] protected int _damage = 1;
 
-    /// <summary>
-    /// Called when the projectile is disabled (returned to pool or removed).
-    /// </summary>
-    protected virtual void OnDisable()
+    protected IAttacker _attacker;
+protected System.Action<BaseProjectile> _returnToPool;
+
+    /* ---------- Initialization ---------- */
+
+    public void InitPool<T>(ObjectPool<T> pool) where T : BaseProjectile
     {
-        Debug.Log("[BaseProjectile] Disabled (pooled)");
+        // Store a safe despawn delegate — no casting issues
+        _returnToPool = (BaseProjectile p) => pool.Despawn(p as T);
     }
 
-    /// <summary>
-    /// Called when the projectile is first created or reset.
-    /// </summary>
-    public virtual void Initialized(float speed)
+    public void SetAttacker(IAttacker attacker)
     {
-        _speed = speed;
-        Debug.Log($"[BaseProjectile] Initialized with speed={_speed}");
+        _attacker = attacker;
     }
 
-    /// <summary>
-    /// Launch behavior, implemented by subclasses.
-    /// </summary>
-    public abstract void Shoot();
+    /* ---------- Shooting API ---------- */
 
-    /// <summary>
-    /// Handles contact with IDamageable targets.
-    /// </summary>
+    public abstract void Shoot(Vector2 origin, Vector2 dir, float playerSpeed = 0f);
+
+    /* ---------- Poolable ---------- */
+
+    public virtual void ResetState() { }
+
+    public virtual void OnSpawn() { }
+
+    /* ---------- Collision ---------- */
+
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent<IDamageable>(out var target))
-        {
-            Debug.Log($"[BaseProjectile] Hit {other.name} — applying damage.");
-            target.TakeDamage(1);
-        }
+            target.TakeDamage(_damage);
+
+        _returnToPool?.Invoke(this);
     }
 }

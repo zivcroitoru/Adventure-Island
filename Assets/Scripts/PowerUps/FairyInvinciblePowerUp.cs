@@ -1,17 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Collections;
 
-public class FairyInvinciblePowerUp : IPowerUp
+public class FairyInvinciblePowerUp : MonoBehaviour, IInvincible
 {
-    public void ApplyPowerUp(GameObject player)
+    private bool _isInvincible = false;
+    public bool IsInvincible => _isInvincible;
+
+    [SerializeField] private float powerUpDuration = 10f;
+
+    public void ActivateInvincibility(Action onEnd = null)
     {
-        if(player != null)
-        {
-            Debug.Log("Start Fairy Invincible!");
-            PlayerInvincible playerInvincible = player.GetComponent<PlayerInvincible>();
-            if (playerInvincible != null)
-                playerInvincible.ActivateInvincibility();
-        }
+        StartCoroutine(ActivateInvincibilityTimer(onEnd));
+    }
+
+    private IEnumerator ActivateInvincibilityTimer(Action onEnd)
+    {
+        _isInvincible = true;
+        yield return new WaitForSeconds(powerUpDuration);
+        _isInvincible = false;
+
+        onEnd?.Invoke();
     }
 }

@@ -9,6 +9,8 @@ public class EnemyController : EnemyBase
 
     private IMovementStrategy _move;
     private IAttackStrategy _attack;
+    public EnemyType Type => enemyType;
+
 
     private void Awake()
     {

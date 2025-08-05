@@ -1,56 +1,46 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class EnemyContactDamage : MonoBehaviour
 {
     [SerializeField] private int damage = 20;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"[EnemyContactDamage] Triggered by: {other.name}");
+        var target = other.attachedRigidbody ? other.attachedRigidbody.gameObject : other.gameObject;
 
-        if (other.TryGetComponent<RideController>(out var ride))
+        if (target.TryGetComponent<IInvincible>(out var inv) && inv.IsInvincible)
         {
-            Debug.Log("[EnemyContactDamage] RideController found.");
+            TryDamageSelf();
+            return;
+        }
 
+        if (target.TryGetComponent<RideController>(out var ride))
+        {
             if (ride.IsRiding)
             {
-                Debug.Log("[EnemyContactDamage] Player is riding.");
-
                 if (ride.CurrentAnimal is GreenAnimal green && green.IsSpinning)
                 {
-                    Debug.Log("[EnemyContactDamage] Player is spinning. Enemy takes damage.");
-                    DamageSelf();
+                    TryDamageSelf();
                     return;
                 }
 
-                Debug.Log("[EnemyContactDamage] Player is not spinning. Forcing dismount.");
                 ride.DismountCurrentAnimal();
                 return;
             }
         }
 
-        var damageable = other.GetComponentInParent<IDamageable>();
-        if (damageable != null)
+        if (target.TryGetComponent<IDamageable>(out var damageable))
         {
-            Debug.Log($"[EnemyContactDamage] Found IDamageable on: {other.name}. Applying {damage} damage.");
             damageable.TakeDamage(damage);
-        }
-        else
-        {
-            Debug.Log($"[EnemyContactDamage] No IDamageable found on {other.name} or its parents.");
         }
     }
 
-    private void DamageSelf()
+    private void TryDamageSelf()
     {
-        if (TryGetComponent<IDamageable>(out var damageable))
+        if (TryGetComponent<IDamageable>(out var self))
         {
-            Debug.Log("[EnemyContactDamage] Enemy self-damage triggered.");
-            damageable.TakeDamage(damage);
-        }
-        else
-        {
-            Debug.Log("[EnemyContactDamage] Self is not IDamageable.");
+            self.TakeDamage(damage);
         }
     }
 }

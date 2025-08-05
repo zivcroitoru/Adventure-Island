@@ -1,70 +1,40 @@
 using UnityEngine;
 
-public class SnakeFireProjectile : BaseProjectile
+[RequireComponent(typeof(Rigidbody2D))]
+public sealed class SnakeFireProjectile : BaseProjectile
 {
-    [SerializeField] private int damage = 1;
     [SerializeField] private float lifetime = 3f;
     [SerializeField] private float spawnOffset = 0.6f;
 
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
-    public override void Shoot()
+    public override void Shoot(Vector2 origin, Vector2 dir, float playerSpeed = 0f)
     {
-        Shoot(transform.position, Vector2.left);
+        transform.position = origin + dir.normalized * spawnOffset + Vector2.down * 0.2f;
+        _rb.velocity = dir.normalized * _speed;
+
+        Invoke(nameof(ReturnToPool), lifetime);
     }
 
-    public void Shoot(Vector2 position, Vector2 direction)
+    private void ReturnToPool()
     {
-        Vector2 offset = direction.normalized * spawnOffset + Vector2.down * 0.2f;
-        transform.position = position + offset; // Both are Vector2
-        transform.rotation = Quaternion.identity;
-        gameObject.SetActive(true);
-
-        if (rb == null) rb = GetComponent<Rigidbody2D>();
-        rb.velocity = direction.normalized * _speed;
-
-        Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * Mathf.Sign(direction.x);
-        transform.localScale = scale;
-
-        CancelInvoke(nameof(DisableSelf));
-        Invoke(nameof(DisableSelf), lifetime);
+        _returnToPool?.Invoke(this);
     }
 
-    private void DisableSelf()
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
-        gameObject.SetActive(false);
+        if (!other.CompareTag("Player")) return;
+        base.OnTriggerEnter2D(other);
     }
 
-protected override void OnTriggerEnter2D(Collider2D other)
-{
-    if (!other.CompareTag("Player"))
-    {
-        Debug.Log($"[SnakeFireProjectile] Ignored collision with: {other.name}");
-        return;
-    }
-
-    if (other.TryGetComponent<IDamageable>(out var damageable))
-    {
-        Debug.Log($"[SnakeFireProjectile] Hitting player: {other.name} for {damage} damage");
-        damageable.TakeDamage(damage);
-        DisableSelf();
-    }
-    else
-    {
-        Debug.Log($"[SnakeFireProjectile] Player has no IDamageable: {other.name}");
-    }
-}
-
-
-    protected override void OnDisable()
+    public override void ResetState()
     {
         CancelInvoke();
-        if (rb != null) rb.velocity = Vector2.zero;
+        _rb.velocity = Vector2.zero;
     }
 }

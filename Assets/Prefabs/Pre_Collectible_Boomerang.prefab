@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -3460905289729604622}
   - component: {fileID: 3789265392145393512}
   - component: {fileID: 220718731292280654}
+  - component: {fileID: -70275299740093215}
   m_Layer: 0
   m_Name: Pre_Collectible_Boomerang
   m_TagString: Untagged
@@ -262,3 +263,16 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-70275299740093215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460594579410848658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c521de6d5f78364bb07b277b970b98b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponComponent: {fileID: 0}

@@ -8,11 +8,12 @@ public abstract class PickUp : MonoBehaviour, IPickable
         Collect(col.gameObject);
     }
 
-    public void Collect(GameObject target)
-    {
-        OnPickUp(target);
-        Destroy(gameObject); // ✅ clean up
-    }
+public virtual void Collect(GameObject target)
+{
+    OnPickUp(target);
+    Destroy(gameObject);
+}
+
 
     protected abstract void OnPickUp(GameObject player);
 }

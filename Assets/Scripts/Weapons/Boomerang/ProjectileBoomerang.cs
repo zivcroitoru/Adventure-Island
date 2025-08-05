@@ -2,14 +2,14 @@ using UnityEngine;
 using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class ProjectileBoomerang : BaseProjectile
+public sealed class ProjectileBoomerang : BaseProjectile
 {
     [Header("Boomerang Settings")]
-    [SerializeField] private float returnTime = 1.2f;
+    [SerializeField] private float returnDelay = 1.2f;
     [SerializeField] private float speed = 10f;
     [SerializeField] private float spinSpeed = 720f;
 
-    private Rigidbody2D _rigidbody;
+    private Rigidbody2D _rb;
     private Transform _playerTransform;
     private bool _isReturning;
 
@@ -17,21 +17,21 @@ public class ProjectileBoomerang : BaseProjectile
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.gravityScale = 0f;
+        _rb = GetComponent<Rigidbody2D>();
+        _rb.gravityScale = 0f;
     }
 
     private void OnEnable()
     {
-        _rigidbody.velocity = Vector2.zero;
+        _rb.velocity = Vector2.zero;
         _isReturning = false;
     }
 
-protected override void OnDisable()
-{
-    CancelInvoke();
-    OnReturned = null;
-}
+    private void OnDisable()
+    {
+        CancelInvoke();
+        OnReturned = null;
+    }
 
     private void Update()
     {
@@ -40,56 +40,69 @@ protected override void OnDisable()
         if (_isReturning && _playerTransform != null)
         {
             Vector2 toPlayer = (_playerTransform.position - transform.position).normalized;
-            _rigidbody.velocity = toPlayer * speed;
+            _rb.velocity = toPlayer * speed;
         }
     }
 
-    public override void Shoot()
+    /* ---------- Launch ---------- */
+
+    public override void Shoot(Vector2 origin, Vector2 dir, float playerSpeed = 0f)
     {
-        Shoot(null, 1f);
+        _playerTransform = null;
+        transform.position = origin;
+        transform.localScale = new Vector3(Mathf.Sign(dir.x), 1f, 1f);
+        _rb.velocity = dir.normalized * speed;
+        Invoke(nameof(StartReturn), returnDelay);
     }
 
     public void Shoot(Transform player, float direction)
     {
         _playerTransform = player;
-
-        Vector2 shootDir = Vector2.right * direction;
-        _rigidbody.velocity = shootDir * speed;
-
-        Invoke(nameof(StartReturn), returnTime);
+        transform.position = player.position;
+        transform.localScale = new Vector3(Mathf.Sign(direction), 1f, 1f);
+        _rb.velocity = Vector2.right * direction * speed;
+        Invoke(nameof(StartReturn), returnDelay);
     }
 
-    private void StartReturn() => _isReturning = true;
-
-protected override void OnTriggerEnter2D(Collider2D other)
-{
-    Debug.Log($"[ProjectileBoomerang] Triggered with {other.name}, isReturning={_isReturning}");
-
-    // 🔁 Return to player
-    if (_isReturning && other.CompareTag("Player"))
+    private void StartReturn()
     {
-        Debug.Log("[ProjectileBoomerang] Returning to player — deactivating.");
-        OnReturned?.Invoke();
-        gameObject.SetActive(false);
-        return;
+        _isReturning = true;
     }
 
-    // 💥 Hit destructible object
-if (other.TryGetComponent(out IObstacle obstacle) && obstacle.Type == ObstacleType.Rock)
-{
-    Debug.Log($"[ProjectileBoomerang] Hit Rock — destroying.");
-    obstacle.DestroyObstacle();
-    gameObject.SetActive(false);
-}
+    /* ---------- Collision ---------- */
 
-
-    // 🎯 Optional: damage enemy if needed
-    if (other.TryGetComponent(out IDamageable target))
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"[ProjectileBoomerang] Hit IDamageable ({other.name}) — applying damage.");
-        target.TakeDamage(1);
+        Debug.Log($"[Boomerang] Hit {other.name}, returning = {_isReturning}");
+
+        if (_isReturning && other.CompareTag("Player"))
+        {
+            Debug.Log("[Boomerang] Returned to player.");
+            OnReturned?.Invoke();
+            gameObject.SetActive(false);
+            return;
+        }
+
+        if (other.TryGetComponent(out IObstacle obstacle) && obstacle.Type == ObstacleType.Rock)
+        {
+            obstacle.DestroyObstacle();
+            gameObject.SetActive(false);
+            return;
+        }
+
+        if (other.TryGetComponent(out IDamageable damageable))
+        {
+            damageable.TakeDamage(_damage);
+        }
     }
-}
 
+    /* ---------- Reset ---------- */
 
+    public override void ResetState()
+    {
+        CancelInvoke();
+        _rb.velocity = Vector2.zero;
+        _isReturning = false;
+        _playerTransform = null;
+    }
 }

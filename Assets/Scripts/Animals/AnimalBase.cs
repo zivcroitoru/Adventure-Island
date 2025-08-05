@@ -7,14 +7,14 @@ public abstract class AnimalBase : AnimatorAttackerBase
 
     protected GameObject rider;
 
-    // === Properties ===
+    // === Public Properties ===
     public GameObject Rider => rider;
     public virtual AnimatorOverrideController GetOverrideController() => overrideController;
 
     // === Collection ===
     public virtual void OnCollect(GameObject player)
     {
-        if (player.TryGetComponent(out RideController rideController))
+        if (player.TryGetComponent<RideController>(out var rideController))
         {
             rideController.SwitchAnimal(this);
         }
@@ -27,26 +27,44 @@ public abstract class AnimalBase : AnimatorAttackerBase
 
         rider = player;
         AttachToPlayer();
-        AdjustRiderCollider(-0.5f);
+        AdjustRiderCollider(offsetY: -0.5f);
         OnMounted();
     }
 
     public virtual void Dismount()
     {
+
+
+    Debug.Log($"[AnimalBase] Dismount called on {name}");
+    Debug.Log("[AnimalBase] Call stack:\n" + System.Environment.StackTrace);
+
+
+
         OnDismounted();
 
-        if (rider != null && rider.TryGetComponent(out RideController rideController))
+        if (rider != null)
         {
-            rideController.ResetAnimatorToBase();
+            if (rider.TryGetComponent<RideController>(out var rideController))
+            {
+                rideController.ResetAnimatorToBase();
+            }
+
+            AdjustRiderCollider(offsetY: 0f);
+            DetachFromPlayer();
+
+            // ❗ Prevent destruction if player is invincible
+            if (rider.TryGetComponent<IInvincible>(out var invincible) && invincible.IsInvincible)
+            {
+                rider = null;
+                return;
+            }
+
+            rider = null;
+            Destroy(gameObject);
         }
-
-        AdjustRiderCollider(0f);
-        DetachFromPlayer();
-        rider = null;
-
-        Destroy(gameObject);
     }
 
+    // === Attach/Detach ===
     private void AttachToPlayer()
     {
         transform.SetParent(rider.transform);
@@ -61,22 +79,15 @@ public abstract class AnimalBase : AnimatorAttackerBase
 
     private void AdjustRiderCollider(float offsetY)
     {
-        if (rider != null && rider.TryGetComponent(out CircleCollider2D collider))
+        if (rider != null && rider.TryGetComponent<CircleCollider2D>(out var collider))
         {
             collider.offset = new Vector2(collider.offset.x, offsetY);
         }
     }
 
     // === Obstacle & Enemy Logic ===
-    public virtual bool CanDestroy(ObstacleType type)
-    {
-        return type != ObstacleType.Fire;
-    }
-
-    // public virtual bool CanHurtEnemy(EnemyType type)
-    // {
-    //     return type != EnemyType.Ghost;
-    // }
+    public virtual bool CanDestroy(ObstacleType type) => type != ObstacleType.Fire;
+    public virtual bool CanHurtEnemy(EnemyType type) => type != EnemyType.Ghost;
 
     // === Lifecycle Hooks ===
     protected virtual void OnMounted() { }

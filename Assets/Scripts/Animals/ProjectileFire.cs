@@ -1,98 +1,38 @@
 using UnityEngine;
 
-public class ProjectileFire : BaseProjectile
+[RequireComponent(typeof(Rigidbody2D))]
+public sealed class ProjectileFire : BaseProjectile
 {
-    [SerializeField] private int damage = 1;
     [SerializeField] private float lifetime = 3f;
-    [SerializeField] private float spawnOffset = 0.3f; // Offset to the side
+    [SerializeField] private float spawnOffset = 0.3f;
 
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
-    public override void Shoot()
+    public override void Shoot(Vector2 origin, Vector2 dir, float playerSpeed = 0f)
     {
-        Shoot(transform.position, Vector2.right);
-    }
-
-    public void Shoot(Vector2 position, Vector2 direction)
-    {
-        Shoot(position, direction, 0f);
-    }
-
-    public void Shoot(Vector2 position, Vector2 direction, float playerSpeed)
-    {
-        direction *= -1f;
-
-// Always forward and slightly downward
-Vector2 forwardOffset = direction.normalized * 0.6f; // was 0.3f
-Vector2 verticalOffset = Vector2.down * 0.2f;
-transform.position = position + forwardOffset + verticalOffset;
-
+        Vector2 offset = dir.normalized * spawnOffset + Vector2.down * 0.2f;
+        transform.position = origin + offset;
         transform.rotation = Quaternion.identity;
-        gameObject.SetActive(true);
 
-        if (rb == null) rb = GetComponent<Rigidbody2D>();
+        float extra = Mathf.Max(0f, Vector2.Dot(dir.normalized, new Vector2(playerSpeed, 0)));
+        _rb.velocity = dir.normalized * (_speed + extra);
 
-        float additionalSpeed = Mathf.Max(0, Vector2.Dot(direction.normalized, new Vector2(playerSpeed, 0)));
-        rb.velocity = direction.normalized * (_speed + additionalSpeed);
-
-        Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * Mathf.Sign(direction.x);
-        transform.localScale = scale;
-
-        CancelInvoke(nameof(DisableSelf));
-        Invoke(nameof(DisableSelf), lifetime);
-
-        Debug.Log($"[ProjectileFire] Shoot → direction: {direction}, speed: {_speed + additionalSpeed}, position: {position}");
+        Invoke(nameof(ReturnToPool), lifetime);
     }
 
-    private void DisableSelf()
+    private void ReturnToPool()
     {
-        Debug.Log("[ProjectileFire] Disabled");
-        gameObject.SetActive(false);
+        _returnToPool?.Invoke(this);
     }
 
-    protected override void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log($"[ProjectileFire] Triggered by: {other.name}");
-
-        if (other.TryGetComponent(out IObstacle obstacle))
-        {
-            Debug.Log($"[ProjectileFire] Hit IObstacle: {obstacle.Type}");
-
-            if (CanDestroy(obstacle.Type))
-            {
-                Debug.Log("[ProjectileFire] Obstacle is destructible → Destroying");
-                obstacle.DestroyObstacle();
-                DisableSelf();
-                return;
-            }
-            else
-            {
-                Debug.Log("[ProjectileFire] Obstacle is NOT destructible");
-            }
-        }
-
-        if (other.TryGetComponent(out IDamageable dmg))
-        {
-            Debug.Log("[ProjectileFire] Hit IDamageable → Applying damage");
-            dmg.TakeDamage(damage);
-            DisableSelf();
-        }
-    }
-
-    protected virtual bool CanDestroy(ObstacleType type)
-    {
-        return type != ObstacleType.Fire;
-    }
-
-    protected override void OnDisable()
+    public override void ResetState()
     {
         CancelInvoke();
-        if (rb != null) rb.velocity = Vector2.zero;
+        _rb.velocity = Vector2.zero;
     }
 }

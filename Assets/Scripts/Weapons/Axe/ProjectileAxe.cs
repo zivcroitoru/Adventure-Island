@@ -1,32 +1,23 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class ProjectileAxe : MonoBehaviour, IPoolable
+public sealed class ProjectileAxe : BaseProjectile
 {
-    private ProjectilePool<ProjectileAxe> _pool;
+    [SerializeField] private float lifetime = 3f;
 
-    public void Init(ProjectilePool<ProjectileAxe> pool)
+    public override void Shoot(Vector2 origin, Vector2 dir, float playerSpeed = 0f)
     {
-        _pool = pool;
+        transform.position = origin;
+        transform.rotation = Quaternion.identity;
+
+        // Optional: add velocity, spin, animation logic
+        Invoke(nameof(ReturnToPool), lifetime);
     }
 
-    public void OnSpawn()
+    public override void OnDespawn()
     {
-        // Reset velocity, animations, trail, etc.
-        // Example: GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-    }
-
-    public void OnDespawn()
-    {
-        // Clean up effects, disable trail, reset state, etc.
-    }
-
-    public void ReturnToPool()
-    {
-        if (_pool != null)
-            _pool.Release(this);
-        else
-            Debug.LogWarning("[ProjectileAxe] Tried to return to pool, but pool is null.");
+        CancelInvoke();
+        // Optional: clear trail, stop effects
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

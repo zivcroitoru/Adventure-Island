@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SnakeFireAttackStrategy : MonoBehaviour, IAttackStrategy
 {
-    [SerializeField] private SnakeFireProjectilePoolManager poolManager;
+    [SerializeField] private SnakeFireProjectilePool projectilePool;
     [SerializeField] private float fireCooldown = 2f;
     [SerializeField] private Vector2 fireDirection = Vector2.left;
 
@@ -10,10 +10,10 @@ public class SnakeFireAttackStrategy : MonoBehaviour, IAttackStrategy
 
     public void Attack()
     {
-        if (Time.time < _nextFireTime || poolManager == null)
+        if (Time.time < _nextFireTime || projectilePool == null)
             return;
 
-        SnakeFireProjectile projectile = poolManager.GetPooledProjectile();
+        var projectile = projectilePool.Get(transform.position, Quaternion.identity);
         if (projectile == null)
             return;
 

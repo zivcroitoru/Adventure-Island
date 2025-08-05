@@ -15,26 +15,22 @@ public sealed class SnakeFireProjectile : BaseProjectile
 
     public override void Shoot(Vector2 origin, Vector2 dir, float playerSpeed = 0f)
     {
-        transform.position = origin + dir.normalized * spawnOffset + Vector2.down * 0.2f;
+        Vector2 offset = dir.normalized * spawnOffset + Vector2.down * 0.2f;
+        transform.position = origin + offset;
         _rb.velocity = dir.normalized * _speed;
 
         Invoke(nameof(ReturnToPool), lifetime);
     }
 
-    private void ReturnToPool()
+    public override void OnDespawn()
     {
-        _returnToPool?.Invoke(this);
+        CancelInvoke();
+        _rb.velocity = Vector2.zero;
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
         base.OnTriggerEnter2D(other);
-    }
-
-    public override void ResetState()
-    {
-        CancelInvoke();
-        _rb.velocity = Vector2.zero;
     }
 }

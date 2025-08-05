@@ -4,7 +4,7 @@ using VContainer;
 [DisallowMultipleComponent]
 public sealed class AxeWeapon : BaseWeapon, IAttacker
 {
-    [Inject] private ProjectilePool<ProjectileAxe> _axePool;
+    [Inject] private ProjectileAxePool _axePool; // ✅ inject concrete pool type
 
     [SerializeField] private float _projectileSpeed = 5f;
 
@@ -23,7 +23,7 @@ public sealed class AxeWeapon : BaseWeapon, IAttacker
             ? rb.velocity
             : Vector2.zero;
 
-        var axe = _axePool.Get(spawnPos, Quaternion.identity);
+        var axe = _axePool.Get(spawnPos, Quaternion.identity); // ✅ pulled from pool
 
         if (axe == null)
         {

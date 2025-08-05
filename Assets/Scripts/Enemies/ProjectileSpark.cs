@@ -3,12 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
 public sealed class ProjectileSpark : BaseProjectile
 {
+    [Header("Spark Settings")]
     [SerializeField] private float lifetime = 0.3f;
     [SerializeField] private float flickerInterval = 0.05f;
 
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
-    private bool _flip;
+    private bool _flipState;
 
     private void Awake()
     {
@@ -16,13 +17,14 @@ public sealed class ProjectileSpark : BaseProjectile
         _sr = GetComponent<SpriteRenderer>();
     }
 
-    public override void Shoot(Vector2 origin, Vector2 dir, float playerSpeed = 0f)
+    public override void Shoot(Vector2 origin, Vector2 direction, float playerSpeed = 0f)
     {
         transform.position = origin;
-        _rb.velocity = dir.normalized * _speed;
+        transform.rotation = Quaternion.identity;
 
-        _flip = dir.x < 0;
-        _sr.flipX = _flip;
+        _rb.velocity = direction.normalized * _speed;
+        _flipState = direction.x < 0;
+        _sr.flipX = _flipState;
 
         InvokeRepeating(nameof(ToggleFlip), 0f, flickerInterval);
         Invoke(nameof(ReturnToPool), lifetime);
@@ -30,18 +32,21 @@ public sealed class ProjectileSpark : BaseProjectile
 
     private void ToggleFlip()
     {
-        _sr.flipX = _flip = !_flip;
+        _flipState = !_flipState;
+        _sr.flipX = _flipState;
     }
 
-    private void ReturnToPool()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        _returnToPool?.Invoke(this);
+        TryDealDamage(other);
+        ReturnToPool();
     }
 
-    public override void ResetState()
+    public override void OnDespawn()
     {
         CancelInvoke();
         _rb.velocity = Vector2.zero;
         _sr.flipX = false;
+        _flipState = false;
     }
 }

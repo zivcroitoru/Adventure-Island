@@ -13,7 +13,7 @@ public sealed class ProjectileBoomerang : BaseProjectile
     private Transform _playerTransform;
     private bool _isReturning;
 
-    public Action OnReturned; // 🔁 Callback to notify weapon
+    public Action OnReturned;
 
     private void Awake()
     {
@@ -79,14 +79,14 @@ public sealed class ProjectileBoomerang : BaseProjectile
         {
             Debug.Log("[Boomerang] Returned to player.");
             OnReturned?.Invoke();
-            gameObject.SetActive(false);
+            ReturnToPool(); // ✅ Use pool
             return;
         }
 
         if (other.TryGetComponent(out IObstacle obstacle) && obstacle.Type == ObstacleType.Rock)
         {
             obstacle.DestroyObstacle();
-            gameObject.SetActive(false);
+            ReturnToPool(); // ✅ Use pool
             return;
         }
 
@@ -96,13 +96,14 @@ public sealed class ProjectileBoomerang : BaseProjectile
         }
     }
 
-    /* ---------- Reset ---------- */
+    /* ---------- Despawn ---------- */
 
-    public override void ResetState()
+    public override void OnDespawn()
     {
         CancelInvoke();
         _rb.velocity = Vector2.zero;
         _isReturning = false;
         _playerTransform = null;
+        OnReturned = null;
     }
 }

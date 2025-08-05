@@ -19,18 +19,13 @@ public sealed class ProjectileFire : BaseProjectile
         transform.position = origin + offset;
         transform.rotation = Quaternion.identity;
 
-        float extra = Mathf.Max(0f, Vector2.Dot(dir.normalized, new Vector2(playerSpeed, 0)));
-        _rb.velocity = dir.normalized * (_speed + extra);
+        float bonus = Mathf.Max(0f, Vector2.Dot(dir.normalized, new Vector2(playerSpeed, 0f)));
+        _rb.velocity = dir.normalized * (_speed + bonus);
 
         Invoke(nameof(ReturnToPool), lifetime);
     }
 
-    private void ReturnToPool()
-    {
-        _returnToPool?.Invoke(this);
-    }
-
-    public override void ResetState()
+    public override void OnDespawn()
     {
         CancelInvoke();
         _rb.velocity = Vector2.zero;

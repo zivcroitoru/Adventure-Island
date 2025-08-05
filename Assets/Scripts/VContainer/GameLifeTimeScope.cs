@@ -4,21 +4,21 @@ using VContainer.Unity;
 
 public sealed class GameLifetimeScope : LifetimeScope
 {
-    [Header("Managers")]
-    [SerializeField] private PoolManager poolManager;
-    [SerializeField] private AxeProjectilePool axeProjectilePool;
+    [Header("Projectile Pools")]
+    [SerializeField] private ProjectilePool<ProjectileAxe> axePool;
+    [SerializeField] private ProjectilePool<ProjectileBoomerang> boomerangPool;
 
     protected override void Configure(IContainerBuilder builder)
     {
         /* ───── Core model ───── */
         builder.RegisterInstance<IEnergyModel>(new EnergyModel(45f));
 
-        /* ───── Managers ───── */
-        if (poolManager != null)
-            builder.RegisterComponent(poolManager);
+        /* ───── Projectile Pools ───── */
+        if (axePool != null)
+            builder.RegisterComponent(axePool);
 
-        if (axeProjectilePool != null)
-            builder.RegisterComponent(axeProjectilePool);
+        if (boomerangPool != null)
+            builder.RegisterComponent(boomerangPool);
 
         /* ───── Weapons ───── */
         builder.RegisterComponentInHierarchy<AxeWeapon>();

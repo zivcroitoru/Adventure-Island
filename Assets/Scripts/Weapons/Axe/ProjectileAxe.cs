@@ -1,37 +1,36 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public sealed class ProjectileAxe : BaseProjectile
+[RequireComponent(typeof(Collider2D))]
+public class ProjectileAxe : MonoBehaviour, IPoolable
 {
-    [SerializeField] private float ySpeed = 5f;
-    [SerializeField] private float spinSpeed = 3000f;
+    private ProjectilePool<ProjectileAxe> _pool;
 
-    private Rigidbody2D _rb;
-
-    void Awake() => _rb = GetComponent<Rigidbody2D>();
-
-    public override void Shoot(Vector2 origin, Vector2 dir, float playerSpeed = 0f)
+    public void Init(ProjectilePool<ProjectileAxe> pool)
     {
-        transform.position = origin;
-        transform.rotation = Quaternion.identity;
-        transform.localScale = new Vector3(Mathf.Sign(dir.x), 1f, 1f);
-
-        _rb.velocity = Vector2.zero;
-        _rb.AddForce(new Vector2(_speed * dir.x, ySpeed), ForceMode2D.Impulse);
+        _pool = pool;
     }
 
-    void Update() => transform.Rotate(0f, 0f, spinSpeed * Time.deltaTime);
-
-    /* IPoolable */
-    public override void OnSpawn()
+    public void OnSpawn()
     {
-        Debug.Log("[ProjectileAxe] OnSpawn");
+        // Reset velocity, animations, trail, etc.
+        // Example: GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 
-    public override void ResetState()
+    public void OnDespawn()
     {
-        _rb.velocity = Vector2.zero;
-        _rb.angularVelocity = 0f;
-        transform.rotation = Quaternion.identity;
+        // Clean up effects, disable trail, reset state, etc.
+    }
+
+    public void ReturnToPool()
+    {
+        if (_pool != null)
+            _pool.Release(this);
+        else
+            Debug.LogWarning("[ProjectileAxe] Tried to return to pool, but pool is null.");
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        ReturnToPool();
     }
 }

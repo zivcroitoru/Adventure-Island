@@ -10,14 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7344749491402581461}
   - component: {fileID: 3128399289799986672}
-  - component: {fileID: -3460905289729604622}
   - component: {fileID: 3789265392145393512}
   - component: {fileID: 220718731292280654}
   - component: {fileID: -70275299740093215}
   - component: {fileID: 4172828249216565200}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pre_Collectible_Boomerang
-  m_TagString: Untagged
+  m_TagString: Pickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,33 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &-3460905289729604622
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460594579410848658}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!58 &3789265392145393512
 CircleCollider2D:
   m_ObjectHideFlags: 0

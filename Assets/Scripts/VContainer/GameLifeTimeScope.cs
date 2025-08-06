@@ -19,7 +19,6 @@ public sealed class GameLifetimeScope : LifetimeScope
     [SerializeField] private AnimalPickup bluePickupPrefab;
     [SerializeField] private AnimalPickup greenPickupPrefab;
 
-    // Expose prefabs to scripts via properties or accessor methods if needed
     public RedAnimal RedAnimalPrefab => redAnimalPrefab;
     public BlueAnimal BlueAnimalPrefab => blueAnimalPrefab;
     public GreenAnimal GreenAnimalPrefab => greenAnimalPrefab;
@@ -28,24 +27,30 @@ public sealed class GameLifetimeScope : LifetimeScope
     public AnimalPickup BluePickupPrefab => bluePickupPrefab;
     public AnimalPickup GreenPickupPrefab => greenPickupPrefab;
 
-    protected override void Configure(IContainerBuilder builder)
-    {
-        // Core model
-        builder.RegisterInstance<IEnergyModel>(new EnergyModel(45f));
+protected override void Configure(IContainerBuilder builder)
+{
+    // ── Core Model ──
+    builder.RegisterInstance<IEnergyModel>(new EnergyModel(45f));
 
-        // Projectile pools — they exist in scene, so register them
-        RegisterIfExists(builder, axePool);
-        RegisterIfExists(builder, firePool);
-        RegisterIfExists(builder, sparkPool);
-        RegisterIfExists(builder, snakeFirePool);
+    // ── Pools ──
+    RegisterIfExists(builder, axePool);
+    RegisterIfExists(builder, firePool);
+    RegisterIfExists(builder, sparkPool);
+    RegisterIfExists(builder, snakeFirePool);
 
-        // Weapons already in the scene — register from hierarchy
-        builder.RegisterComponentInHierarchy<AxeWeapon>();
-        builder.RegisterComponentInHierarchy<BoomerangWeapon>();
+    // ── Weapons & Enemies in Scene ──
+    builder.RegisterComponentInHierarchy<AxeWeapon>();
+    builder.RegisterComponentInHierarchy<BoomerangWeapon>();
+    builder.RegisterComponentInHierarchy<EnemyBase>();
+    builder.RegisterComponentInHierarchy<EnemyController>();
 
-        // You do NOT register prefabs (animal or pickup)
-        // Instead, inject them via [SerializeField] and use _resolver.Instantiate(prefab)
-    }
+    // ── Scene Pickups ──
+    builder.RegisterComponentInHierarchy<EggPickup>();
+
+    // ✅ No need to register AnimalPickup prefabs.
+    // Just make sure any [Inject] dependencies *inside them* are registered.
+}
+
 
     private static void RegisterIfExists<T>(IContainerBuilder builder, T obj) where T : Component
     {

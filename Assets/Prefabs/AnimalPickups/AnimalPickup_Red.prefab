@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4588740128798079937}
   - component: {fileID: 7544755427678407536}
   - component: {fileID: -3095252171060628122}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AnimalPickup_Red
   m_TagString: Pickable
   m_Icon: {fileID: 0}

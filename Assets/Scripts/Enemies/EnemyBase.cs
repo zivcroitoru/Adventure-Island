@@ -1,39 +1,23 @@
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public abstract class EnemyBase : MonoBehaviour, IDamageable
 {
-    [Header("Egg & Respawn")]
-    [SerializeField] private EggPickup eggPrefab;
-    [SerializeField] private float respawnDelay = 8f;
+    public event System.Action<EnemyBase, Vector3, Quaternion> OnDeath;
 
     private Vector3 _spawnPos;
     private Quaternion _spawnRot;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _spawnPos = transform.position;
         _spawnRot = transform.rotation;
     }
 
-public virtual void TakeDamage(int amount)
-{
-    Debug.Log("[EnemyBase] Took damage → dropping egg & disabling.");
-
-    if (eggPrefab != null)
-        Instantiate(eggPrefab, transform.position, Quaternion.identity);
-
-    // ✅ Start coroutine before disabling self
-    StartCoroutine(RespawnRoutine());
-
-    // ❌ Disable after coroutine is scheduled
-    gameObject.SetActive(false);
-}
-
-
-    private System.Collections.IEnumerator RespawnRoutine()
+    public virtual void TakeDamage(int amount)
     {
-        yield return new WaitForSeconds(respawnDelay);
-        transform.SetPositionAndRotation(_spawnPos, _spawnRot);
-        gameObject.SetActive(true);
+        Debug.Log("[EnemyBase] Took damage → broadcasting death.");
+        gameObject.SetActive(false);
+        OnDeath?.Invoke(this, _spawnPos, _spawnRot);
     }
 }

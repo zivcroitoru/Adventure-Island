@@ -184,6 +184,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
-  damage: 20
+  _damage: 20
   lifetime: 3
   spawnOffset: 0

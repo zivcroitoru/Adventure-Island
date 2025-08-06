@@ -17,8 +17,8 @@ public class EnemyController : EnemyBase
         _move = movementStrategy as IMovementStrategy;
         _attack = attackStrategy as IAttackStrategy;
 
-        if (_move == null) Debug.LogError("[EnemyController] Movement strategy is not valid.");
-        if (_attack == null) Debug.LogError("[EnemyController] Attack strategy is not valid.");
+        // if (_move == null) Debug.LogError("[EnemyController] Movement strategy is not valid.");
+        // if (_attack == null) Debug.LogError("[EnemyController] Attack strategy is not valid.");
     }
 
     private void Update()

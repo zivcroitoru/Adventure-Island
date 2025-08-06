@@ -8,9 +8,8 @@ public sealed class EggPickup : PickUp
     [System.Serializable]
     private struct WeightedPrefab
     {
-        public GameObject prefab;               // AnimalPickup, WeaponPickup, Fairy, etc.
+        public GameObject prefab;               // Fully assigned prefab: AnimalPickup_Red, WeaponPickup, etc.
         [Range(0f, 1f)] public float weight;
-        public AnimalBase animalPrefab;         // Optional: only used if prefab is AnimalPickup
     }
 
     [Header("Loot Table")]
@@ -20,6 +19,8 @@ public sealed class EggPickup : PickUp
 
     protected override void OnPickUp(GameObject player)
     {
+        Debug.Log("[EggPickup] 🥚 OnPickUp triggered.");
+
         GameObject selectedPrefab = SelectReward();
         if (selectedPrefab == null)
         {
@@ -27,44 +28,50 @@ public sealed class EggPickup : PickUp
             return;
         }
 
+        Debug.Log($"[EggPickup] 🎁 Selected reward: {selectedPrefab.name}");
+
         var rewardGO = Instantiate(selectedPrefab, transform.position, Quaternion.identity);
-        
+        Debug.Log($"[EggPickup] 🧸 Instantiated reward: {rewardGO.name}");
 
-        // Inject dependencies into spawned object
-        _resolver.InjectGameObject(rewardGO);
-
-        // Handle AnimalPickup specifically (assign animal prefab)
-        if (rewardGO.TryGetComponent<AnimalPickup>(out var animalPickup))
+        if (_resolver == null)
         {
-            var rewardData = GetSelectedRewardData(selectedPrefab);
-            if (rewardData.animalPrefab != null)
-                animalPickup.SetAnimal(rewardData.animalPrefab);
+            Debug.LogError("[EggPickup] ❌ _resolver is null — cannot inject.");
+            return;
         }
 
-        // Destroy the egg
-        Destroy(gameObject);
+        try
+        {
+            _resolver.InjectGameObject(rewardGO);
+            Debug.Log("[EggPickup] ✅ Dependency injection succeeded.");
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"[EggPickup] ❌ Injection failed: {ex.Message}\n{ex.StackTrace}");
+        }
+
+        // No destroy here — base class handles it.
     }
 
-    GameObject SelectReward()
+    // ──── Local method ────
+    private GameObject SelectReward()
     {
         float totalWeight = 0f;
         foreach (var r in rewards)
             totalWeight += r.weight;
 
         float roll = Random.value * totalWeight;
+        Debug.Log($"[EggPickup] 🎲 Rolled value: {roll} / Total weight: {totalWeight}");
+
         foreach (var r in rewards)
         {
             if ((roll -= r.weight) <= 0f)
+            {
+                Debug.Log($"[EggPickup] 🧮 Chose: {r.prefab.name}");
                 return r.prefab;
+            }
         }
-        return null;
-    }
 
-    WeightedPrefab GetSelectedRewardData(GameObject selected)
-    {
-        foreach (var r in rewards)
-            if (r.prefab == selected)
-                return r;
-        return default;
+        Debug.LogWarning("[EggPickup] ❓ SelectReward fallback to null.");
+        return null;
     }
 }

@@ -18,17 +18,28 @@ public sealed class EggDropper : MonoBehaviour
             enemy.OnDeath += OnEnemyDeath;
     }
 
-    private void OnEnemyDeath(EnemyBase _, Vector3 pos, Quaternion rot)
+private void OnEnemyDeath(EnemyBase _, Vector3 pos, Quaternion rot)
+{
+    if (eggPrefab == null)
     {
-        if (eggPrefab == null)
-        {
-            Debug.LogWarning("[EggDropper] ❌ No egg prefab assigned.");
-            return;
-        }
-
-        var egg = Instantiate(eggPrefab, pos, Quaternion.identity);
-        resolver.InjectGameObject(egg.gameObject);
+        Debug.LogWarning("[EggDropper] ❌ No egg prefab assigned.");
+        return;
     }
+
+    GameObject eggGO = Instantiate(eggPrefab.gameObject, pos, rot);
+
+    if (eggGO.TryGetComponent(out EggPickup eggPickup))
+    {
+        eggPickup.SetResolver(resolver);
+        Debug.Log("[EggDropper] ✅ Resolver injected into dropped egg.");
+    }
+    else
+    {
+        Debug.LogError("[EggDropper] ❌ Instantiated egg missing EggPickup component.");
+    }
+}
+
+
 
     private void OnDestroy()
     {

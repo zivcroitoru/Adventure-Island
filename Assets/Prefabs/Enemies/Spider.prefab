@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8725307571143758888}
   - component: {fileID: 2039407057952988524}
   - component: {fileID: 3766682567144689378}
+  - component: {fileID: 6063320881559524803}
   m_Layer: 8
   m_Name: Spider
   m_TagString: Enemy
@@ -152,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be673289b48e68041b7a03056f34e9d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contactDamage: 20
+  damage: 20
 --- !u!114 &8725307571143758888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,3 +286,16 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &6063320881559524803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739839852298812703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54967528dab123c469fced7cb6be917a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eggPrefab: {fileID: 5916664427702696222, guid: d4cc5a153c27f184e80bb1521bf1bc63, type: 3}

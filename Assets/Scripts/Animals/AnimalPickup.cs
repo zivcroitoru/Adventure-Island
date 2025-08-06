@@ -11,10 +11,11 @@ public sealed class AnimalPickup : PickUp
     private IObjectResolver _resolver;
 
     [Inject]
-    public void Construct(IObjectResolver resolver)
-    {
-        _resolver = resolver;
-    }
+public void Construct(IObjectResolver resolver)
+{
+    Debug.Log($"[AnimalPickup] ✅ Resolver injected into: {gameObject.name}");
+    _resolver = resolver;
+}
 
     public void SetAnimal(AnimalBase prefab)
     {

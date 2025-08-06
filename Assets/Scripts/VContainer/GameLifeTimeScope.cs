@@ -43,9 +43,11 @@ protected override void Configure(IContainerBuilder builder)
     builder.RegisterComponentInHierarchy<BoomerangWeapon>();
     builder.RegisterComponentInHierarchy<EnemyBase>();
     builder.RegisterComponentInHierarchy<EnemyController>();
+    builder.RegisterEntryPoint<AnimalPickup>().AsSelf();
+
 
     // ── Scene Pickups ──
-    builder.RegisterComponentInHierarchy<EggPickup>();
+        builder.RegisterComponentInHierarchy<EggPickup>();
 
     // ✅ No need to register AnimalPickup prefabs.
     // Just make sure any [Inject] dependencies *inside them* are registered.

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8621953483997060198}
   - component: {fileID: 3563691272265515451}
   - component: {fileID: 8775709607553651479}
+  - component: {fileID: -1763079393639393983}
   m_Layer: 8
   m_Name: Frog
   m_TagString: Enemy
@@ -160,8 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb15f10b44303b449b8c38a7b234d8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eggPrefab: {fileID: 0}
-  respawnDelay: 8
   enemyType: 4
   movementStrategy: {fileID: 3563691272265515451}
   attackStrategy: {fileID: 0}
@@ -265,6 +264,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-1763079393639393983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404236110520327190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54967528dab123c469fced7cb6be917a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eggPrefab: {fileID: 5916664427702696222, guid: d4cc5a153c27f184e80bb1521bf1bc63, type: 3}
 --- !u!1 &7306806049498623597
 GameObject:
   m_ObjectHideFlags: 0

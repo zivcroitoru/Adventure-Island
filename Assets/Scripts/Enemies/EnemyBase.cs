@@ -14,10 +14,18 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
         _spawnRot = transform.rotation;
     }
 
-    public virtual void TakeDamage(int amount)
-    {
-        Debug.Log("[EnemyBase] Took damage → broadcasting death.");
-        gameObject.SetActive(false);
-        OnDeath?.Invoke(this, _spawnPos, _spawnRot);
-    }
+public virtual void TakeDamage(int amount)
+{
+    Debug.Log("[EnemyBase] 💢 Took damage → broadcasting death, then disabling.");
+
+    // Use *current* position and rotation
+    Vector3 currentPos = transform.position;
+    Quaternion currentRot = transform.rotation;
+
+    OnDeath?.Invoke(this, currentPos, currentRot);
+
+    gameObject.SetActive(false);
+}
+
+
 }

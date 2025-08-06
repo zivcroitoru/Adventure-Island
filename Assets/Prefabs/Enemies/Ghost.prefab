@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7642757619228243059}
   - component: {fileID: 436912511793979544}
   - component: {fileID: 4117900865104343999}
+  - component: {fileID: 3948166765357869669}
   m_Layer: 8
   m_Name: Ghost
   m_TagString: Enemy
@@ -169,8 +170,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb15f10b44303b449b8c38a7b234d8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eggPrefab: {fileID: 0}
-  respawnDelay: 8
   enemyType: 5
   movementStrategy: {fileID: 0}
   attackStrategy: {fileID: 0}
+--- !u!114 &3948166765357869669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5041309382398651619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54967528dab123c469fced7cb6be917a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eggPrefab: {fileID: 5916664427702696222, guid: d4cc5a153c27f184e80bb1521bf1bc63, type: 3}

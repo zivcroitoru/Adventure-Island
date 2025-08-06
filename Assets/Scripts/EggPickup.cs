@@ -8,20 +8,45 @@ public sealed class EggPickup : PickUp
     [System.Serializable]
     private struct WeightedPrefab
     {
-        public GameObject prefab;               // Fully assigned prefab: AnimalPickup_Red, WeaponPickup, etc.
+        public GameObject prefab; // Fully assigned prefab: AnimalPickup_Red, WeaponPickup, etc.
         [Range(0f, 1f)] public float weight;
     }
 
     [Header("Loot Table")]
     [SerializeField] private WeightedPrefab[] rewards;
 
-    [Inject] private IObjectResolver _resolver;
+    private IObjectResolver _resolver;
+
+    public void SetResolver(IObjectResolver resolver)
+    {
+        _resolver = resolver;
+    }
+private void Start()
+{
+    if (_resolver == null)
+    {
+        var scope = FindFirstObjectByType<LifetimeScope>();
+        if (scope != null)
+        {
+            _resolver = scope.Container;
+            Debug.Log($"[EggPickup] 🧩 Auto-assigned resolver on scene egg: {name}");
+        }
+        else
+        {
+            Debug.LogWarning("[EggPickup] ⚠️ No LifetimeScope found in scene.");
+        }
+    }
+}
+
+
+
+
 
     protected override void OnPickUp(GameObject player)
     {
         Debug.Log("[EggPickup] 🥚 OnPickUp triggered.");
 
-        GameObject selectedPrefab = SelectReward();
+        var selectedPrefab = SelectReward();
         if (selectedPrefab == null)
         {
             Debug.LogWarning("[EggPickup] ❌ No reward prefab selected.");
@@ -31,13 +56,21 @@ public sealed class EggPickup : PickUp
         Debug.Log($"[EggPickup] 🎁 Selected reward: {selectedPrefab.name}");
 
         var rewardGO = Instantiate(selectedPrefab, transform.position, Quaternion.identity);
-        Debug.Log($"[EggPickup] 🧸 Instantiated reward: {rewardGO.name}");
 
+        InjectReward(rewardGO);
+    }
+
+    private void InjectReward(GameObject rewardGO)
+    {
         if (_resolver == null)
         {
             Debug.LogError("[EggPickup] ❌ _resolver is null — cannot inject.");
             return;
         }
+
+        var components = rewardGO.GetComponentsInChildren<MonoBehaviour>(true);
+        foreach (var comp in components)
+            Debug.Log($"[EggPickup] 🔍 Component on reward: {comp.GetType().Name}");
 
         try
         {
@@ -46,13 +79,10 @@ public sealed class EggPickup : PickUp
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"[EggPickup] ❌ Injection failed: {ex.Message}\n{ex.StackTrace}");
+            Debug.LogError($"[EggPickup] ❌ Injection crash:\n{ex.Message}\n{ex.StackTrace}");
         }
-
-        // No destroy here — base class handles it.
     }
 
-    // ──── Local method ────
     private GameObject SelectReward()
     {
         float totalWeight = 0f;

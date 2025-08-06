@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class BoomerangPowerUp : IPowerUp
+public sealed class BoomerangPowerUp : IPowerUp
 {
     public void ApplyPowerUp(GameObject player)
     {
+        var weapon = player.GetComponentInChildren<BoomerangWeapon>();
         var handler = player.GetComponentInChildren<WeaponsHandler>();
-        var boomerang = player.GetComponentInChildren<BoomerangWeapon>();
-        handler?.Equip(boomerang);
+        handler?.Equip(weapon);
     }
 }

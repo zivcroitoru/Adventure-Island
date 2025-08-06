@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public abstract class EnemyBase : MonoBehaviour, IDamageable
+public abstract class EnemyBase : MonoBehaviour, IDamageable, IResettable
 {
     public event System.Action<EnemyBase, Vector3, Quaternion> OnDeath;
 
@@ -12,25 +12,43 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     {
         _spawnPos = transform.position;
         _spawnRot = transform.rotation;
-        EnemyRespawnManager.Instance?.Register(this);
+        Debug.Log($"[EnemyBase] Awake: Spawn position set to {_spawnPos}");
+
+        if (EnemyRespawnManager.Instance == null)
+            Debug.LogWarning("[EnemyBase] Awake: EnemyRespawnManager instance is NULL");
+        else
+            EnemyRespawnManager.Instance.Register(this);
+
+        GameResetManager.Instance?.Register(this);
     }
 
-public virtual void TakeDamage(int amount)
-{
-    Debug.Log("[EnemyBase] 💢 Took damage → broadcasting death, then disabling.");
+    public virtual void TakeDamage(int amount)
+    {
+        Debug.Log($"[EnemyBase] Took {amount} damage at position {transform.position}");
 
-    // Use *current* position and rotation
-    Vector3 currentPos = transform.position;
-    Quaternion currentRot = transform.rotation;
+        Vector3 currentPos = transform.position;
+        Quaternion currentRot = transform.rotation;
 
-    OnDeath?.Invoke(this, currentPos, currentRot);
+        Debug.Log("[EnemyBase] Broadcasting death event");
+        OnDeath?.Invoke(this, currentPos, currentRot);
 
-    // Tell global respawn manager to handle this enemy
-    EnemyRespawnManager.Instance?.RequestRespawn(this, currentPos, currentRot);
+        // If using reset system, comment this out:
+        // EnemyRespawnManager.Instance?.RequestRespawn(this, currentPos, currentRot);
 
-    gameObject.SetActive(false);
-}
+        Debug.Log("[EnemyBase] Disabling enemy GameObject");
+        gameObject.SetActive(false);
+    }
 
+    public virtual void ResetState()
+    {
+        Debug.Log("[EnemyBase] ResetState called: resetting enemy.");
+
+        gameObject.SetActive(true);
+        transform.position = _spawnPos;
+        transform.rotation = _spawnRot;
+
+        // Reset health or other necessary state here
+    }
 
     public Vector3 GetSpawnPosition() => _spawnPos;
     public Quaternion GetSpawnRotation() => _spawnRot;

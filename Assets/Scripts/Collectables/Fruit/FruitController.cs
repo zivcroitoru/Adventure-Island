@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(FruitView))]
-public sealed class FruitController : PickUp
+public sealed class FruitController : PickUp, IResettable
 {
     [Header("Fruit Settings")]
     [SerializeField] private int energyBars = 1;
@@ -12,6 +12,8 @@ public sealed class FruitController : PickUp
     private FruitModel model;
 
     private static int totalFruitsCollected;
+
+    private bool _isCollected = false;
 
     public static int TotalFruitsCollected => totalFruitsCollected;
 
@@ -24,10 +26,14 @@ public sealed class FruitController : PickUp
         view.SetSprite(fruitSprite);
 
         model = new FruitModel(energyBars);
+
+        GameResetManager.Instance?.Register(this);
     }
 
     protected override void OnPickUp(GameObject player)
     {
+        if (_isCollected) return; // Already collected
+
         if (player.TryGetComponent(out AnimalBase animal) && animal.Rider != null)
         {
             player = animal.Rider;
@@ -35,6 +41,9 @@ public sealed class FruitController : PickUp
 
         GiveEnergy(player);
         RegisterCollection();
+
+        _isCollected = true;
+        gameObject.SetActive(false);
     }
 
     private void GiveEnergy(GameObject player)
@@ -66,5 +75,23 @@ public sealed class FruitController : PickUp
     private void BroadcastFruitCount()
     {
         OnFruitCountChanged?.Invoke(totalFruitsCollected);
+    }
+
+    // Reset logic
+    public void ResetState()
+    {
+        _isCollected = false;
+        gameObject.SetActive(true);
+        Debug.Log("[FruitController] ResetState called: fruit reset.");
+
+        // Optional: reset static counter somewhere central instead of here
+    }
+
+    // Static reset method for all fruits count
+    public static void ResetTotalFruitsCollected()
+    {
+        totalFruitsCollected = 0;
+        OnFruitCountChanged?.Invoke(totalFruitsCollected);
+        Debug.Log("[FruitController] Total fruits collected reset.");
     }
 }

@@ -1,24 +1,25 @@
 using UnityEngine;
 
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Collider2D))]
 public abstract class PickUp : MonoBehaviour, IPickable
 {
+    private bool _collected;
+
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.CompareTag("Player"))
-        {
-            Debug.Log($"[PickUp] Ignored collision with '{col.name}' (tag: {col.tag})");
-            return;
-        }
+        if (_collected) return;
 
-        Debug.Log($"[PickUp] ✅ Triggered by Player: '{col.name}'");
+        if (!col.CompareTag("Player"))
+            return;
+
+        _collected = true;
         Collect(col.gameObject);
     }
 
     public virtual void Collect(GameObject target)
     {
-        Debug.Log($"[PickUp] 🧲 Collect() called for '{target.name}' by pickup '{name}'");
         OnPickUp(target);
-        Debug.Log($"[PickUp] 🧹 Destroying pickup '{name}'");
         Destroy(gameObject);
     }
 

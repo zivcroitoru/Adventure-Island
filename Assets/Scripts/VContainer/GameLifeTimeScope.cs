@@ -9,6 +9,8 @@ public sealed class GameLifetimeScope : LifetimeScope
     [SerializeField] private ProjectileFirePool firePool;
     [SerializeField] private ProjectileSparkPool sparkPool;
     [SerializeField] private SnakeFireProjectilePool snakeFirePool;
+    [SerializeField] private ProjectileBoomerangPool boomerangPool;
+
 
     [Header("Prefabs (used via resolver.Instantiate)")]
     [SerializeField] private RedAnimal redAnimalPrefab;
@@ -37,9 +39,11 @@ protected override void Configure(IContainerBuilder builder)
     RegisterIfExists(builder, firePool);
     RegisterIfExists(builder, sparkPool);
     RegisterIfExists(builder, snakeFirePool);
+    RegisterIfExists(builder, boomerangPool);
+
 
     // ── Weapons & Enemies in Scene ──
-    builder.RegisterComponentInHierarchy<AxeWeapon>();
+        builder.RegisterComponentInHierarchy<AxeWeapon>();
     builder.RegisterComponentInHierarchy<BoomerangWeapon>();
     builder.RegisterComponentInHierarchy<EnemyBase>();
     builder.RegisterComponentInHierarchy<EnemyController>();

@@ -1,41 +1,42 @@
 using UnityEngine;
 
 /// <summary>
-/// Abstract weapon base that handles equip state, cooldown, animation triggering, and firing.
+/// Abstract base weapon handling equip state, cooldown, animations, and firing.
 /// </summary>
 public abstract class BaseWeapon : AnimatorAttackerBase, IWeapon
 {
     [Header("Weapon Settings")]
     [SerializeField] protected float shootCooldown = 0.5f;
 
-    protected float lastShootTime;
-    protected bool isEquipped = false;
+    private float _lastShootTime;
+    private bool _isEquipped;
 
-    // === IWeapon ===
-    public virtual void Equip() => isEquipped = true;
-    public virtual void UnEquip() => isEquipped = false;
-    public bool IsEquipped() => isEquipped;
+    // Equip the weapon
+    public virtual void Equip() => _isEquipped = true;
 
-    public virtual bool CanAttack() => Time.time >= lastShootTime + shootCooldown;
+    // Unequip the weapon
+    public virtual void UnEquip() => _isEquipped = false;
 
+    // Check if equipped
+    public bool IsEquipped() => _isEquipped;
+
+    // Check if weapon can attack (based on cooldown)
+   public override bool CanAttack() => Time.time >= _lastShootTime + shootCooldown;
+
+
+    // Attack entry point
     public override void Attack()
     {
-        if (!isEquipped || !CanAttack()) return;
+        if (!_isEquipped || !CanAttack())
+            return;
 
-        lastShootTime = Time.time;
-        base.Attack(); // triggers animation + OnAttack
+        _lastShootTime = Time.time;
+        base.Attack(); // triggers animation and OnAttack()
     }
 
-    /// <summary>
-    /// Called after attack animation trigger.
-    /// </summary>
-    protected override void OnAttack()
-    {
-        Fire();
-    }
+    // Called after animation trigger; subclasses implement firing
+    protected override void OnAttack() => Fire();
 
-    /// <summary>
-    /// Subclasses implement actual shooting logic here.
-    /// </summary>
+    // Abstract method for shooting logic
     protected abstract void Fire();
 }

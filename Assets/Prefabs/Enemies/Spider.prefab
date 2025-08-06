@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 4068878401572357901}
   - component: {fileID: 1495816748368168149}
   - component: {fileID: 5447604274905392104}
-  - component: {fileID: 3985309233455510961}
   - component: {fileID: 8725307571143758888}
   - component: {fileID: 2039407057952988524}
   - component: {fileID: 3766682567144689378}
   - component: {fileID: 6063320881559524803}
+  - component: {fileID: 9072002900663283906}
   m_Layer: 8
   m_Name: Spider
   m_TagString: Enemy
@@ -141,19 +141,6 @@ MonoBehaviour:
   enemyType: 0
   movementStrategy: {fileID: 8725307571143758888}
   attackStrategy: {fileID: 0}
---- !u!114 &3985309233455510961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 739839852298812703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be673289b48e68041b7a03056f34e9d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 20
 --- !u!114 &8725307571143758888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,3 +286,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eggPrefab: {fileID: 5916664427702696222, guid: d4cc5a153c27f184e80bb1521bf1bc63, type: 3}
+--- !u!114 &9072002900663283906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739839852298812703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e48c737197744cc4bae43c65f8d88e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20

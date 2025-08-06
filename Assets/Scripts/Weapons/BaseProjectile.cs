@@ -49,17 +49,12 @@ public abstract class BaseProjectile : MonoBehaviour, IPoolable
 
     #region ───── Collision ─────
 
-    protected virtual void OnTriggerEnter2D(Collider2D other)
-    {
-        TryDealDamage(other);
-        ReturnToPool();
-    }
+protected virtual void OnTriggerEnter2D(Collider2D other)
+{
+    ReturnToPool();   // no damage here
+}
 
-protected void TryDealDamage(Collider2D other)
-    {
-        if (other.TryGetComponent<IDamageable>(out var target))
-            target.TakeDamage(_damage);
-    }
+
 
     #endregion
 }

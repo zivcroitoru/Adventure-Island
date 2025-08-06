@@ -12,14 +12,15 @@ public class EnemyController : EnemyBase
     public EnemyType Type => enemyType;
 
 
-    private void Awake()
-    {
-        _move = movementStrategy as IMovementStrategy;
-        _attack = attackStrategy as IAttackStrategy;
+protected override void Awake()
+{
+    base.Awake();
 
-        // if (_move == null) Debug.LogError("[EnemyController] Movement strategy is not valid.");
-        // if (_attack == null) Debug.LogError("[EnemyController] Attack strategy is not valid.");
-    }
+    _move = movementStrategy as IMovementStrategy;
+    _attack = attackStrategy as IAttackStrategy;
+}
+
+
 
     private void Update()
     {

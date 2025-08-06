@@ -1,109 +1,102 @@
 using UnityEngine;
 using System;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public sealed class ProjectileBoomerang : BaseProjectile
 {
-    [Header("Boomerang Settings")]
-    [SerializeField] private float returnDelay = 1.2f;
-    [SerializeField] private float speed = 10f;
-    [SerializeField] private float spinSpeed = 720f;
+    [Header("Flight")]
+    [SerializeField] float speed       = 10f;
+    [SerializeField] float spinSpeed   = 720f;
+    [SerializeField] float returnDelay = 1.2f;
+    [SerializeField] float catchDist   = 0.5f;
 
-    private Rigidbody2D _rb;
-    private Transform _playerTransform;
-    private bool _isReturning;
+    private Rigidbody2D rb;
+    private Transform player;
+    private bool returning;
 
     public Action OnReturned;
 
-    private void Awake()
+    void Awake() => rb = GetComponent<Rigidbody2D>();
+
+    void OnEnable()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _rb.gravityScale = 0f;
+        rb.gravityScale = 0f;
+        rb.velocity     = Vector2.zero;
+        returning       = false;
     }
 
-    private void OnEnable()
+    public override void Shoot(Vector2 origin, Vector2 direction, float playerSpeed = 0f)
     {
-        _rb.velocity = Vector2.zero;
-        _isReturning = false;
+        // Fallback, not used
     }
 
-    private void OnDisable()
+    public void Shoot(Transform playerTransform, Vector2 direction)
     {
-        CancelInvoke();
-        OnReturned = null;
-    }
+        player = playerTransform;
 
-    private void Update()
-    {
-        transform.Rotate(0f, 0f, spinSpeed * Time.deltaTime);
+        transform.position   = player.position;
+        transform.localScale = new Vector3(Mathf.Sign(direction.x), 1f, 1f);
+        rb.velocity          = direction.normalized * speed;
 
-        if (_isReturning && _playerTransform != null)
-        {
-            Vector2 toPlayer = (_playerTransform.position - transform.position).normalized;
-            _rb.velocity = toPlayer * speed;
-        }
-    }
-
-    /* ---------- Launch ---------- */
-
-    public override void Shoot(Vector2 origin, Vector2 dir, float playerSpeed = 0f)
-    {
-        _playerTransform = null;
-        transform.position = origin;
-        transform.localScale = new Vector3(Mathf.Sign(dir.x), 1f, 1f);
-        _rb.velocity = dir.normalized * speed;
         Invoke(nameof(StartReturn), returnDelay);
     }
 
-    public void Shoot(Transform player, float direction)
+    void StartReturn() => returning = true;
+
+    void Update()
     {
-        _playerTransform = player;
-        transform.position = player.position;
-        transform.localScale = new Vector3(Mathf.Sign(direction), 1f, 1f);
-        _rb.velocity = Vector2.right * direction * speed;
-        Invoke(nameof(StartReturn), returnDelay);
+        transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
+
+        if (!returning || player == null) return;
+
+        rb.velocity = (player.position - transform.position).normalized * speed;
+
+        if (Vector2.Distance(transform.position, player.position) <= catchDist)
+            Catch();
     }
 
-    private void StartReturn()
+protected override void OnTriggerEnter2D(Collider2D other)
+{
+    // Catch boomerang if it hits the player during return
+    if (returning && other.transform == player)
     {
-        _isReturning = true;
+        Catch();
+        return;
     }
 
-    /* ---------- Collision ---------- */
-
-    protected override void OnTriggerEnter2D(Collider2D other)
+    // Handle obstacles
+    if (other.TryGetComponent<IObstacle>(out var obstacle))
     {
-        Debug.Log($"[Boomerang] Hit {other.name}, returning = {_isReturning}");
+        if (obstacle.Type == ObstacleType.Fire)
+            return; // Skip fire completely
 
-        if (_isReturning && other.CompareTag("Player"))
-        {
-            Debug.Log("[Boomerang] Returned to player.");
-            OnReturned?.Invoke();
-            ReturnToPool(); // ✅ Use pool
-            return;
-        }
-
-        if (other.TryGetComponent(out IObstacle obstacle) && obstacle.Type == ObstacleType.Rock)
-        {
-            obstacle.DestroyObstacle();
-            ReturnToPool(); // ✅ Use pool
-            return;
-        }
-
-        if (other.TryGetComponent(out IDamageable damageable))
-        {
-            damageable.TakeDamage(_damage);
-        }
+        if (obstacle.Type == ObstacleType.Rock)
+            obstacle.DestroyObstacle(); // If you want to break rocks ONLY
     }
 
-    /* ---------- Despawn ---------- */
+    // Deal damage if it's damageable (excluding fire)
+    if (other.TryGetComponent<IDamageable>(out var dmg) && 
+        (!other.TryGetComponent<Fire>(out _))) // Exclude fire
+    {
+        dmg.TakeDamage(_damage);
+    }
+
+    // Always trigger return if it hit something (except fire)
+    if (!returning)
+        StartReturn();
+}
+
+    void Catch()
+    {
+        OnReturned?.Invoke();
+        ReturnToPool();
+    }
 
     public override void OnDespawn()
     {
         CancelInvoke();
-        _rb.velocity = Vector2.zero;
-        _isReturning = false;
-        _playerTransform = null;
-        OnReturned = null;
+        rb.velocity = Vector2.zero;
+        player      = null;
+        returning   = false;
     }
 }

@@ -13,11 +13,9 @@ GameObject:
   - component: {fileID: 7350166255709367240}
   - component: {fileID: 862110159457957425}
   - component: {fileID: 4402935124743185067}
-  - component: {fileID: 3640911762261523242}
-  - component: {fileID: 8621953483997060198}
   - component: {fileID: 3563691272265515451}
-  - component: {fileID: 8775709607553651479}
   - component: {fileID: -1763079393639393983}
+  - component: {fileID: 744757637731888737}
   m_Layer: 8
   m_Name: Frog
   m_TagString: Enemy
@@ -164,46 +162,6 @@ MonoBehaviour:
   enemyType: 4
   movementStrategy: {fileID: 3563691272265515451}
   attackStrategy: {fileID: 0}
---- !u!114 &3640911762261523242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404236110520327190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be673289b48e68041b7a03056f34e9d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 20
---- !u!50 &8621953483997060198
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404236110520327190}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!114 &3563691272265515451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,54 +174,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9823c557315651a4ca511ae07f6e6e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 9
-  jumpDirection: {x: -2, y: 1.5}
+  jumpDistance: 4
+  jumpHeight: 2
+  jumpDuration: 0.45
   postLandDelay: 3
+  jumpDir: {x: -1, y: 0}
   detectionRadius: 5
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  groundCheckPoint: {fileID: 4241731545577974650}
-  groundCheckDistance: 0.1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
   jumpBoolParam: IsJumping
---- !u!58 &8775709607553651479
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404236110520327190}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &-1763079393639393983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +197,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eggPrefab: {fileID: 5916664427702696222, guid: d4cc5a153c27f184e80bb1521bf1bc63, type: 3}
+--- !u!114 &744757637731888737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404236110520327190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e48c737197744cc4bae43c65f8d88e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
 --- !u!1 &7306806049498623597
 GameObject:
   m_ObjectHideFlags: 0

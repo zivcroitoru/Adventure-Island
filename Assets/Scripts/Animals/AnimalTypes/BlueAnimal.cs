@@ -4,9 +4,6 @@ using VContainer;
 [DisallowMultipleComponent]
 public sealed class BlueAnimal : AnimalBase
 {
-    [Header("Spark-Spit Settings")]
-    [SerializeField] private float projectileOffset = 0.4f;
-
     private ProjectileSparkPool _sparkPool;
 
 [Inject]

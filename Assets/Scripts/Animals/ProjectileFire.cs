@@ -5,12 +5,19 @@ public sealed class ProjectileFire : BaseProjectile
 {
     [SerializeField] private float lifetime = 3f;
     [SerializeField] private float spawnOffset = 0.3f;
-
     private Rigidbody2D _rb;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D other)
+    {
+        // Do NOT destroy obstacles directly!
+        // DamageDealer on the projectile (or wherever) should handle it centrally.
+
+        ReturnToPool();
     }
 
     public override void Shoot(Vector2 origin, Vector2 dir, float playerSpeed = 0f)

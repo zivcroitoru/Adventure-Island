@@ -7,6 +7,9 @@ public class RideController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private RuntimeAnimatorController baseController;
 
+    public static event System.Action<GameObject> OnAnimalMounted;
+    public static event System.Action<GameObject> OnAnimalDismounted;
+
     private Rigidbody2D rb;
     private WeaponsHandler weaponHandler;
     private AnimalBase currentAnimal;
@@ -14,9 +17,7 @@ public class RideController : MonoBehaviour
     // === Public Properties ===
     public AnimalBase CurrentAnimal => currentAnimal;
     public bool IsRiding => currentAnimal != null;
-
-    public IAttacker CurrentAttacker =>
-        currentAnimal != null ? (IAttacker)currentAnimal : weaponHandler;
+    public IAttacker CurrentAttacker => IsRiding ? currentAnimal : weaponHandler;
 
     // === Init ===
     private void Awake()
@@ -25,18 +26,12 @@ public class RideController : MonoBehaviour
         weaponHandler = GetComponentInChildren<WeaponsHandler>();
     }
 
-    // === Mounting ===
+    // === Mount System ===
     public bool SwitchAnimal(AnimalBase newAnimal)
     {
-        if (newAnimal == null)
-        {
-            Debug.LogError("[RideController] Tried to mount a null animal.");
-            return false;
-        }
+        if (newAnimal == null) return false;
 
-        Debug.Log($"[RideController] Switching to animal: {newAnimal.name}");
-
-        newAnimal.transform.SetParent(null); // Detach to avoid accidental destruction
+        newAnimal.transform.SetParent(null); // avoid accidental destroy
         DismountCurrentAnimal();
 
         currentAnimal = newAnimal;
@@ -45,82 +40,54 @@ public class RideController : MonoBehaviour
         ApplyAnimatorOverride(currentAnimal.GetOverrideController());
         currentAnimal.SetAnimator(animator);
 
+        OnAnimalMounted?.Invoke(gameObject);
         return true;
+    }
+
+    public void DismountCurrentAnimal()
+    {
+        if (!IsRiding) return;
+
+        currentAnimal.Dismount();
+        currentAnimal = null;
+
+        ResetAnimatorToBase();
+        OnAnimalDismounted?.Invoke(gameObject);
     }
 
     public void UnmountAnimal()
     {
-        if (!IsRiding) return;
-
-        Debug.Log("[RideController] Unmounting animal...");
-        DismountCurrentAnimal();
+        if (IsRiding)
+            DismountCurrentAnimal();
     }
 
-public void DismountCurrentAnimal()
-{
-    if (!IsRiding) return;
-
-    Debug.Log("[RideController] Dismounting animal.");
-    Debug.Log("[RideController] Dismount called from:\n" + System.Environment.StackTrace);
-
-    currentAnimal.Dismount();
-    currentAnimal = null;
-
-    ResetAnimatorToBase();
-}
-
-
+    private void ApplyAnimatorOverride(RuntimeAnimatorController overrideCtrl)
+    {
+        animator.runtimeAnimatorController = overrideCtrl ?? baseController;
+    }
 
     public void ResetAnimatorToBase()
     {
         ApplyAnimatorOverride(baseController);
     }
 
-    private void ApplyAnimatorOverride(RuntimeAnimatorController overrideCtrl)
-    {
-        animator.runtimeAnimatorController = overrideCtrl ?? baseController;
-
-        Debug.Log(overrideCtrl != null
-            ? "[RideController] OverrideController applied."
-            : "[RideController] Using base animator.");
-    }
-
     // === Combat ===
     public void UseAttack()
     {
         if (CurrentAttacker?.CanAttack() == true)
-        {
             CurrentAttacker.Attack();
-        }
-        else
-        {
-            Debug.Log("[RideController] No valid attacker or cannot attack.");
-        }
     }
 
+    // === Obstacle Logic ===
     public bool TryDestroyObstacle(ObstacleType type)
     {
-        if (!IsRiding)
-        {
-            Debug.LogWarning("[RideController] No animal to check obstacle destruction.");
-            return false;
-        }
-
-        bool canDestroy = currentAnimal.CanDestroy(type);
-        Debug.Log($"[RideController] Can destroy {type}: {canDestroy}");
-        return canDestroy;
+        if (!IsRiding) return false;
+        return currentAnimal.CanDestroy(type);
     }
 
-    // === Weapons ===
+    // === Weapon System ===
     public void EquipWeapon(IWeapon weapon)
     {
-        if (weaponHandler == null)
-        {
-            Debug.LogWarning("[RideController] No weapon handler found!");
-            return;
-        }
-
-        weaponHandler.Equip(weapon);
-        Debug.Log($"[RideController] Weapon equipped: {weapon}");
+        weaponHandler?.Equip(weapon);
     }
 }

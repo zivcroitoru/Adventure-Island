@@ -1,55 +1,35 @@
 using UnityEngine;
+using VContainer;
 
-public class BoomerangWeapon : BaseWeapon
+public sealed class BoomerangWeapon : BaseWeapon
 {
-    [SerializeField] private GameObject boomerangPrefab;
-
-    private GameObject _activeBoomerang;
+    [Inject] private ProjectileBoomerangPool pool;
+    private ProjectileBoomerang active;
 
     protected override void Fire()
     {
-        if (!CanFire()) return;
+        if (active != null) return;
 
         Vector3 spawnPos = GetSpawnPosition();
-        _activeBoomerang = Instantiate(boomerangPrefab, spawnPos, transform.rotation);
+        float dir = Mathf.Sign(transform.root.localScale.x);
 
-        if (_activeBoomerang.TryGetComponent(out ProjectileBoomerang projectile))
+        active = pool.Get(spawnPos, Quaternion.identity);
+        active.Shoot(transform.root, Vector2.right * dir);
+
+        active.OnReturned = () =>
         {
-            Transform playerTransform = transform.root;
-
-            // Get direction from player's facing (scale.x)
-            float direction = Mathf.Sign(playerTransform.localScale.x);
-
-            projectile.Shoot(playerTransform, direction);
-        }
-        else
-        {
-            Debug.LogError("[BoomerangWeapon] Missing ProjectileBoomerang component on prefab.");
-        }
-    }
-
-    private bool CanFire()
-    {
-        if (_activeBoomerang != null && _activeBoomerang.activeInHierarchy)
-        {
-            Debug.Log("[BoomerangWeapon] Boomerang already active.");
-            return false;
-        }
-
-        if (boomerangPrefab == null)
-        {
-            Debug.LogError("[BoomerangWeapon] Boomerang prefab is not assigned!");
-            return false;
-        }
-
-        return true;
+            pool.Release(active);
+            active = null;
+        };
     }
 
     private Vector3 GetSpawnPosition()
     {
-        Transform parent = transform.parent;
-        Vector3 pos = parent ? parent.position : transform.position;
-        pos.z = 0f;
-        return pos;
+        Transform root = transform.root;
+        return new Vector3(
+            root.position.x + 0.6f * Mathf.Sign(root.localScale.x),
+            root.position.y,
+            0f
+        );
     }
 }

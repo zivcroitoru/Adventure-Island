@@ -5,9 +5,6 @@ using VContainer;
 public sealed class AxeWeapon : BaseWeapon, IAttacker
 {
     [Inject] private ProjectileAxePool _axePool; // ✅ inject concrete pool type
-
-    [SerializeField] private float _projectileSpeed = 5f;
-
     protected override void Fire()
     {
         if (transform.parent == null)

@@ -36,9 +36,9 @@ public sealed class ProjectileSpark : BaseProjectile
         _sr.flipX = _flipState;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
-        TryDealDamage(other);
+        // Don't deal damage — DamageDealer does it automatically
         ReturnToPool();
     }
 

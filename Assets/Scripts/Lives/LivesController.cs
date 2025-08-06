@@ -1,8 +1,6 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using System;
 
-public class LivesController : MonoBehaviour
+public class LivesController : MonoBehaviour, IResettable
 {
     [Header("Lives Config")]
     [SerializeField] private int startingLives = 3;
@@ -10,9 +8,8 @@ public class LivesController : MonoBehaviour
 
     private int currentLives;
 
-    // Events
-    public event Action<int> OnLivesChanged;
-    public event Action OnOutOfLives;
+    public event System.Action<int> OnLivesChanged;
+    public event System.Action OnOutOfLives;
 
     public int CurrentLives => currentLives;
 
@@ -21,6 +18,8 @@ public class LivesController : MonoBehaviour
         currentLives = startingLives;
         NotifyLivesChanged();
         SubscribeToEvents();
+
+        GameResetManager.Instance?.Register(this);
     }
 
     private void OnDestroy()
@@ -77,8 +76,20 @@ public class LivesController : MonoBehaviour
 
     private void HandleGameOver()
     {
-        Debug.Log("[LivesController] Out of lives. Reloading scene...");
+        Debug.Log("[LivesController] Out of lives. Resetting game state...");
+
         OnOutOfLives?.Invoke();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        // Instead of reload scene:
+        GameResetManager.Instance?.ResetAll();
+    }
+
+    // IResettable implementation
+    public void ResetState()
+    {
+        currentLives = startingLives;
+        NotifyLivesChanged();
+        resetPosition?.ResetPlayerPosition();
+        Debug.Log("[LivesController] ResetState called: lives reset and player repositioned.");
     }
 }

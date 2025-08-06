@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -3460905289729604622}
   - component: {fileID: 3789265392145393512}
   - component: {fileID: -7995861978869354575}
+  - component: {fileID: -2382845410170769880}
   m_Layer: 11
   m_Name: Pre_SparkProjectile
   m_TagString: Untagged
@@ -162,7 +163,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  damage: 1
+  _damage: 1
   lifetime: 0.3
-  sparkSpeed: 5
   flickerInterval: 0.05
+--- !u!114 &-2382845410170769880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460594579410848658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e48c737197744cc4bae43c65f8d88e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1

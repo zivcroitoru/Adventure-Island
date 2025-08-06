@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5627126052336370419}
   - component: {fileID: 5320934628027750990}
   - component: {fileID: 4198761395677802015}
+  - component: {fileID: 229488263129193421}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -134,7 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 767ba3b43c2cd694786b97d9e5701e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 3
 --- !u!50 &4198761395677802015
 Rigidbody2D:
   serializedVersion: 4
@@ -162,3 +162,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &229488263129193421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621230807690715772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e48c737197744cc4bae43c65f8d88e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 3

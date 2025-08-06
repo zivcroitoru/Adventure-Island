@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1395753118739539343}
   - component: {fileID: 7804842016384401193}
   - component: {fileID: 3218497387189673749}
+  - component: {fileID: 1277522523358988084}
   m_Layer: 9
   m_Name: CampFire
   m_TagString: Hazard
@@ -99,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3357d18d002cb0248991e1302080af62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
 --- !u!58 &7804842016384401193
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -162,3 +162,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1277522523358988084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3117400238817462100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e48c737197744cc4bae43c65f8d88e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20

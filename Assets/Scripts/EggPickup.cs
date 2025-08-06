@@ -3,12 +3,12 @@ using VContainer;
 using VContainer.Unity;
 
 [DisallowMultipleComponent]
-public sealed class EggPickup : PickUp
+public sealed class EggPickup : PickUp, IResettable
 {
     [System.Serializable]
     private struct WeightedPrefab
     {
-        public GameObject prefab; // Fully assigned prefab: AnimalPickup_Red, WeaponPickup, etc.
+        public GameObject prefab;
         [Range(0f, 1f)] public float weight;
     }
 
@@ -16,92 +16,57 @@ public sealed class EggPickup : PickUp
     [SerializeField] private WeightedPrefab[] rewards;
 
     private IObjectResolver _resolver;
+    private bool _collected;
+
+    private void Start()
+    {
+        if (_resolver == null)
+        {
+            var scope = FindFirstObjectByType<LifetimeScope>();
+            if (scope != null)
+                _resolver = scope.Container;
+        }
+
+        GameResetManager.Instance?.Register(this);
+    }
 
     public void SetResolver(IObjectResolver resolver)
     {
         _resolver = resolver;
     }
-private void Start()
-{
-    if (_resolver == null)
-    {
-        var scope = FindFirstObjectByType<LifetimeScope>();
-        if (scope != null)
-        {
-            _resolver = scope.Container;
-            Debug.Log($"[EggPickup] 🧩 Auto-assigned resolver on scene egg: {name}");
-        }
-        else
-        {
-            Debug.LogWarning("[EggPickup] ⚠️ No LifetimeScope found in scene.");
-        }
-    }
-}
-
-
-
-
 
     protected override void OnPickUp(GameObject player)
     {
-        Debug.Log("[EggPickup] 🥚 OnPickUp triggered.");
+        if (_collected) return;
+        _collected = true;
 
-        var selectedPrefab = SelectReward();
-        if (selectedPrefab == null)
-        {
-            Debug.LogWarning("[EggPickup] ❌ No reward prefab selected.");
-            return;
-        }
+        gameObject.SetActive(false);
 
-        Debug.Log($"[EggPickup] 🎁 Selected reward: {selectedPrefab.name}");
+        var prefab = SelectReward();
+        if (prefab == null) return;
 
-        var rewardGO = Instantiate(selectedPrefab, transform.position, Quaternion.identity);
-
-        InjectReward(rewardGO);
-    }
-
-    private void InjectReward(GameObject rewardGO)
-    {
-        if (_resolver == null)
-        {
-            Debug.LogError("[EggPickup] ❌ _resolver is null — cannot inject.");
-            return;
-        }
-
-        var components = rewardGO.GetComponentsInChildren<MonoBehaviour>(true);
-        foreach (var comp in components)
-            Debug.Log($"[EggPickup] 🔍 Component on reward: {comp.GetType().Name}");
-
-        try
-        {
-            _resolver.InjectGameObject(rewardGO);
-            Debug.Log("[EggPickup] ✅ Dependency injection succeeded.");
-        }
-        catch (System.Exception ex)
-        {
-            Debug.LogError($"[EggPickup] ❌ Injection crash:\n{ex.Message}\n{ex.StackTrace}");
-        }
+        var reward = Instantiate(prefab, transform.position, Quaternion.identity);
+        _resolver?.InjectGameObject(reward);
     }
 
     private GameObject SelectReward()
     {
-        float totalWeight = 0f;
-        foreach (var r in rewards)
-            totalWeight += r.weight;
+        float total = 0f;
+        foreach (var r in rewards) total += r.weight;
 
-        float roll = Random.value * totalWeight;
-        Debug.Log($"[EggPickup] 🎲 Rolled value: {roll} / Total weight: {totalWeight}");
-
+        float roll = Random.value * total;
         foreach (var r in rewards)
         {
             if ((roll -= r.weight) <= 0f)
-            {
-                Debug.Log($"[EggPickup] 🧮 Chose: {r.prefab.name}");
                 return r.prefab;
-            }
         }
 
-        Debug.LogWarning("[EggPickup] ❓ SelectReward fallback to null.");
         return null;
+    }
+
+    public void ResetState()
+    {
+        _collected = false;
+        gameObject.SetActive(true);
     }
 }

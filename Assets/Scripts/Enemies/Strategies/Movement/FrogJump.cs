@@ -1,99 +1,65 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Animator))]
 public class FrogJumpAttackMove : MonoBehaviour, IMovementStrategy
 {
     [Header("Jump Settings")]
-    [SerializeField] private float jumpForce = 9f;
-    [SerializeField] private Vector2 jumpDirection = new Vector2(-2f, 1.5f);
-    [SerializeField] private float postLandDelay = 3f;
+    [SerializeField] float jumpDistance   = 4f;   // horizontal travel
+    [SerializeField] float jumpHeight     = 2f;   // peak height
+    [SerializeField] float jumpDuration   = 0.45f;
+    [SerializeField] float postLandDelay  = 3f;
+    [SerializeField] Vector2 jumpDir      = new( -1f, 0f );   // flat, will add vertical arc
 
-    [Header("Detection")]
-    [SerializeField] private float detectionRadius = 5f;
-    [SerializeField] private LayerMask playerLayer;
-
-    [Header("Ground Check")]
-    [SerializeField] private Transform groundCheckPoint;
-    [SerializeField] private float groundCheckDistance = 0.1f;
-    [SerializeField] private LayerMask groundLayer;
+    [Header("Player Detection")]
+    [SerializeField] float detectionRadius = 5f;
+    [SerializeField] LayerMask playerLayer;
 
     [Header("Animation")]
-    [SerializeField] private string jumpBoolParam = "IsJumping";
+    [SerializeField] string jumpBoolParam = "IsJumping";
 
-    private Rigidbody2D _rb;
-    private Animator _animator;
-    private float _nextJumpTime;
-    private bool _wasGrounded;
+    Animator _anim;
+    bool     _isJumping;
+    float    _t;              // 0-1 progress across arc
+    float    _nextJumpTime;
+    Vector3  _startPos, _endPos;
 
-    private void Awake()
+    void Awake() => _anim = GetComponent<Animator>();
+
+    public void Move( Transform enemyTf )
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
-    }
-
-    public void Move(Transform enemyTransform)
-    {
-        bool isGrounded = CheckGrounded();
-
-        HandleLanding(isGrounded);
-        _wasGrounded = isGrounded;
-
-        if (!CanJump(isGrounded, enemyTransform.position))
-            return;
-
-        StartJump();
-    }
-
-    private bool CheckGrounded()
-    {
-        return Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckDistance, groundLayer);
-    }
-
-    private void HandleLanding(bool isGrounded)
-    {
-        if (!_wasGrounded && isGrounded && _rb.velocity.y <= 0.1f)
+        // Active hop: update position along arc ---------------------------------
+        if ( _isJumping )
         {
-            _animator.SetBool(jumpBoolParam, false);
-            _rb.velocity = Vector2.zero;
-            _nextJumpTime = Time.time + postLandDelay;
+            _t += Time.deltaTime / jumpDuration;
+            float arc = 4f * _t * ( 1f - _t );                // 0→1→0 parabola
+            enemyTf.position = Vector3.Lerp( _startPos, _endPos, _t ) +
+                               Vector3.up * ( arc * jumpHeight );
+
+            if ( _t >= 1f )
+            {
+                _isJumping   = false;
+                _anim.SetBool( jumpBoolParam, false );
+                _nextJumpTime = Time.time + postLandDelay;
+            }
+            return;
         }
-    }
 
-    private bool CanJump(bool isGrounded, Vector2 enemyPosition)
-    {
-        return isGrounded
-            && Time.time >= _nextJumpTime
-            && IsPlayerNearby(enemyPosition);
-    }
+        // Idle: decide whether to start a new hop --------------------------------
+        if ( Time.time < _nextJumpTime ) return;
+        if ( !Physics2D.OverlapCircle( enemyTf.position, detectionRadius, playerLayer ) ) return;
 
-    private void StartJump()
-    {
-        _animator.SetBool(jumpBoolParam, true);
-
-        Vector2 force = jumpDirection.normalized * jumpForce;
-        _rb.velocity = Vector2.zero;
-        _rb.AddForce(force, ForceMode2D.Impulse);
-
-        _nextJumpTime = float.MaxValue; // Locked until landing
-    }
-
-    private bool IsPlayerNearby(Vector2 position)
-    {
-        return Physics2D.OverlapCircle(position, detectionRadius, playerLayer);
+        // Begin hop --------------------------------------------------------------
+        _isJumping = true;
+        _t         = 0f;
+        _startPos  = enemyTf.position;
+        _endPos    = _startPos + ( Vector3 )( jumpDir.normalized * jumpDistance );
+        _anim.SetBool( jumpBoolParam, true );
     }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
-        if (groundCheckPoint != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(groundCheckPoint.position, groundCheckPoint.position + Vector3.down * groundCheckDistance);
-        }
-
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        Gizmos.DrawWireSphere( transform.position, detectionRadius );
     }
 #endif
 }

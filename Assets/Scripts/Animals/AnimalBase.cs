@@ -6,21 +6,15 @@ public abstract class AnimalBase : AnimatorAttackerBase
     [SerializeField] private AnimatorOverrideController overrideController;
 
     protected GameObject rider;
+
     public GameObject Rider => rider;
     public virtual AnimatorOverrideController GetOverrideController() => overrideController;
 
     public virtual void OnCollect(GameObject player)
     {
-        Debug.Log($"[AnimalBase] 🐾 {name} was collected by '{player.name}'");
-
         if (player.TryGetComponent<RideController>(out var rideController))
         {
-            Debug.Log($"[AnimalBase] → Found RideController on '{player.name}', switching animal...");
             rideController.SwitchAnimal(this);
-        }
-        else
-        {
-            Debug.LogWarning($"[AnimalBase] ⚠️ No RideController found on '{player.name}'");
         }
     }
 
@@ -36,9 +30,6 @@ public abstract class AnimalBase : AnimatorAttackerBase
 
     public virtual void Dismount()
     {
-        Debug.Log($"[AnimalBase] 🧍‍♂️ Dismount called on '{name}'");
-        Debug.Log("[AnimalBase] Stack:\n" + System.Environment.StackTrace);
-
         OnDismounted();
 
         if (rider == null) return;
@@ -49,7 +40,6 @@ public abstract class AnimalBase : AnimatorAttackerBase
         AdjustRiderCollider(0f);
         DetachFromPlayer();
 
-        // Keep rider alive if invincible, else destroy animal
         if (rider.TryGetComponent<IInvincible>(out var invincible) && invincible.IsInvincible)
         {
             rider = null;
@@ -78,7 +68,7 @@ public abstract class AnimalBase : AnimatorAttackerBase
             collider.offset = new Vector2(collider.offset.x, offsetY);
     }
 
-    public virtual bool CanDestroy(ObstacleType type) => type != ObstacleType.Fire;
+    public virtual bool CanDestroy(ObstacleType type) => true;
     public virtual bool CanHurtEnemy(EnemyType type) => type != EnemyType.Ghost;
 
     protected virtual void OnMounted() { }

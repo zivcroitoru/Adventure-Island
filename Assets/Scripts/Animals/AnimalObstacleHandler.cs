@@ -15,19 +15,16 @@ public class AnimalObstacleHandler : MonoBehaviour
         if (!other.TryGetComponent<IObstacle>(out var obstacle))
             return;
 
-        bool canDestroy = animal.CanDestroy(obstacle.Type);
         bool isInvincible = animal.Rider != null &&
                             animal.Rider.TryGetComponent<IInvincible>(out var inv) &&
                             inv.IsInvincible;
 
-        // Dismount only if not invincible
         if (animal.Rider != null && !isInvincible)
         {
             animal.Dismount();
         }
 
-        // Destroy the obstacle only if the animal is allowed
-        if (canDestroy)
+        if (animal.CanDestroy(obstacle.Type))
         {
             obstacle.DestroyObstacle();
         }

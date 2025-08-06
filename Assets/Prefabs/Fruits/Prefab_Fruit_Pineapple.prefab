@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20b9b011fe91a544bfdbd6c49d4a373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyValue: 2
+  energyBars: 2
   fruitSprite: {fileID: 1320225213, guid: c0a2660568961ea4d8aa55860d05f27f, type: 3}
 --- !u!212 &-5584086472611505090
 SpriteRenderer:

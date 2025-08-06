@@ -2,14 +2,18 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(FruitView))]
-public class FruitController : PickUp
+public sealed class FruitController : PickUp
 {
     [Header("Fruit Settings")]
     [SerializeField] private int energyBars = 1;
     [SerializeField] private Sprite fruitSprite;
 
     private FruitView view;
+    private FruitModel model;
+
     private static int totalFruitsCollected;
+
+    public static int TotalFruitsCollected => totalFruitsCollected;
 
     public static event System.Action<int> OnFruitCountChanged;
     public static event System.Action OnBonusLifeEarned;
@@ -18,6 +22,8 @@ public class FruitController : PickUp
     {
         view = GetComponent<FruitView>();
         view.SetSprite(fruitSprite);
+
+        model = new FruitModel(energyBars);
     }
 
     protected override void OnPickUp(GameObject player)
@@ -28,7 +34,7 @@ public class FruitController : PickUp
         }
 
         GiveEnergy(player);
-        CountFruit();
+        RegisterCollection();
     }
 
     private void GiveEnergy(GameObject player)
@@ -36,8 +42,8 @@ public class FruitController : PickUp
         var energy = player.GetComponentInChildren<EnergyController>();
         if (energy != null)
         {
-            energy.AddBars(energyBars);
-            Debug.Log($"[FruitController] Gave {energyBars} energy bars to player");
+            energy.AddBars(model.EnergyValue);
+            Debug.Log($"[FruitController] Gave {model.EnergyValue} energy bars to player");
         }
         else
         {
@@ -45,15 +51,20 @@ public class FruitController : PickUp
         }
     }
 
-    private void CountFruit()
+    private void RegisterCollection()
     {
         totalFruitsCollected++;
-        OnFruitCountChanged?.Invoke(totalFruitsCollected);
+        BroadcastFruitCount();
 
         if (totalFruitsCollected % 30 == 0)
         {
-            Debug.Log("[FruitController] 30 fruits collected. Triggering bonus life event.");
+            Debug.Log("[FruitController] 🎉 30 fruits collected. Bonus life awarded!");
             OnBonusLifeEarned?.Invoke();
         }
+    }
+
+    private void BroadcastFruitCount()
+    {
+        OnFruitCountChanged?.Invoke(totalFruitsCollected);
     }
 }

@@ -18,6 +18,6 @@ public class LivesView : MonoBehaviour
 
     private void UpdateUI(int lives)
     {
-        livesText.text = $"{lives}";
+        livesText.text = $"x {lives}";
     }
 }

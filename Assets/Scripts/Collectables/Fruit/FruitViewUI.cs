@@ -5,10 +5,12 @@ public class FruitViewUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI fruitText;
 
-    private void OnEnable()
-    {
-        FruitController.OnFruitCountChanged += UpdateUI;
-    }
+private void OnEnable()
+{
+    FruitController.OnFruitCountChanged += UpdateUI;
+    UpdateUI(FruitController.TotalFruitsCollected); // sync immediately
+}
+
 
     private void OnDisable()
     {
@@ -17,6 +19,7 @@ public class FruitViewUI : MonoBehaviour
 
     private void UpdateUI(int fruitCount)
     {
-        fruitText.text = $"Fruits: {fruitCount}";
+        Debug.Log($"[FruitViewUI] Updating Fruit Count: {fruitCount}");
+        fruitText.text = $"x {fruitCount}";
     }
 }

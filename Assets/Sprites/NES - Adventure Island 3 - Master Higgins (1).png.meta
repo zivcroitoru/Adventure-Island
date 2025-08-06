@@ -1,0 +1,2846 @@
+fileFormatVersion: 2
+guid: 6a66d1a3380074f4cb8324f7cb41b44f
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 549
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7449a11b5286d4f4c9e13c298640a8cc
+      internalID: -1489676262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_1
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 549
+        width: 16
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34dc2393c0bc8f941abc1d7d191a27d3
+      internalID: 260284135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_2
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 549
+        width: 20
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c649b504c62d89340b6e59df016e240a
+      internalID: 732485104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_3
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 549
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7bfbbb336bace7488a34b7b8a1915f4
+      internalID: 2138037049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_4
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 549
+        width: 16
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f5562bb29b5e5e4cb140c275a85df1d
+      internalID: -1555837962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_5
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 549
+        width: 19
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d17818f06c303e747838987d2df28b74
+      internalID: 674480502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_6
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 550
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5743c97b4ab16f841b36dad7db9701f1
+      internalID: -1853583395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_7
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 549
+        width: 20
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb7065a2f4af17c4d8eca359f52ea9c1
+      internalID: -899113305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_8
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 564
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 197fd5b2e5252b142973edd1781bc99f
+      internalID: -1134968266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_9
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 565
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e511fbb9524bdb34d95f8edf8a4e8bba
+      internalID: 955723130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_10
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 569
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a666ac01b4f6bb49a91e30ddee888ac
+      internalID: 850405638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_11
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 557
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f4b20e1aff589b4fbf89bd241cf6b47
+      internalID: -757508581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_12
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 565
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d69aa5b7d2055f245b430f34a9206f92
+      internalID: 726153719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_13
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 557
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d446266a4ad077b419fd5d6966bcee79
+      internalID: 732018046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_14
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 550
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cc8da6aef050834b9abc454789b1fd9
+      internalID: 2102000923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_15
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 547
+        width: 32
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2bfde37af839444197293464bc5efa7
+      internalID: -687678681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_16
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 550
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c999ecb1d54cc747992480c77103c07
+      internalID: 976970064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FruitUI
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 544
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e61445132807d8048a0b7eb142cbb841
+      internalID: 22245528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_18
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 515
+        width: 19
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e346e7d26a8a2b45a8d0ad47b1ed918
+      internalID: -208717587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_19
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 515
+        width: 19
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83a7b3bae98f87041b6fe5c52247c974
+      internalID: 623589265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_20
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 515
+        width: 19
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fb592f7653da244fb00ef1570e46576
+      internalID: 1926036083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_21
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 515
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13c1f0090580d8040a07871a8b2f43e4
+      internalID: 118955757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_22
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 515
+        width: 22
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eca5aeac4066e6a4a9d928288d7ebffa
+      internalID: 865127880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_23
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 517
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b99caa18acac2b741b715f511d34599a
+      internalID: -273108239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_24
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 517
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 508f1e9b81dbb0f44ad79709dbbc0eea
+      internalID: 1632728464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_25
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 508
+        width: 22
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cec56b34478cee44db8eeaa2dd5661b5
+      internalID: 1826306828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_26
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 508
+        width: 22
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efde5c099c955f844b136c90d99ba42c
+      internalID: -1958982282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_27
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 517
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af6e70e2801126947830461933b01f98
+      internalID: -1680217662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_28
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 517
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 896d9359e95a7444c8019647241a5996
+      internalID: -11819848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_29
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 487
+        width: 31
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a124ec50aca4a64080778e4b3a63d7e
+      internalID: -1032895727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_30
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 506
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 763226efef99e38469346a6198aef0ba
+      internalID: -1679226462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_31
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 487
+        width: 31
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e99fc397e7d48349aeb2d4fccd8b8c8
+      internalID: -535635442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_32
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 487
+        width: 30
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f0dd8e2cc68af44dac76936941d47b7
+      internalID: -86064100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_33
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 487
+        width: 30
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3c2ea1e2a5bf5e459db6e865068162e
+      internalID: -884470983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_34
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 487
+        width: 13
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed011c2fbb96f3d448d40f4cdbdca9b0
+      internalID: -1863957756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_35
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 487
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90bd89e405d1dc04f98e19e32bac3637
+      internalID: -508195372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_36
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 487
+        width: 24
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4334a17477484de4eaae9b8bf8082f92
+      internalID: -1257238070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_37
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 486
+        width: 22
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d4d0ed2a9cc26f47af6e1ca958cedbd
+      internalID: 2076469554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_38
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 446
+        width: 26
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7b6c0a836245e84082868bf1a1b069e
+      internalID: -1861311380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_39
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 446
+        width: 26
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 619680f5e3e92c044a471ac9d07d9c57
+      internalID: 316344121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_40
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 446
+        width: 32
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d953ce122eb566c488afc2845f9918f4
+      internalID: -240677986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_41
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 446
+        width: 32
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac81cca2fcedb2849a4925d9b223ef2b
+      internalID: -1552996565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_42
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 446
+        width: 24
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4dff2627ade5564cbf133f3412c5d40
+      internalID: -882142029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_43
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 446
+        width: 24
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5df431fe6af9c240b8f3c1b7f5bdbb1
+      internalID: 1087645487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_44
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 446
+        width: 26
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cc4b4683e083ca4fb1fe2519f6a887d
+      internalID: 277758252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_45
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 446
+        width: 28
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 982eca4da97208c43960661d7946ffd4
+      internalID: 1962505191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_46
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 446
+        width: 23
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9417bd8003c727646adf1a0be7ffc14c
+      internalID: 1354400965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_47
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 443
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 625235abedec81648bb6feb3dcd40a34
+      internalID: -1948931099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_48
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 405
+        width: 26
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cf504b77d41cfb49936c4a13e9d5ab7
+      internalID: 1645017765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_49
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 405
+        width: 26
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26308a6b45d14e9498e13deca4c7591d
+      internalID: 2010327321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_50
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 405
+        width: 31
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12394f1e49006044cba715fdc486a397
+      internalID: 2081756233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_51
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 405
+        width: 31
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0ffb8f8f73d21f4dba76249d2e2e490
+      internalID: -1386373116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_52
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 405
+        width: 24
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d5338e97ab885e4596147e632707ce1
+      internalID: 1835851091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_53
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 414
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9da4731e3c8068a46981674cd5d78fa1
+      internalID: -1598493083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_54
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 409
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a763cda383fc984990db1212ab7ccf6
+      internalID: -1706186382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_55
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 414
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 116fcec309849cf4e98e2b64c857be83
+      internalID: -1062441977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_56
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 353
+        width: 28
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d13950ee8dc12640bc9dc10a35940a9
+      internalID: 1832427965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_57
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 353
+        width: 27
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90646fe2dac958e459183876d6a29f38
+      internalID: -464403484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_58
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 353
+        width: 28
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cded61d639c4004aa954ff43232d6b4
+      internalID: -1643627382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_59
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 353
+        width: 28
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f918d6297473d4a41849aedd165436fe
+      internalID: -351025568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_60
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 353
+        width: 29
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89b824c42662f974d92c5f2de2676d76
+      internalID: -672096275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_61
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 357
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9136ae6cb879e5479e112b2eb421966
+      internalID: -1367006747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_62
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 359
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cb1566fd334d804796439244cc3bb33
+      internalID: -968613710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_63
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 356
+        width: 31
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a36ea56f2b8a866468fa273bebe343a0
+      internalID: 687879856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_64
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 356
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f943a2a1fd798e54d81d412c2b8e5725
+      internalID: 1849944111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_65
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 356
+        width: 32
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d44344f73d57cc44acea1fa59d5a8d7
+      internalID: -1975655613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_66
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 356
+        width: 31
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b8ec05324961aa4dae7597fc16f0684
+      internalID: -164230502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_67
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 301
+        width: 28
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d50f714c2bee8074387d6838da1f1150
+      internalID: 501560625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_68
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 301
+        width: 27
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cd17abd5ba2ac44aa069a486c802f76
+      internalID: 2036047795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_69
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 301
+        width: 28
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 707d3bd9c3b779a43b694e3f4ebae955
+      internalID: -1018790132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_70
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 301
+        width: 28
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c536ea2ff95c58048b3044f836fac806
+      internalID: -882011136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_71
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 301
+        width: 40
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4516b99af936c974c9556e066994bbe7
+      internalID: -1808416975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_72
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 306
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56d13114374fc874eb03491120b6cfd0
+      internalID: -1574645242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_73
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 253
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3d4719853dbde244a82ce206231aaa6
+      internalID: -1424831125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_74
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 253
+        width: 32
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d7bb965cb7356d4c9fabdd5fddef997
+      internalID: -658416606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_75
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 253
+        width: 32
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b31b93b2691c8c94d94516b58688aa1d
+      internalID: -518332352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_76
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 253
+        width: 31
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36ca3db9a30112a4a9551368da07481a
+      internalID: 537481866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_77
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 253
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ca8aa369def3704e82f83edc351656d
+      internalID: -1505986391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_78
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 253
+        width: 29
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 794bc7c8f32d2cc4eba22f50b67d4113
+      internalID: 1870682649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_79
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 254
+        width: 31
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dc06f57ff33d4c4f9e364355afe4166
+      internalID: -838706066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_80
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 260
+        width: 32
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8720f9f048753d439da2edb84d361fa
+      internalID: -529522181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_81
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 203
+        width: 30
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5a2c0a7909acc74ea5d54a61a2fd04c
+      internalID: -1458313811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_82
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 205
+        width: 32
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8de36bf454b026543b75f4cd0637561e
+      internalID: 1424947650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_83
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 214
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c7dc156fa29ff840882eaf2e6e4d5d5
+      internalID: 1959967708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_84
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 214
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1abf93c446995bf41ad1ff5181cf8417
+      internalID: -243419108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_85
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 201
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43ca309823113c141968913ad0e29ace
+      internalID: -1218446258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_86
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 213
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a0200b6f9912424395c99016bf8e7db
+      internalID: 253817966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_87
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 155
+        width: 36
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f04df4e432d32145ad193c8376356c5
+      internalID: 1830001379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_88
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 155
+        width: 36
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff6b3a205cfadf1429a57e84c2e2ed69
+      internalID: 120838800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_89
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 155
+        width: 37
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d55b6ec0ccd02684d810815c6c10a306
+      internalID: -201580662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_90
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 155
+        width: 36
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a5ec9378eb32354988b9c2c0b0ad028
+      internalID: -1358886229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_91
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 155
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d34e471db8b1cf14385368504b7811b2
+      internalID: 193078369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_92
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 149
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2d96f41f084d0346bbdeacc30de9bed
+      internalID: -1426025893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_93
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 155
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8af2f80cbd373544bbf2820d8cea1d8
+      internalID: -590693529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_94
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 155
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8eb37757dc9dd3042a29516fc986602e
+      internalID: 1500170523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_95
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 113
+        width: 30
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92af3c015a96dfe4e8f69ddf8e22d43a
+      internalID: -2031243250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_96
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 113
+        width: 30
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e554e828ae9ad954fb208b796dc67dcc
+      internalID: -1389857551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_97
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 135
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daca944b084e43944a891299533cf7e8
+      internalID: 497764968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_98
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 113
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0884c427c46903d4180174b786b1b41b
+      internalID: 91771345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_99
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 113
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81ead83b1d5ba1a429bf192d8a2cd784
+      internalID: 1216825907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_100
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 108
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9c43027ca1511b4fa90d752cd9946b4
+      internalID: -1603351612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_101
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 108
+        width: 27
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1131264e0e4c304182fe6efab023f87
+      internalID: 1935793848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_102
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 108
+        width: 27
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2b03560eae8b9a4fb84bf4ad49adbf0
+      internalID: -393992164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_103
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 108
+        width: 27
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78edca599c623ee4780e4aca5368a9e8
+      internalID: -329014084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_104
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 108
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6aac312fe3366844a4a8a8e7a214b28
+      internalID: -297889494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_105
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 69
+        width: 24
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df97346fe7d23f847b44a887cac1dc5c
+      internalID: -1360705296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_106
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 69
+        width: 31
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fd5d802ed8fd304c97ca83c0b710f3f
+      internalID: 2121707324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_107
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 69
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d83fec83403351746a84c57412c7ea15
+      internalID: -759368574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_108
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 69
+        width: 31
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b594bd7dcc422be45a121e211ca5b7b4
+      internalID: -1194001237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_109
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 69
+        width: 29
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e929932272ff87547b72bec222fc5a69
+      internalID: -1703010832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_110
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 69
+        width: 46
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 509f1bfe1145ee446977ced5e609d580
+      internalID: 1525957152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_111
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 69
+        width: 46
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3243547dff38d654aa1011ae90d935ab
+      internalID: -866770109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_112
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 56
+        width: 46
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21d58dfd499d9f542bb07a1be794ed64
+      internalID: 2081049274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_113
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 35
+        width: 33
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1ddfa4516d26b04a84aae9a5207a14d
+      internalID: 1247744869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_114
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 35
+        width: 33
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc9a5fb44a2be3241bbc5f821e373eda
+      internalID: 1370187892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_115
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 35
+        width: 30
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93f281dea63fe5e4ebaa47528ee46530
+      internalID: -879241295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_116
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 35
+        width: 30
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 567296ebabaee5748b0fe3799210a574
+      internalID: -1189517166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_117
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8699d09b3a63c24e8017352d167dad1
+      internalID: 590216073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_118
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 1
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82bcb9c250689964da50532dc45a9807
+      internalID: 332963832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_119
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 1
+        width: 33
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 033b8eb47fe3f6f4183b3791da4e8358
+      internalID: -1023993409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_120
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 1
+        width: 33
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3a97477259a73a4f89167f70fb3f0c5
+      internalID: -59718459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_121
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 1
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1247cfe5fd3a1da418b2de0ed3ed648c
+      internalID: -1496517390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NES - Adventure Island 3 - Master Higgins (1)_122
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 1
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 150d7706de34ab04399d916c5a34d899
+      internalID: 1153182690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      FruitUI: 22245528
+      NES - Adventure Island 3 - Master Higgins (1)_0: -1489676262
+      NES - Adventure Island 3 - Master Higgins (1)_1: 260284135
+      NES - Adventure Island 3 - Master Higgins (1)_10: 850405638
+      NES - Adventure Island 3 - Master Higgins (1)_100: -1603351612
+      NES - Adventure Island 3 - Master Higgins (1)_101: 1935793848
+      NES - Adventure Island 3 - Master Higgins (1)_102: -393992164
+      NES - Adventure Island 3 - Master Higgins (1)_103: -329014084
+      NES - Adventure Island 3 - Master Higgins (1)_104: -297889494
+      NES - Adventure Island 3 - Master Higgins (1)_105: -1360705296
+      NES - Adventure Island 3 - Master Higgins (1)_106: 2121707324
+      NES - Adventure Island 3 - Master Higgins (1)_107: -759368574
+      NES - Adventure Island 3 - Master Higgins (1)_108: -1194001237
+      NES - Adventure Island 3 - Master Higgins (1)_109: -1703010832
+      NES - Adventure Island 3 - Master Higgins (1)_11: -757508581
+      NES - Adventure Island 3 - Master Higgins (1)_110: 1525957152
+      NES - Adventure Island 3 - Master Higgins (1)_111: -866770109
+      NES - Adventure Island 3 - Master Higgins (1)_112: 2081049274
+      NES - Adventure Island 3 - Master Higgins (1)_113: 1247744869
+      NES - Adventure Island 3 - Master Higgins (1)_114: 1370187892
+      NES - Adventure Island 3 - Master Higgins (1)_115: -879241295
+      NES - Adventure Island 3 - Master Higgins (1)_116: -1189517166
+      NES - Adventure Island 3 - Master Higgins (1)_117: 590216073
+      NES - Adventure Island 3 - Master Higgins (1)_118: 332963832
+      NES - Adventure Island 3 - Master Higgins (1)_119: -1023993409
+      NES - Adventure Island 3 - Master Higgins (1)_12: 726153719
+      NES - Adventure Island 3 - Master Higgins (1)_120: -59718459
+      NES - Adventure Island 3 - Master Higgins (1)_121: -1496517390
+      NES - Adventure Island 3 - Master Higgins (1)_122: 1153182690
+      NES - Adventure Island 3 - Master Higgins (1)_13: 732018046
+      NES - Adventure Island 3 - Master Higgins (1)_14: 2102000923
+      NES - Adventure Island 3 - Master Higgins (1)_15: -687678681
+      NES - Adventure Island 3 - Master Higgins (1)_16: 976970064
+      NES - Adventure Island 3 - Master Higgins (1)_18: -208717587
+      NES - Adventure Island 3 - Master Higgins (1)_19: 623589265
+      NES - Adventure Island 3 - Master Higgins (1)_2: 732485104
+      NES - Adventure Island 3 - Master Higgins (1)_20: 1926036083
+      NES - Adventure Island 3 - Master Higgins (1)_21: 118955757
+      NES - Adventure Island 3 - Master Higgins (1)_22: 865127880
+      NES - Adventure Island 3 - Master Higgins (1)_23: -273108239
+      NES - Adventure Island 3 - Master Higgins (1)_24: 1632728464
+      NES - Adventure Island 3 - Master Higgins (1)_25: 1826306828
+      NES - Adventure Island 3 - Master Higgins (1)_26: -1958982282
+      NES - Adventure Island 3 - Master Higgins (1)_27: -1680217662
+      NES - Adventure Island 3 - Master Higgins (1)_28: -11819848
+      NES - Adventure Island 3 - Master Higgins (1)_29: -1032895727
+      NES - Adventure Island 3 - Master Higgins (1)_3: 2138037049
+      NES - Adventure Island 3 - Master Higgins (1)_30: -1679226462
+      NES - Adventure Island 3 - Master Higgins (1)_31: -535635442
+      NES - Adventure Island 3 - Master Higgins (1)_32: -86064100
+      NES - Adventure Island 3 - Master Higgins (1)_33: -884470983
+      NES - Adventure Island 3 - Master Higgins (1)_34: -1863957756
+      NES - Adventure Island 3 - Master Higgins (1)_35: -508195372
+      NES - Adventure Island 3 - Master Higgins (1)_36: -1257238070
+      NES - Adventure Island 3 - Master Higgins (1)_37: 2076469554
+      NES - Adventure Island 3 - Master Higgins (1)_38: -1861311380
+      NES - Adventure Island 3 - Master Higgins (1)_39: 316344121
+      NES - Adventure Island 3 - Master Higgins (1)_4: -1555837962
+      NES - Adventure Island 3 - Master Higgins (1)_40: -240677986
+      NES - Adventure Island 3 - Master Higgins (1)_41: -1552996565
+      NES - Adventure Island 3 - Master Higgins (1)_42: -882142029
+      NES - Adventure Island 3 - Master Higgins (1)_43: 1087645487
+      NES - Adventure Island 3 - Master Higgins (1)_44: 277758252
+      NES - Adventure Island 3 - Master Higgins (1)_45: 1962505191
+      NES - Adventure Island 3 - Master Higgins (1)_46: 1354400965
+      NES - Adventure Island 3 - Master Higgins (1)_47: -1948931099
+      NES - Adventure Island 3 - Master Higgins (1)_48: 1645017765
+      NES - Adventure Island 3 - Master Higgins (1)_49: 2010327321
+      NES - Adventure Island 3 - Master Higgins (1)_5: 674480502
+      NES - Adventure Island 3 - Master Higgins (1)_50: 2081756233
+      NES - Adventure Island 3 - Master Higgins (1)_51: -1386373116
+      NES - Adventure Island 3 - Master Higgins (1)_52: 1835851091
+      NES - Adventure Island 3 - Master Higgins (1)_53: -1598493083
+      NES - Adventure Island 3 - Master Higgins (1)_54: -1706186382
+      NES - Adventure Island 3 - Master Higgins (1)_55: -1062441977
+      NES - Adventure Island 3 - Master Higgins (1)_56: 1832427965
+      NES - Adventure Island 3 - Master Higgins (1)_57: -464403484
+      NES - Adventure Island 3 - Master Higgins (1)_58: -1643627382
+      NES - Adventure Island 3 - Master Higgins (1)_59: -351025568
+      NES - Adventure Island 3 - Master Higgins (1)_6: -1853583395
+      NES - Adventure Island 3 - Master Higgins (1)_60: -672096275
+      NES - Adventure Island 3 - Master Higgins (1)_61: -1367006747
+      NES - Adventure Island 3 - Master Higgins (1)_62: -968613710
+      NES - Adventure Island 3 - Master Higgins (1)_63: 687879856
+      NES - Adventure Island 3 - Master Higgins (1)_64: 1849944111
+      NES - Adventure Island 3 - Master Higgins (1)_65: -1975655613
+      NES - Adventure Island 3 - Master Higgins (1)_66: -164230502
+      NES - Adventure Island 3 - Master Higgins (1)_67: 501560625
+      NES - Adventure Island 3 - Master Higgins (1)_68: 2036047795
+      NES - Adventure Island 3 - Master Higgins (1)_69: -1018790132
+      NES - Adventure Island 3 - Master Higgins (1)_7: -899113305
+      NES - Adventure Island 3 - Master Higgins (1)_70: -882011136
+      NES - Adventure Island 3 - Master Higgins (1)_71: -1808416975
+      NES - Adventure Island 3 - Master Higgins (1)_72: -1574645242
+      NES - Adventure Island 3 - Master Higgins (1)_73: -1424831125
+      NES - Adventure Island 3 - Master Higgins (1)_74: -658416606
+      NES - Adventure Island 3 - Master Higgins (1)_75: -518332352
+      NES - Adventure Island 3 - Master Higgins (1)_76: 537481866
+      NES - Adventure Island 3 - Master Higgins (1)_77: -1505986391
+      NES - Adventure Island 3 - Master Higgins (1)_78: 1870682649
+      NES - Adventure Island 3 - Master Higgins (1)_79: -838706066
+      NES - Adventure Island 3 - Master Higgins (1)_8: -1134968266
+      NES - Adventure Island 3 - Master Higgins (1)_80: -529522181
+      NES - Adventure Island 3 - Master Higgins (1)_81: -1458313811
+      NES - Adventure Island 3 - Master Higgins (1)_82: 1424947650
+      NES - Adventure Island 3 - Master Higgins (1)_83: 1959967708
+      NES - Adventure Island 3 - Master Higgins (1)_84: -243419108
+      NES - Adventure Island 3 - Master Higgins (1)_85: -1218446258
+      NES - Adventure Island 3 - Master Higgins (1)_86: 253817966
+      NES - Adventure Island 3 - Master Higgins (1)_87: 1830001379
+      NES - Adventure Island 3 - Master Higgins (1)_88: 120838800
+      NES - Adventure Island 3 - Master Higgins (1)_89: -201580662
+      NES - Adventure Island 3 - Master Higgins (1)_9: 955723130
+      NES - Adventure Island 3 - Master Higgins (1)_90: -1358886229
+      NES - Adventure Island 3 - Master Higgins (1)_91: 193078369
+      NES - Adventure Island 3 - Master Higgins (1)_92: -1426025893
+      NES - Adventure Island 3 - Master Higgins (1)_93: -590693529
+      NES - Adventure Island 3 - Master Higgins (1)_94: 1500170523
+      NES - Adventure Island 3 - Master Higgins (1)_95: -2031243250
+      NES - Adventure Island 3 - Master Higgins (1)_96: -1389857551
+      NES - Adventure Island 3 - Master Higgins (1)_97: 497764968
+      NES - Adventure Island 3 - Master Higgins (1)_98: 91771345
+      NES - Adventure Island 3 - Master Higgins (1)_99: 1216825907
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

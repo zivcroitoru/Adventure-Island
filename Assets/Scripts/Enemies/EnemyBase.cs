@@ -12,6 +12,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable
     {
         _spawnPos = transform.position;
         _spawnRot = transform.rotation;
+        EnemyRespawnManager.Instance?.Register(this);
     }
 
 public virtual void TakeDamage(int amount)
@@ -24,8 +25,13 @@ public virtual void TakeDamage(int amount)
 
     OnDeath?.Invoke(this, currentPos, currentRot);
 
+    // Tell global respawn manager to handle this enemy
+    EnemyRespawnManager.Instance?.RequestRespawn(this, currentPos, currentRot);
+
     gameObject.SetActive(false);
 }
 
 
+    public Vector3 GetSpawnPosition() => _spawnPos;
+    public Quaternion GetSpawnRotation() => _spawnRot;
 }

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 331549158342719968}
   - component: {fileID: -6708361674831031366}
   - component: {fileID: 4851081990196758548}
-  - component: {fileID: -5290349125707969248}
   m_Layer: 0
   m_Name: GreenAnimal
   m_TagString: Animal
@@ -81,18 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d70edbdf459bd4247878ddf45d18cba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPrefab: {fileID: 0}
   overrideController: {fileID: 22100000, guid: d229116a5cb87e34faa17e722f72a55c, type: 2}
   spinSpeed: 180
---- !u!114 &-5290349125707969248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1317465740608451009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57ece597d12112e44a168e7729910c70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  spinRadius: 0.6
+  spinDuration: 0.3

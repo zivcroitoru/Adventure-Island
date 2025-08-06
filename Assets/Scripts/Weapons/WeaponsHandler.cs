@@ -5,40 +5,18 @@ public class WeaponsHandler : MonoBehaviour, IAttacker
     private IWeapon currentWeapon;
     private Animator playerAnimator;
 
-private void Awake()
-{
-    Transform parent = transform.parent;
-
-    if (parent == null)
+    private void Awake()
     {
-        Debug.LogWarning("[WeaponsHandler] No parent found.");
-        return;
+        var parent = transform.parent;
+        var visual = parent?.Find("Visual");
+
+        playerAnimator = visual?.GetComponent<Animator>();
+
+        if (playerAnimator == null)
+        {
+            Debug.LogWarning("[WeaponsHandler] Animator not found under parent/Visual.");
+        }
     }
-
-    Debug.Log($"[WeaponsHandler] Found parent: {parent.name}");
-
-    Transform visual = parent.Find("Visual");
-
-    if (visual == null)
-    {
-        Debug.LogWarning("[WeaponsHandler] Could not find 'Visual' child under parent.");
-        return;
-    }
-
-    Debug.Log($"[WeaponsHandler] Found 'Visual' object: {visual.name}");
-
-    playerAnimator = visual.GetComponent<Animator>();
-
-    if (playerAnimator == null)
-    {
-        Debug.LogWarning("[WeaponsHandler] 'Visual' object has no Animator component.");
-    }
-    else
-    {
-        Debug.Log("[WeaponsHandler] Animator successfully assigned from 'Visual'.");
-    }
-}
-
 
     // === EQUIP ===
     public void Equip(IWeapon weapon)
@@ -49,73 +27,52 @@ private void Awake()
             return;
         }
 
-        UnEquipCurrentWeapon();
+        ClearWeapon(); // Centralized cleanup
 
         currentWeapon = weapon;
         currentWeapon.Equip();
 
-        EnableWeaponObject(currentWeapon);
-        InjectAnimatorIfApplicable(currentWeapon);
+        SetWeaponActive(currentWeapon, true);
+        InjectAnimator(currentWeapon);
 
-        Debug.Log($"[WeaponsHandler] Equipped weapon: {currentWeapon}");
+        Debug.Log($"[WeaponsHandler] Equipped: {currentWeapon.GetType().Name}");
     }
 
     // === USE ===
-    public void UseWeapon()
+    public void Attack()
     {
         if (CanAttack())
-        {
             currentWeapon.Attack();
-        }
         else
-        {
-            Debug.Log("[WeaponsHandler] No weapon equipped or cannot attack.");
-        }
+            Debug.Log("[WeaponsHandler] No usable weapon.");
     }
 
-    public void Attack() => UseWeapon();
-
-    public bool CanAttack() => currentWeapon != null && currentWeapon.CanAttack();
+    public bool CanAttack() =>
+        currentWeapon != null && currentWeapon.CanAttack();
 
     public void ClearWeapon()
     {
         if (currentWeapon == null) return;
 
         currentWeapon.UnEquip();
-        DisableWeaponObject(currentWeapon);
+        SetWeaponActive(currentWeapon, false);
 
-        Debug.Log($"[WeaponsHandler] Weapon cleared: {currentWeapon}");
+        Debug.Log($"[WeaponsHandler] Cleared: {currentWeapon.GetType().Name}");
         currentWeapon = null;
     }
 
     // === Internals ===
-    private void UnEquipCurrentWeapon()
-    {
-        if (currentWeapon == null) return;
-
-        Debug.Log("[WeaponsHandler] Un-equipping previous weapon.");
-        currentWeapon.UnEquip();
-        DisableWeaponObject(currentWeapon);
-    }
-
-    private void EnableWeaponObject(IWeapon weapon)
+    private void SetWeaponActive(IWeapon weapon, bool active)
     {
         if (weapon is MonoBehaviour mb)
-            mb.gameObject.SetActive(true);
+            mb.gameObject.SetActive(active);
     }
 
-    private void DisableWeaponObject(IWeapon weapon)
+    private void InjectAnimator(IWeapon weapon)
     {
-        if (weapon is MonoBehaviour mb)
-            mb.gameObject.SetActive(false);
-    }
-
-    private void InjectAnimatorIfApplicable(IWeapon weapon)
-    {
-        if (weapon is AnimatorAttackerBase attacker && playerAnimator != null)
+        if (playerAnimator != null && weapon is AnimatorAttackerBase animatedWeapon)
         {
-            attacker.SetAnimator(playerAnimator);
-            Debug.Log("[WeaponsHandler] Animator injected into weapon.");
+            animatedWeapon.SetAnimator(playerAnimator);
         }
     }
 }

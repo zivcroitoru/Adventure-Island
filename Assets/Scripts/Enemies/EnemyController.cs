@@ -14,6 +14,8 @@ public class EnemyController : EnemyBase
 
 protected override void Awake()
 {
+    Debug.Log("[EnemyController] Awake on " + gameObject.name);
+
     base.Awake();
 
     _move = movementStrategy as IMovementStrategy;

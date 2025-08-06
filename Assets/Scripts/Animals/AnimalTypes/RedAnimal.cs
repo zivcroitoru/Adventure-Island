@@ -39,10 +39,11 @@ public sealed class RedAnimal : AnimalBase
         Debug.Log($"[RedAnimal] 🔥 Spit fire ({(direction.x > 0 ? "→" : "←")})");
     }
 
-    private Vector2 GetFacingDirection()
-    {
-        return transform.lossyScale.x >= 0f ? Vector2.right : Vector2.left;
-    }
+private Vector2 GetFacingDirection()
+{
+    float facing = Mathf.Sign(transform.root.localScale.x);
+    return new Vector2(facing, 0f);
+}
 
     private float GetPlayerSpeed()
     {

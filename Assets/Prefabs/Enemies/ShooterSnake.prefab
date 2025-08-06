@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2125191154080597863}
   - component: {fileID: 6177447080803790706}
   - component: {fileID: 1880091604486089856}
-  - component: {fileID: 1934489926858911201}
   - component: {fileID: 8267859042846752034}
   - component: {fileID: -6543941429220735898}
   m_Layer: 8
@@ -160,22 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 3
   movementStrategy: {fileID: 0}
-  attackStrategy: {fileID: 1934489926858911201}
---- !u!114 &1934489926858911201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3426296801600007673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1914dbfabc0fcc43afe51fb8fdc2681, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePool: {fileID: 0}
-  fireCooldown: 2
-  fireDirection: {x: -1, y: 0}
+  attackStrategy: {fileID: 0}
 --- !u!114 &8267859042846752034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,4 +185,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e48c737197744cc4bae43c65f8d88e41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  fallbackDamage: 999
+  destroyAfterHit: 0

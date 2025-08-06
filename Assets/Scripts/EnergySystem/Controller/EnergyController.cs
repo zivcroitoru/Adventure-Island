@@ -1,6 +1,9 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
-public class EnergyController : MonoBehaviour, IDamageable, IResettable
+[DisallowMultipleComponent]
+public sealed class EnergyController : MonoBehaviour, IDamageable, IResettable
 {
     [Header("Config")]
     [SerializeField] private int totalBars = 15;
@@ -13,96 +16,85 @@ public class EnergyController : MonoBehaviour, IDamageable, IResettable
     private IEnergyModel model;
     private EnergyDecay decay;
 
-    public event System.Action<int> OnDamageTaken;
+    public bool IsDepleted { get; private set; }
+
+    public event Action<int> OnDamageTaken;
+
+    private void Awake()
+    {
+        GameResetManager.Instance?.Register(this);
+    }
 
     private void Start()
     {
         model = new EnergyModel(totalBars);
-        decay = new EnergyDecay(model, secondsPerBarLoss, OnEnergyChanged, OnEnergyDepleted);
+        decay = new EnergyDecay(model, secondsPerBarLoss, OnEnergyChanged, null);
 
-        Debug.Log($"[EnergyController] Start: Energy={model.CurrentEnergy}, Bars={totalBars}");
-
-        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
+        UpdateView();
         decay.StartDecay(this);
-
-        if (GameResetManager.Instance != null)
-        {
-            GameResetManager.Instance.Register(this);
-            Debug.Log("[EnergyController] Registered with GameResetManager.");
-        }
-        else
-        {
-            Debug.LogWarning("[EnergyController] GameResetManager instance not found!");
-        }
     }
-    private void Awake()
-{
-    Debug.Log($"[EnergyController] Awake on GameObject: {gameObject.name}");
-    if (GameResetManager.Instance != null)
-    {
-        GameResetManager.Instance.Register(this);
-        Debug.Log("[EnergyController] Registered with GameResetManager (Awake).");
-    }
-    else
-    {
-        Debug.LogWarning("[EnergyController] GameResetManager instance not found in Awake!");
-    }
-}
-
 
     public void TakeDamage(int amount)
     {
         if (TryGetComponent<RideController>(out var rc) && rc.IsRiding)
         {
-            Debug.Log("[EnergyController] Dismounting animal on damage.");
             rc.DismountCurrentAnimal();
             return;
         }
 
         model.Decrease(amount);
-        Debug.Log($"[EnergyController] Took damage: -{amount} (Now: {model.CurrentEnergy})");
+        Debug.Log($"[EnergyController] Took {amount} damage! Current energy: {model.CurrentEnergy}");
 
-        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
-
+        UpdateView();
         OnDamageTaken?.Invoke(amount);
 
-        if (model.CurrentEnergy <= 0)
-            OnEnergyDepleted();
+        if (model.CurrentEnergy <= 0 && !IsDepleted)
+        {
+            IsDepleted = true;
+            Time.timeScale = 0f;
+            StartCoroutine(UnfreezeAndHandleDeath());
+        }
+    }
+
+    private IEnumerator UnfreezeAndHandleDeath()
+    {
+        const float pauseDuration = 1f;
+        yield return new WaitForSecondsRealtime(pauseDuration);
+
+        Time.timeScale = 1f;
+        livesManager?.LoseLife();
+        ResetEnergy();
     }
 
     public void AddBars(int bars)
     {
         model.Add(bars);
-        Debug.Log($"[EnergyController] Added bars: +{bars} (Now: {model.CurrentEnergy})");
-        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
+        UpdateView();
         decay.ResumeIfNeeded(this);
     }
 
     public void ResetEnergy()
     {
         model.Reset();
-        Debug.Log("[EnergyController] Energy reset and decay restarted.");
-        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
+        IsDepleted = false;
+        UpdateView();
         decay.StartDecay(this);
-    }
-
-    private void OnEnergyChanged()
-    {
-        Debug.Log($"[EnergyController] Energy changed: {model.CurrentEnergy}");
-        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
-    }
-
-    private void OnEnergyDepleted()
-    {
-        Debug.Log("[EnergyController] Energy depleted.");
-        livesManager?.LoseLife();
-        ResetEnergy();
     }
 
     public void ResetState()
     {
         model.Reset();
-        Debug.Log($"[EnergyController] ResetState called. Energy={model.CurrentEnergy}");
-        energyView?.UpdateDisplay(model.CurrentEnergy, model.MaxEnergy);
+        IsDepleted = false;
+        UpdateView();
+    }
+
+    private void OnEnergyChanged()
+    {
+        UpdateView();
+    }
+
+    private void UpdateView()
+    {
+        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
     }
 }

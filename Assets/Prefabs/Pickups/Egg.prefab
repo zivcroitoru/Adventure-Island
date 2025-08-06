@@ -127,15 +127,13 @@ MonoBehaviour:
     weight: 0.15
   - prefab: {fileID: 460594579410848658, guid: 31aa2893cff67074dafc046d841b3698, type: 3}
     weight: 0.15
-  - prefab: {fileID: 460594579410848658, guid: a33e5fdb4fc0b844ca177f65fd3b426e, type: 3}
+  - prefab: {fileID: 6733304972838463246, guid: a5f3526957a178945b89e1f1bc2b4850, type: 3}
     weight: 0.1
   - prefab: {fileID: 8581662215829488649, guid: aec33ec2817750843a0346bcb1a014e0, type: 3}
     weight: 0.15
   - prefab: {fileID: 8581662215829488649, guid: fecaedf5719ed194fa16b5b9ac0fc7c1, type: 3}
     weight: 0.1
   - prefab: {fileID: 8581662215829488649, guid: ff4816394d6ffd043881bc2bb5209eff, type: 3}
-    weight: 0.2
-  - prefab: {fileID: 3777160832008331301, guid: c2cba800921875a42b6b79bd3144a132, type: 3}
     weight: 0.2
 --- !u!58 &-4769946217108371347
 CircleCollider2D:

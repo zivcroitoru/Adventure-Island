@@ -8,18 +8,40 @@ public class SnakeFireAttackStrategy : MonoBehaviour, IAttackStrategy
 
     private SnakeFireProjectilePool _pool;
     private float _nextFireTime;
+private void Awake() {
+    Debug.Log("[SnakeFireAttack] Awake called on: " + gameObject.name);
+}
 
-    // VContainer injects the pool that lives under GameLifetimeScope
+
     [Inject]
-    public void Construct(SnakeFireProjectilePool pool) => _pool = pool;
+    public void Construct(SnakeFireProjectilePool pool)
+    {
+        _pool = pool;
+        Debug.Log("[SnakeFireAttack] Pool injected.");
+    }
 
     public void Attack()
     {
-        if (Time.time < _nextFireTime || _pool == null) return;
+        if (Time.time < _nextFireTime)
+        {
+            Debug.Log($"[SnakeFireAttack] Cooldown active. Next fire at {Mathf.Round(_nextFireTime - Time.time)}s.");
+            return;
+        }
+
+        if (_pool == null)
+        {
+            // Debug.LogWarning("[SnakeFireAttack] Pool is null. Injection might have failed.");
+            return;
+        }
 
         var projectile = _pool.Get(transform.position, Quaternion.identity);
-        if (projectile == null) return;
+        if (projectile == null)
+        {
+            Debug.LogWarning("[SnakeFireAttack] No projectile returned from pool.");
+            return;
+        }
 
+        Debug.Log("[SnakeFireAttack] 🔥 Shooting fire projectile.");
         projectile.Shoot(transform.position, fireDirection);
         _nextFireTime = Time.time + fireCooldown;
     }

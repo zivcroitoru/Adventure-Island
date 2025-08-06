@@ -4,12 +4,26 @@ using VContainer;
 [DisallowMultipleComponent]
 public sealed class AxeWeapon : BaseWeapon, IAttacker
 {
-    [Inject] private ProjectileAxePool _axePool; // ✅ inject concrete pool type
+    private ProjectileAxePool _axePool;
+
+    [Inject]
+    private void Awake()
+    {
+        Debug.Log($"[AxeWeapon] Awake! Pool is {(_axePool == null ? "null" : "set")}");
+    }
+
+    [Inject]
+    public void Construct(ProjectileAxePool axePool)
+    {
+        Debug.Log("[AxeWeapon] Construct called!");
+        _axePool = axePool;
+    }
+
     protected override void Fire()
     {
         if (transform.parent == null)
         {
-            Debug.LogWarning("[AxeWeapon] No parent — cannot determine direction.");
+            Debug.LogWarning("[AxeWeapon] ❌ No parent — cannot determine direction.");
             return;
         }
 
@@ -20,15 +34,23 @@ public sealed class AxeWeapon : BaseWeapon, IAttacker
             ? rb.velocity
             : Vector2.zero;
 
-        var axe = _axePool.Get(spawnPos, Quaternion.identity); // ✅ pulled from pool
+        if (_axePool == null)
+        {
+            Debug.LogError("[AxeWeapon] ❌ Axe pool is null.");
+            return;
+        }
+
+        var axe = _axePool.Get(spawnPos, Quaternion.identity);
 
         if (axe == null)
         {
-            Debug.LogError("[AxeWeapon] Failed to spawn axe.");
+            Debug.LogError("[AxeWeapon] ❌ Pool.Get() returned null.");
             return;
         }
 
         axe.SetAttacker(this);
         axe.Shoot(spawnPos, Vector2.right * direction, parentVelocity.magnitude);
     }
+    public bool PoolIsSet() => _axePool != null;
+
 }

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 331549158342719968}
-  - component: {fileID: -2690976335894821937}
   - component: {fileID: -5963514469342421925}
   - component: {fileID: 3368488914150872681}
   m_Layer: 0
@@ -34,18 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2690976335894821937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1317465740608451009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57ece597d12112e44a168e7729910c70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-5963514469342421925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,8 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4244bb8f5078a9249ac0eed9a7c4037f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerName: Shoot
-  attackPrefab: {fileID: 460594579410848658, guid: 4f3c59f1a4e6c2043853cb6ec7cee795, type: 3}
   overrideController: {fileID: 22100000, guid: d054ab307daed6d45a03692939b7e9fa, type: 2}
   projectileOffset: 0.4
 --- !u!58 &3368488914150872681

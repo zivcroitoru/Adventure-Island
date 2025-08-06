@@ -40,14 +40,17 @@ protected override void Configure(IContainerBuilder builder)
     RegisterIfExists(builder, sparkPool);
     RegisterIfExists(builder, snakeFirePool);
     RegisterIfExists(builder, boomerangPool);
+builder.Register<SnakeFireAttackStrategy>(Lifetime.Scoped);
 
 
     // ── Weapons & Enemies in Scene ──
-        builder.RegisterComponentInHierarchy<AxeWeapon>();
+builder.RegisterComponentInHierarchy<AxeWeapon>();
     builder.RegisterComponentInHierarchy<BoomerangWeapon>();
     builder.RegisterComponentInHierarchy<EnemyBase>();
     builder.RegisterComponentInHierarchy<EnemyController>();
     builder.RegisterEntryPoint<AnimalPickup>().AsSelf();
+RegisterIfExists(builder, GameObject.Find("Player")?.GetComponent<AxeWeapon>());
+
 
 
     // ── Scene Pickups ──

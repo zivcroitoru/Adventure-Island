@@ -1,12 +1,21 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public sealed class SnakeFireProjectile : BaseProjectile
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(DamageDealer))]
+public sealed class SnakeFireProjectile : BaseProjectile, IObstacle
 {
     [SerializeField] private float lifetime = 3f;
     [SerializeField] private float spawnOffset = 0.6f;
 
     private Rigidbody2D _rb;
+
+    // --- IObstacle ---
+    public ObstacleType Type => ObstacleType.Projectile;
+    public int ContactDamage => 1;
+    public int RidingDamage  => 0;
+
+    public void DestroyObstacle() => ReturnToPool();
 
     private void Awake()
     {
@@ -31,6 +40,8 @@ public sealed class SnakeFireProjectile : BaseProjectile
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
+
         base.OnTriggerEnter2D(other);
+        // Optional: only if BaseProjectile does something useful on hit
     }
 }

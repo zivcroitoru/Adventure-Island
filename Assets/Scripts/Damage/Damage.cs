@@ -7,17 +7,18 @@ public static class Damage
     private static readonly Func<DamageContext, bool>[] Chain =
     {
         // Invincible player destroys obstacle
-        ctx =>
-        {
-            if (ctx.Flags.HasFlag(DamageFlags.Invincible) &&
-                ctx.Dealer.TryGetComponent<IObstacle>(out var obs) &&
-                ctx.Target.CompareTag("Player"))
-            {
-                obs.DestroyObstacle();
-                return true;
-            }
-            return false;
-        },
+// If the target is invincible, destroy the dealer if it's an obstacle (Fire, enemy, etc.)
+ctx =>
+{
+    if (ctx.Flags.HasFlag(DamageFlags.Invincible) &&
+        ctx.Dealer.TryGetComponent<IObstacle>(out var obs))
+    {
+        obs.DestroyObstacle();
+        return true; // no energy loss
+    }
+    return false;
+},
+
 
         // Riding (not invincible) → dismount
         ctx =>

@@ -1,5 +1,7 @@
 public enum ObstacleType
 {
     Rock,
-    Fire
+    Fire,
+    Projectile,
+    Enemy
 }

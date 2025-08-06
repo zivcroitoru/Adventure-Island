@@ -140,9 +140,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpInterval: 2
   jumpDuration: 0.4
-  jumpDistance: 2
-  jumpHeight: 1
-  jumpDirection: {x: -1, y: 1}
+  hopDistance: 2
+  hopHeight: 1
+  hopDir: {x: -1, y: 0}
 --- !u!58 &9159039477598616740
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -203,4 +203,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e48c737197744cc4bae43c65f8d88e41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  fallbackDamage: 999
+  destroyAfterHit: 0

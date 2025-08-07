@@ -56,6 +56,8 @@ public sealed class GameLifetimeScope : LifetimeScope
         builder.RegisterComponentInHierarchy<BoomerangWeapon>();
         builder.RegisterComponentInHierarchy<EnemyController>();
         builder.RegisterComponentInHierarchy<RewardFactory>();   // Reward spawner (now self-injecting)
+        builder.RegisterComponentInHierarchy<SnakeFireAttackStrategy>();
+
 
         /* Optional: player’s extra components if found at runtime */
         RegisterIfExists(builder, GameObject.FindWithTag("Player")?.GetComponent<AxeWeapon>());

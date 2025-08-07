@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -13071691, guid: c0a2660568961ea4d8aa55860d05f27f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -122,19 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 835acb291643df14b95091584a26815a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewards:
-  - prefab: {fileID: 3777160832008331301, guid: c2cba800921875a42b6b79bd3144a132, type: 3}
-    weight: 0.15
-  - prefab: {fileID: 460594579410848658, guid: 31aa2893cff67074dafc046d841b3698, type: 3}
-    weight: 0.15
-  - prefab: {fileID: 6733304972838463246, guid: a5f3526957a178945b89e1f1bc2b4850, type: 3}
-    weight: 0.1
-  - prefab: {fileID: 8581662215829488649, guid: aec33ec2817750843a0346bcb1a014e0, type: 3}
-    weight: 0.15
-  - prefab: {fileID: 8581662215829488649, guid: fecaedf5719ed194fa16b5b9ac0fc7c1, type: 3}
-    weight: 0.1
-  - prefab: {fileID: 8581662215829488649, guid: ff4816394d6ffd043881bc2bb5209eff, type: 3}
-    weight: 0.2
   pickupDelay: 0.3
   pickupCollider: {fileID: 2469182896967191510}
 --- !u!58 &-4769946217108371347
@@ -149,10 +136,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -184,7 +171,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 72
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -219,7 +206,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 999
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1

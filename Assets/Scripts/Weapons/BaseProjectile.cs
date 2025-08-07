@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public abstract class BaseProjectile : MonoBehaviour, IPoolable
 {
     [Header("Projectile Settings")]
@@ -8,8 +8,9 @@ public abstract class BaseProjectile : MonoBehaviour, IPoolable
     [SerializeField] protected int _damage = 1;
 
     protected IAttacker _attacker;
+    protected Rigidbody2D rb;
+    protected SpriteRenderer sr;
 
-    // Generic pool reference via delegate
     private System.Action<BaseProjectile> _returnToPool;
 
     #region ───── Pooling ─────
@@ -30,12 +31,29 @@ public abstract class BaseProjectile : MonoBehaviour, IPoolable
         _returnToPool.Invoke(this);
     }
 
-    public virtual void OnSpawn()    { }
-    public virtual void OnDespawn() { }
+    public virtual void OnSpawn() { }
+
+    public virtual void OnDespawn()
+    {
+        StopMotion();
+        if (sr != null) sr.flipX = false;
+    }
+
+    protected void StopMotion()
+    {
+        CancelInvoke();
+        if (rb != null) rb.velocity = Vector2.zero;
+    }
 
     #endregion
 
     #region ───── Initialization ─────
+
+    protected virtual void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>(); // Optional — not all projectiles need it
+    }
 
     public void SetAttacker(IAttacker attacker) => _attacker = attacker;
 
@@ -49,12 +67,10 @@ public abstract class BaseProjectile : MonoBehaviour, IPoolable
 
     #region ───── Collision ─────
 
-protected virtual void OnTriggerEnter2D(Collider2D other)
-{
-    ReturnToPool();   // no damage here
-}
-
-
+    protected virtual void OnTriggerEnter2D(Collider2D other)
+    {
+        ReturnToPool(); // Damage logic handled elsewhere
+    }
 
     #endregion
 }

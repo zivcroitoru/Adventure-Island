@@ -16,11 +16,15 @@ public abstract class PickUp : MonoBehaviour, IPickable
         _collected = true;
         Collect(col.gameObject);
     }
+    void OnEnable()
+    {
+        _collected = false;
+    }
 
     public virtual void Collect(GameObject target)
     {
         OnPickUp(target);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     protected abstract void OnPickUp(GameObject player);

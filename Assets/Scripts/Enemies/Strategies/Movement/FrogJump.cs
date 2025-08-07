@@ -54,12 +54,4 @@ public class FrogJumpAttackMove : MonoBehaviour, IMovementStrategy
         _endPos    = _startPos + ( Vector3 )( jumpDir.normalized * jumpDistance );
         _anim.SetBool( jumpBoolParam, true );
     }
-
-#if UNITY_EDITOR
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere( transform.position, detectionRadius );
-    }
-#endif
 }

@@ -23,19 +23,19 @@ public class EnergyDecay
     public void StartDecay(MonoBehaviour context)
     {
         Stop(context);
-        Debug.Log("[EnergyDecay] Starting decay coroutine.");
+        // Debug.Log("[EnergyDecay] Starting decay coroutine.");
         decayRoutine = context.StartCoroutine(DecayLoop());
     }
 
     private IEnumerator DecayLoop()
     {
-        Debug.Log("[EnergyDecay] Decay loop started.");
+        // Debug.Log("[EnergyDecay] Decay loop started.");
         while (model.CurrentEnergy > 0)
         {
             yield return new WaitForSeconds(interval);
 
             model.Decrease(1);
-            Debug.Log($"[EnergyDecay] Energy decreased. Current: {model.CurrentEnergy}");
+            // Debug.Log($"[EnergyDecay] Energy decreased. Current: {model.CurrentEnergy}");
 
             onChanged?.Invoke();
 
@@ -44,7 +44,7 @@ public class EnergyDecay
         }
 
         decayRoutine = null;
-        Debug.Log("[EnergyDecay] Energy depleted. Triggering onDepleted.");
+        // Debug.Log("[EnergyDecay] Energy depleted. Triggering onDepleted.");
         onDepleted?.Invoke();
     }
 

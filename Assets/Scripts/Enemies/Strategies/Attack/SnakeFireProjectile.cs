@@ -12,8 +12,8 @@ public sealed class SnakeFireProjectile : BaseProjectile, IObstacle
 
     // --- IObstacle ---
     public ObstacleType Type => ObstacleType.Projectile;
-    public int ContactDamage => 1;
-    public int RidingDamage  => 0;
+    public int ContactDamage => 999;
+    public int RidingDamage  => 999;
 
     public void DestroyObstacle() => ReturnToPool();
 
@@ -42,6 +42,5 @@ public sealed class SnakeFireProjectile : BaseProjectile, IObstacle
         if (!other.CompareTag("Player")) return;
 
         base.OnTriggerEnter2D(other);
-        // Optional: only if BaseProjectile does something useful on hit
     }
 }

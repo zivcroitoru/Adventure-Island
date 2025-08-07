@@ -26,17 +26,19 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable, IResettable, IObst
         GameResetManager.Instance?.Register(this);
     }
 
-    public virtual void TakeDamage(int amount)
+public virtual void TakeDamage(int amount)
+{
+    if (amount >= 1)  
     {
-        OnDeath?.Invoke(this, transform.position, transform.rotation);
-        gameObject.SetActive(false);
+        Die();  
     }
+}
+
 protected void Die()
 {
     OnDeath?.Invoke(this, transform.position, transform.rotation);
     gameObject.SetActive(false);
 }
-
 
     public virtual void ResetState()
     {

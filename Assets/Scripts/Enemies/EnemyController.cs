@@ -3,8 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class EnemyController : EnemyBase
 {
-    [SerializeField] private MonoBehaviour movementStrategy; // Must implement IMovementStrategy
-    [SerializeField] private MonoBehaviour attackStrategy;   // Must implement IAttackStrategy
+    [SerializeField] private MonoBehaviour movementStrategy; 
+    [SerializeField] private MonoBehaviour attackStrategy;  
 
     private IMovementStrategy _move;
     private IAttackStrategy _attack;
@@ -12,7 +12,7 @@ public class EnemyController : EnemyBase
 
 protected override void Awake()
 {
-    Debug.Log("[EnemyController] Awake on " + gameObject.name);
+    // Debug.Log("[EnemyController] Awake on " + gameObject.name);
 
     base.Awake();
 

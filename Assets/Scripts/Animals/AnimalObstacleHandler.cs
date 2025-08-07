@@ -1,11 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// When the mounted animal hits a Rock:
-/// • Player is forced to dismount.
-/// • The rock is destroyed.
-/// Attach this to the Animal GameObject (needs a Collider2D set as Trigger).
-/// </summary>
 [RequireComponent(typeof(AnimalBase))]
 public sealed class AnimalObstacleHandler : MonoBehaviour
 {
@@ -17,13 +11,22 @@ public sealed class AnimalObstacleHandler : MonoBehaviour
     {
         if (!other.TryGetComponent<IObstacle>(out var obstacle)) return;
 
-        if (obstacle.Type == ObstacleType.Rock)
+        // Always dismount if there's a rider, but skip if the rider is invincible
+        if (animal.Rider != null)
         {
-            // Dismount rider (if present)
-            animal.Rider?.GetComponent<RideController>()?.DismountCurrentAnimal();
-
-            // Remove the rock
-            obstacle.DestroyObstacle();
+            // Check if the rider is invincible before dismounting
+            if (!animal.Rider.TryGetComponent<IInvincible>(out var invincible) || !invincible.IsInvincible)
+            {
+                animal.Rider.GetComponent<RideController>()?.DismountCurrentAnimal();
+            }
+            else
+            {
+                Debug.Log("[AnimalObstacleHandler] Rider is invincible, skipping dismount.");
+            }
         }
+
+        // Destroy the obstacle only if the animal is allowed to
+        if (animal.CanDestroy(obstacle.Type))
+            obstacle.DestroyObstacle();
     }
 }

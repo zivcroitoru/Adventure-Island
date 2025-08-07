@@ -7,7 +7,6 @@ public class FairyController : PickUp
     public override void Collect(GameObject target)
     {
         OnPickUp(target);
-        // Don't destroy here — FairyPowerUp handles cleanup
     }
 
     protected override void OnPickUp(GameObject player)

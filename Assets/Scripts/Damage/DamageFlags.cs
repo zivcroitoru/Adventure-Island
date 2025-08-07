@@ -8,13 +8,24 @@ public enum DamageFlags
     Riding     = 1 << 1
 }
 
-/// <summary>
-/// Passed to Damage.Deal so the rule table knows who hit whom
-/// </summary>
 public struct DamageContext
 {
-    public GameObject Dealer;   // hazard / enemy / projectile …
-    public GameObject Target;   // player / crate / animal …
-    public int Amount;          // damage value
-    public DamageFlags Flags;   // Invincible | Riding | …
+    public GameObject Dealer;
+    public GameObject Target;
+    public int Amount;
+    public DamageFlags Flags;
+
+    public DamageContext(GameObject dealer, GameObject target, int amount)
+    {
+        Dealer = dealer;
+        Target = target;
+        Amount = amount;
+        Flags = DamageFlags.None;
+
+        if (target.TryGetComponent<IInvincible>(out var inv) && inv.IsInvincible)
+            Flags |= DamageFlags.Invincible;
+
+        if (target.TryGetComponent<RideController>(out var rc) && rc.IsRiding)
+            Flags |= DamageFlags.Riding;
+    }
 }

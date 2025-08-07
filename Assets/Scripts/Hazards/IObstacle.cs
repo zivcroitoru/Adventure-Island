@@ -1,7 +1,7 @@
 public interface IObstacle
 {
-    int ContactDamage { get; }   // player on foot
-    int RidingDamage { get; }   // player riding an animal
-    void DestroyObstacle();      // let the obstacle clean itself up
-    ObstacleType Type { get; }
+    int ContactDamage { get; }     // Damage to player on foot
+    int RidingDamage { get; }      // Damage to player while riding
+    ObstacleType Type { get; }     // Obstacle category
+    void DestroyObstacle();        // Self-cleanup logic
 }

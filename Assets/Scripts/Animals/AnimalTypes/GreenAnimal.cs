@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[DisallowMultipleComponent]
 public sealed class GreenAnimal : AnimalBase
 {
     [Header("Spin Settings")]
@@ -11,11 +10,8 @@ public sealed class GreenAnimal : AnimalBase
     private bool _isSpinning = false;
     public bool IsSpinning => _isSpinning;
 
-    private void Update()
-    {
-        if (Rider == null)
-            transform.Rotate(Vector3.forward, spinSpeed * Time.deltaTime);
-    }
+    // Use 'new' keyword to hide the base 'Rider' property
+    public new GameObject Rider => base.Rider;
 
     protected override void OnAttack()
     {
@@ -69,14 +65,4 @@ public sealed class GreenAnimal : AnimalBase
         if (_isSpinning) return;
         base.Dismount();
     }
-
-    public override bool CanDestroy(ObstacleType type) => type == ObstacleType.Rock;
-
-#if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, spinRadius);
-    }
-#endif
 }

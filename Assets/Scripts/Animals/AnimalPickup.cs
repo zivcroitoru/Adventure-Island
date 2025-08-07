@@ -11,11 +11,10 @@ public sealed class AnimalPickup : PickUp
     private IObjectResolver _resolver;
 
     [Inject]
-public void Construct(IObjectResolver resolver)
-{
-    Debug.Log($"[AnimalPickup] ✅ Resolver injected into: {gameObject.name}");
-    _resolver = resolver;
-}
+    public void Construct(IObjectResolver resolver)
+    {
+        _resolver = resolver;
+    }
 
     public void SetAnimal(AnimalBase prefab)
     {
@@ -26,13 +25,11 @@ public void Construct(IObjectResolver resolver)
     {
         if (animalPrefab == null)
         {
-            Debug.LogError($"[AnimalPickup] ❌ animalPrefab not assigned on '{gameObject.name}'");
             return;
         }
 
         if (_resolver == null)
         {
-            Debug.LogError($"[AnimalPickup] ❌ IObjectResolver not injected into '{gameObject.name}'");
             return;
         }
 

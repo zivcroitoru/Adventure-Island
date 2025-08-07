@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb15f10b44303b449b8c38a7b234d8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 0
+  enemyType: 1
   movementStrategy: {fileID: 8725307571143758888}
   attackStrategy: {fileID: 0}
 --- !u!114 &8725307571143758888

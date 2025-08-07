@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 331549158342719968}
   - component: {fileID: 2785049329307221559}
-  - component: {fileID: -6708361674831031366}
   - component: {fileID: -6927296594688983093}
+  - component: {fileID: -6708361674831031366}
   m_Layer: 0
   m_Name: BlueAnimal
   m_TagString: Animal
@@ -47,6 +47,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideController: {fileID: 22100000, guid: dd0d73ae447face4c8504102afe215c4, type: 2}
+--- !u!114 &-6927296594688983093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317465740608451009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ece597d12112e44a168e7729910c70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!58 &-6708361674831031366
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -82,15 +94,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.4375
---- !u!114 &-6927296594688983093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1317465740608451009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57ece597d12112e44a168e7729910c70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

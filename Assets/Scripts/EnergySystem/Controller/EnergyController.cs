@@ -22,51 +22,62 @@ public sealed class EnergyController : MonoBehaviour, IDamageable, IResettable
 
     private void Awake()
     {
-        Debug.Log("[EnergyController] Awake → Registering for game reset.");
+        // Debug.Log("[EnergyController] Awake → Registering for game reset.");
         GameResetManager.Instance?.Register(this);
     }
 
     private void Start()
     {
-        Debug.Log("[EnergyController] Start → Initializing model and decay.");
+        // Debug.Log("[EnergyController] Start → Initializing model and decay.");
         model = new EnergyModel(totalBars);
         decay = new EnergyDecay(model, secondsPerBarLoss, UpdateView, OnEnergyDepleted);
         UpdateView();
         decay.StartDecay(this);
     }
 
-    public void TakeDamage(int amount)
+public void TakeDamage(int amount)
+{
+    // Check if the player is invincible
+    if (TryGetComponent<IInvincible>(out var invincibleComponent) && invincibleComponent.IsInvincible)
     {
-        if (TryGetComponent<RideController>(out var rc) && rc.IsRiding)
-        {
-            Debug.Log("[EnergyController] Player is riding → Forcing dismount.");
-            rc.DismountCurrentAnimal();
-            return;
-        }
-
-        model.Decrease(amount);
-        Debug.Log($"[EnergyController] Took {amount} damage → Energy: {model.CurrentEnergy}/{model.MaxEnergy}");
-
-        UpdateView();
-        OnDamageTaken?.Invoke(amount);
-
-        if (model.CurrentEnergy <= 0)
-        {
-            Debug.Log("[EnergyController] Energy depleted from damage → Triggering death.");
-            TriggerEnergyDeath();
-        }
+        // Debug.Log("[EnergyController] Player is invincible → Damage blocked.");
+        return; // Block damage if invincible
     }
+
+    // If the player is riding, force dismount
+    if (TryGetComponent<RideController>(out var rc) && rc.IsRiding)
+    {
+        // Debug.Log("[EnergyController] Player is riding → Forcing dismount.");
+        rc.DismountCurrentAnimal();
+        return;
+    }
+
+    // Apply damage if not invincible
+    model.Decrease(amount);
+    // Debug.Log($"[EnergyController] Took {amount} damage → Energy: {model.CurrentEnergy}/{model.MaxEnergy}");
+
+    UpdateView();
+    OnDamageTaken?.Invoke(amount);
+
+    // Check if energy is depleted
+    if (model.CurrentEnergy <= 0)
+    {
+        Debug.Log("[EnergyController] Energy depleted from damage → Triggering death.");
+        TriggerEnergyDeath();
+    }
+}
+
 
     public void AddBars(int bars)
     {
         model.Add(bars);
-        Debug.Log($"[EnergyController] Gained {bars} energy → Energy: {model.CurrentEnergy}/{model.MaxEnergy}");
+        // Debug.Log($"[EnergyController] Gained {bars} energy → Energy: {model.CurrentEnergy}/{model.MaxEnergy}");
         UpdateView();
     }
 
     public void ResetEnergy(bool restartDecay = true)
     {
-        Debug.Log("[EnergyController] ResetEnergy called.");
+        // Debug.Log("[EnergyController] ResetEnergy called.");
         model.Reset();
         IsDepleted = false;
         UpdateView();
@@ -79,7 +90,7 @@ public sealed class EnergyController : MonoBehaviour, IDamageable, IResettable
 
     private void OnEnergyDepleted()
     {
-        Debug.Log("[EnergyController] Energy fully depleted from decay.");
+        // Debug.Log("[EnergyController] Energy fully depleted from decay.");
         TriggerEnergyDeath();
     }
 
@@ -87,7 +98,7 @@ public sealed class EnergyController : MonoBehaviour, IDamageable, IResettable
     {
         if (IsDepleted) return;
 
-        Debug.Log("[EnergyController] Triggering energy death → Pausing game.");
+        // Debug.Log("[EnergyController] Triggering energy death → Pausing game.");
         IsDepleted = true;
         Time.timeScale = 0f;
         StartCoroutine(UnfreezeAndHandleDeath());

@@ -13,14 +13,29 @@ public sealed class EggDropper : MonoBehaviour
         if (enemy != null) enemy.OnDeath += OnEnemyDeath;
     }
 
-    private void OnEnemyDeath(EnemyBase _, Vector3 pos, Quaternion rot)
-    {
-        if (eggPrefab == null || RewardFactory.Instance == null) return;
+private void OnEnemyDeath(EnemyBase _, Vector3 pos, Quaternion rot)
+{
+    Debug.Log("OnEnemyDeath triggered");
 
-        // Spawn egg and wire up its RewardFactory reference
-        EggPickup egg = Instantiate(eggPrefab, pos, rot);
-        egg.SetRewardFactory(RewardFactory.Instance);
+    if (eggPrefab == null)
+    {
+        Debug.Log("EggPrefab is null");
+        return;
     }
+    
+    if (RewardFactory.Instance == null)
+    {
+        Debug.Log("RewardFactory is null");
+        return;
+    }
+
+    Debug.Log("enemy died - egg drop");
+    
+    // Spawn egg and wire up its RewardFactory reference
+    EggPickup egg = Instantiate(eggPrefab, pos, rot);
+    Debug.Log($"Egg spawned at {pos} with rotation {rot}");
+}
+
 
     private void OnDestroy()
     {

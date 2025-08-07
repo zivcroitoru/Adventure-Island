@@ -10,7 +10,6 @@ public sealed class ProjectileBoomerang : BaseProjectile
     [SerializeField] float returnDelay = 1.2f;
     [SerializeField] float catchDist = 0.5f;
 
-    Rigidbody2D rb;
     Transform player;
     bool returning;
 

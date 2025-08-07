@@ -12,11 +12,11 @@ public class GameResetManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            Debug.Log("[GameResetManager] Singleton instance created.");
+            // Debug.Log("[GameResetManager] Singleton instance created.");
         }
         else
         {
-            Debug.LogWarning("[GameResetManager] Duplicate instance destroyed.");
+            // Debug.LogWarning("[GameResetManager] Duplicate instance destroyed.");
             Destroy(gameObject);
         }
     }
@@ -27,16 +27,16 @@ public void Register(IResettable resettable)
     if (!resettables.Contains(resettable))
     {
         resettables.Add(resettable);
-        Debug.Log($"[GameResetManager] Registered: {resettable.GetType().Name} ({((MonoBehaviour)resettable).gameObject.name})");
+        // Debug.Log($"[GameResetManager] Registered: {resettable.GetType().Name} ({((MonoBehaviour)resettable).gameObject.name})");
     }
 }
 
     public void ResetAll()
     {
-        Debug.Log($"[GameResetManager] Resetting {resettables.Count} registered objects.");
+        // Debug.Log($"[GameResetManager] Resetting {resettables.Count} registered objects.");
         foreach (var r in resettables)
         {
-            Debug.Log($"[GameResetManager] Resetting: {r.GetType().Name} ({r})");
+            // Debug.Log($"[GameResetManager] Resetting: {r.GetType().Name} ({r})");
             r.ResetState();
         }
     }

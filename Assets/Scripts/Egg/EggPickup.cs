@@ -1,6 +1,4 @@
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 
 [DisallowMultipleComponent]
 public sealed class EggPickup : PickUp, IResettable
@@ -15,58 +13,116 @@ public sealed class EggPickup : PickUp, IResettable
     [Header("Loot Table")]
     [SerializeField] private WeightedPrefab[] rewards;
 
-    private IObjectResolver _resolver;
-    private bool _collected;
+    [Header("Pickup Settings")]
+    [SerializeField] private float pickupDelay = 0.3f;
+    [SerializeField] private Collider2D pickupCollider;
 
-    private void Start()
+    private RewardFactory rewardFactory;   // set by EggDropper
+    private bool collected;
+
+    /* ------------- Public API ------------- */
+    public void SetRewardFactory(RewardFactory factory)
     {
-        if (_resolver == null)
-        {
-            var scope = FindFirstObjectByType<LifetimeScope>();
-            if (scope != null)
-                _resolver = scope.Container;
-        }
+        rewardFactory = factory;
+        Debug.Log($"[EggPickup] 🏭 RewardFactory set: {(rewardFactory == null ? "❌ NULL" : "✅ OK")}", this);
+    }
+private void Start()
+{
+    if (rewardFactory == null)
+    {
+        SetRewardFactory(RewardFactory.Instance);
+        Debug.Log("[EggPickup] 🏭 Set RewardFactory from singleton in Start()", this);
+    }
+}
 
-        GameResetManager.Instance?.Register(this);
+    /* ------------- Lifecycle -------------- */
+    private void OnEnable()
+    {
+        collected = false;
+        Debug.Log("[EggPickup] ♻️ Enabled and reset.", this);
+
+        if (pickupCollider != null)
+        {
+            pickupCollider.enabled = false;
+            StartCoroutine(EnablePickupAfterDelay());
+        }
     }
 
-    public void SetResolver(IObjectResolver resolver)
+    private System.Collections.IEnumerator EnablePickupAfterDelay()
     {
-        _resolver = resolver;
+        yield return new WaitForSeconds(pickupDelay);
+        if (!collected && pickupCollider != null)
+        {
+            pickupCollider.enabled = true;
+            Debug.Log("[EggPickup] ✅ Pickup collider enabled.", this);
+        }
     }
 
     protected override void OnPickUp(GameObject player)
     {
-        if (_collected) return;
-        _collected = true;
-
+        if (collected)
+        {
+            Debug.Log("[EggPickup] ❌ Already collected, skipping.", this);
+            return;
+        }
+        collected = true;
         gameObject.SetActive(false);
-
-        var prefab = SelectReward();
-        if (prefab == null) return;
-
-        var reward = Instantiate(prefab, transform.position, Quaternion.identity);
-        _resolver?.InjectGameObject(reward);
+        Debug.Log($"[EggPickup] 🥚 Collected by: {player.name}", this);
+        SpawnSelectedReward();
     }
 
-    private GameObject SelectReward()
+    /* ------------- Reward Logic ----------- */
+    private void SpawnSelectedReward()
+    {
+        GameObject prefab = SelectRandomReward();
+        if (prefab == null)
+        {
+            Debug.LogWarning("[EggPickup] ⚠️ No valid reward prefab found.", this);
+            return;
+        }
+        if (rewardFactory == null)
+        {
+            Debug.LogError("[EggPickup] ❌ rewardFactory is null! Did you forget to call SetRewardFactory?", this);
+            return;
+        }
+        rewardFactory.Spawn(prefab, transform.position);
+        Debug.Log($"[EggPickup] 🎁 Spawned reward: {prefab.name} at {transform.position}", this);
+    }
+
+    private GameObject SelectRandomReward()
     {
         float total = 0f;
         foreach (var r in rewards) total += r.weight;
+        if (total <= 0f)
+        {
+            Debug.LogWarning("[EggPickup] ❌ Total reward weight is 0.", this);
+            return null;
+        }
 
         float roll = Random.value * total;
         foreach (var r in rewards)
         {
-            if ((roll -= r.weight) <= 0f)
+            roll -= r.weight;
+            if (roll <= 0f)
+            {
+                Debug.Log($"[EggPickup] 🎲 Selected: {r.prefab.name}", this);
                 return r.prefab;
+            }
         }
-
+        Debug.LogWarning("[EggPickup] ❌ Failed to select reward.", this);
         return null;
     }
 
+    /* ------------- IResettable ------------ */
     public void ResetState()
     {
-        _collected = false;
+        collected = false;
         gameObject.SetActive(true);
+        if (pickupCollider != null)
+        {
+            pickupCollider.enabled = false;
+            StartCoroutine(EnablePickupAfterDelay());
+        }
+        Debug.Log("[EggPickup] ♻️ ResetState called.", this);
     }
 }

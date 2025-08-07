@@ -6,5 +6,5 @@ public interface IEnergyModel
     void Add(float amount);
     void Decrease(float delta);
     void Reset();
-    void Set(float value); // ✅ Add this
+    void Set(float value); 
 }

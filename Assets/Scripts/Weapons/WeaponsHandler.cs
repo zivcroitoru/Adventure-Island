@@ -3,19 +3,11 @@ using UnityEngine;
 public class WeaponsHandler : MonoBehaviour, IAttacker
 {
     private IWeapon currentWeapon;
-    private Animator playerAnimator;
+    private Transform playerRoot;
 
     private void Awake()
     {
-        var parent = transform.parent;
-        var visual = parent?.Find("Visual");
-
-        playerAnimator = visual?.GetComponent<Animator>();
-
-        if (playerAnimator == null)
-        {
-            Debug.LogWarning("[WeaponsHandler] Animator not found under parent/Visual.");
-        }
+        playerRoot = transform.root;
     }
 
     // === EQUIP ===
@@ -27,13 +19,30 @@ public class WeaponsHandler : MonoBehaviour, IAttacker
             return;
         }
 
-        ClearWeapon(); // Centralized cleanup
+        if (currentWeapon == weapon)
+        {
+            Debug.Log("[WeaponsHandler] Weapon already equipped.");
+            return;
+        }
 
+        ClearWeapon();
         currentWeapon = weapon;
         currentWeapon.Equip();
-
         SetWeaponActive(currentWeapon, true);
-        InjectAnimator(currentWeapon);
+
+        if (currentWeapon is AnimatorAttackerBase animatedWeapon)
+        {
+            var visual = playerRoot.Find("Visual");
+            if (visual != null && visual.TryGetComponent<Animator>(out var anim))
+            {
+                animatedWeapon.SetAnimator(anim);
+                Debug.Log("[WeaponsHandler] Animator injected.");
+            }
+            else
+            {
+                Debug.LogWarning("[WeaponsHandler] Visual/Animator not found.");
+            }
+        }
 
         Debug.Log($"[WeaponsHandler] Equipped: {currentWeapon.GetType().Name}");
     }
@@ -42,14 +51,19 @@ public class WeaponsHandler : MonoBehaviour, IAttacker
     public void Attack()
     {
         if (CanAttack())
+        {
             currentWeapon.Attack();
+        }
         else
+        {
             Debug.Log("[WeaponsHandler] No usable weapon.");
+        }
     }
 
     public bool CanAttack() =>
         currentWeapon != null && currentWeapon.CanAttack();
 
+    // === CLEAR ===
     public void ClearWeapon()
     {
         if (currentWeapon == null) return;
@@ -64,15 +78,9 @@ public class WeaponsHandler : MonoBehaviour, IAttacker
     // === Internals ===
     private void SetWeaponActive(IWeapon weapon, bool active)
     {
-        if (weapon is MonoBehaviour mb)
-            mb.gameObject.SetActive(active);
-    }
-
-    private void InjectAnimator(IWeapon weapon)
-    {
-        if (playerAnimator != null && weapon is AnimatorAttackerBase animatedWeapon)
+        if (weapon is MonoBehaviour mb && mb != null)
         {
-            animatedWeapon.SetAnimator(playerAnimator);
+            mb.gameObject.SetActive(active);
         }
     }
 }

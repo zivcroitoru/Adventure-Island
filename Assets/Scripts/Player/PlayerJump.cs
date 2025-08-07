@@ -1,32 +1,25 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(GroundCheck))]
 public class PlayerJump : MonoBehaviour
 {
     [Header("Jump Settings")]
     [SerializeField] private float jumpSpeed = 100f;
 
-    [Header("Ground Check")]
-    [SerializeField] private GroundCheckProvider groundCheck;
-    [SerializeField] private LayerMask groundLayer;
-
     private Rigidbody2D rigid;
+    private GroundCheck groundCheck;
     private Animator animator;
 
-    void Awake()
+    private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        groundCheck = GetComponent<GroundCheck>();
         animator = GetComponentInChildren<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
-        var groundCollider = groundCheck?.CurrentGroundCollider;
-        if (groundCollider == null) return;
-
-        bool isGrounded = groundCollider.IsGrounded(groundLayer);
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && groundCheck.IsGrounded)
         {
             Jump();
         }

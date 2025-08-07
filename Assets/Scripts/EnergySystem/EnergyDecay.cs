@@ -1,17 +1,18 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// Handles passive energy decay over time
 public class EnergyDecay
 {
     private readonly IEnergyModel model;
     private readonly float interval;
-    private readonly System.Action onChanged;
-    private readonly System.Action onDepleted;
+    private readonly Action onChanged;
+    private readonly Action onDepleted;
 
     private Coroutine decayRoutine;
 
-    public EnergyDecay(IEnergyModel model, float interval, System.Action onChanged, System.Action onDepleted)
+    public EnergyDecay(IEnergyModel model, float interval, Action onChanged, Action onDepleted)
     {
         this.model = model;
         this.interval = interval;
@@ -22,33 +23,30 @@ public class EnergyDecay
     public void StartDecay(MonoBehaviour context)
     {
         Stop(context);
+        Debug.Log("[EnergyDecay] Starting decay coroutine.");
         decayRoutine = context.StartCoroutine(DecayLoop());
     }
 
-    public void ResumeIfNeeded(MonoBehaviour context)
+    private IEnumerator DecayLoop()
     {
-        if (decayRoutine == null && model.CurrentEnergy > 0)
-            StartDecay(context);
-    }
-
-private IEnumerator DecayLoop()
-{
-    while (model.CurrentEnergy > 0)
-    {
-        yield return new WaitForSeconds(interval);
-        model.Decrease(1);
-        onChanged?.Invoke();
-
-        if (model.CurrentEnergy <= 0f) // 👈 ADD THIS CHECK
+        Debug.Log("[EnergyDecay] Decay loop started.");
+        while (model.CurrentEnergy > 0)
         {
-            break;
+            yield return new WaitForSeconds(interval);
+
+            model.Decrease(1);
+            Debug.Log($"[EnergyDecay] Energy decreased. Current: {model.CurrentEnergy}");
+
+            onChanged?.Invoke();
+
+            if (model.CurrentEnergy <= 0)
+                break;
         }
+
+        decayRoutine = null;
+        Debug.Log("[EnergyDecay] Energy depleted. Triggering onDepleted.");
+        onDepleted?.Invoke();
     }
-
-    decayRoutine = null;
-    onDepleted?.Invoke(); // ⏱ will now fire without extra frame delay
-}
-
 
     public void Stop(MonoBehaviour context)
     {

@@ -11,10 +11,10 @@ public class BoomerangController : PickUp
         if (player.TryGetComponent(out PlayerPowerUp powerUpHandler))
             powerUpHandler.CollectPowerUp(powerUp);
 
-        if (player.TryGetComponent(out RideController ride))
-        {
-            var weapon = player.GetComponentInChildren<BoomerangWeapon>();
-            ride.EquipWeapon(weapon);
-        }
+        var weapon = player.GetComponentInChildren<BoomerangWeapon>();
+        var weaponsHandler = player.GetComponentInChildren<WeaponsHandler>();
+
+        if (weapon != null && weaponsHandler != null)
+            weaponsHandler.Equip(weapon);
     }
 }

@@ -1,5 +1,6 @@
 public enum EnemyType
 {
+    Basic,
     Spider,
     Bird,
     Snake,

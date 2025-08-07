@@ -3,40 +3,68 @@ using UnityEngine.Pool;
 
 public class ProjectilePool<T> : MonoBehaviour where T : BaseProjectile
 {
-    [SerializeField] T prefab;
-    [SerializeField] int defaultCapacity = 5;
-    [SerializeField] int maxSize        = 10;
+    [Header("Pool Settings")]
+    [SerializeField] private T prefab;
+    [SerializeField] private int defaultCapacity = 5;
+    [SerializeField] private int maxSize         = 10;
 
-    ObjectPool<T> pool;
+    private ObjectPool<T> pool;
 
-    void Awake()
+    private void Awake()
     {
         pool = new ObjectPool<T>(
-            Create, OnGet, OnRelease, OnDestroyPoolItem,
+            CreateItem,
+            OnGetItem,
+            OnReleaseItem,
+            OnDestroyItem,
             collectionCheck: false,
-            defaultCapacity, maxSize);
+            defaultCapacity,
+            maxSize);
     }
 
     /* ───── Public API ───── */
-    public T Get(Vector3 pos, Quaternion rot)
+    public T Get(Vector3 position, Quaternion rotation)
     {
-        var p = pool.Get();
-        p.transform.SetPositionAndRotation(pos, rot);
-        return p;
+        var item = pool.Get();
+        item.transform.SetPositionAndRotation(position, rotation);
+        return item;
     }
 
-    public void Release(T item) => pool.Release(item);
-
-    /* ───── Callbacks ───── */
-    T Create()
+    public void Release(T item)
     {
-        var p = Instantiate(prefab, transform);
-        p.SetPool(this);
-        p.gameObject.SetActive(false);
-        return p;
+        pool.Release(item);
     }
 
-    void OnGet   (T p){ p.gameObject.SetActive(true);  p.OnSpawn();   }
-    void OnRelease(T p){ p.OnDespawn(); p.gameObject.SetActive(false); }
-    void OnDestroyPoolItem(T p)=> Destroy(p.gameObject);
+    /* ───── Pool Callbacks ───── */
+    private T CreateItem()
+    {
+        var instance = Instantiate(prefab, transform);
+        instance.SetPool(this);
+        instance.gameObject.SetActive(false);
+        return instance;
+    }
+
+    private void OnGetItem(T item)
+    {
+        if (item == null)
+        {
+            Debug.LogError("[ProjectilePool] ❌ Null projectile fetched from pool.");
+            return;
+        }
+
+        item.gameObject.SetActive(true);
+        item.OnSpawn();
+    }
+
+    private void OnReleaseItem(T item)
+    {
+        item.OnDespawn();
+        item.gameObject.SetActive(false);
+    }
+
+    private void OnDestroyItem(T item)
+    {
+        Debug.LogWarning($"[ProjectilePool] ⚠️ Attempted to destroy pooled item {item.name}. Ignored.");
+        // Don't actually destroy pooled objects.
+    }
 }

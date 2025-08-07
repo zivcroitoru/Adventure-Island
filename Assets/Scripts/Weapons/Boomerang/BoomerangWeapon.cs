@@ -12,9 +12,11 @@ public sealed class BoomerangWeapon : BaseWeapon
 
         Vector3 spawnPos = GetSpawnPosition();
         float dir = Mathf.Sign(transform.root.localScale.x);
+        Vector2 direction = Vector2.right * dir;
 
         active = pool.Get(spawnPos, Quaternion.identity);
-        active.Shoot(transform.root, Vector2.right * dir);
+        active.SetPlayer(transform.root); // inject player reference
+        active.Shoot(spawnPos, direction);
 
         active.OnReturned = () =>
         {

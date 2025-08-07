@@ -22,14 +22,15 @@ public sealed class EnergyController : MonoBehaviour, IDamageable, IResettable
 
     private void Awake()
     {
+        Debug.Log("[EnergyController] Awake → Registering for game reset.");
         GameResetManager.Instance?.Register(this);
     }
 
     private void Start()
     {
+        Debug.Log("[EnergyController] Start → Initializing model and decay.");
         model = new EnergyModel(totalBars);
-        decay = new EnergyDecay(model, secondsPerBarLoss, OnEnergyChanged, null);
-
+        decay = new EnergyDecay(model, secondsPerBarLoss, UpdateView, OnEnergyDepleted);
         UpdateView();
         decay.StartDecay(this);
     }
@@ -38,63 +39,72 @@ public sealed class EnergyController : MonoBehaviour, IDamageable, IResettable
     {
         if (TryGetComponent<RideController>(out var rc) && rc.IsRiding)
         {
+            Debug.Log("[EnergyController] Player is riding → Forcing dismount.");
             rc.DismountCurrentAnimal();
             return;
         }
 
         model.Decrease(amount);
-        Debug.Log($"[EnergyController] Took {amount} damage! Current energy: {model.CurrentEnergy}");
+        Debug.Log($"[EnergyController] Took {amount} damage → Energy: {model.CurrentEnergy}/{model.MaxEnergy}");
 
         UpdateView();
         OnDamageTaken?.Invoke(amount);
 
-        if (model.CurrentEnergy <= 0 && !IsDepleted)
+        if (model.CurrentEnergy <= 0)
         {
-            IsDepleted = true;
-            Time.timeScale = 0f;
-            StartCoroutine(UnfreezeAndHandleDeath());
+            Debug.Log("[EnergyController] Energy depleted from damage → Triggering death.");
+            TriggerEnergyDeath();
         }
-    }
-
-    private IEnumerator UnfreezeAndHandleDeath()
-    {
-        const float pauseDuration = 1f;
-        yield return new WaitForSecondsRealtime(pauseDuration);
-
-        Time.timeScale = 1f;
-        livesManager?.LoseLife();
-        ResetEnergy();
     }
 
     public void AddBars(int bars)
     {
         model.Add(bars);
+        Debug.Log($"[EnergyController] Gained {bars} energy → Energy: {model.CurrentEnergy}/{model.MaxEnergy}");
         UpdateView();
-        decay.ResumeIfNeeded(this);
     }
 
-    public void ResetEnergy()
+    public void ResetEnergy(bool restartDecay = true)
     {
+        Debug.Log("[EnergyController] ResetEnergy called.");
         model.Reset();
         IsDepleted = false;
         UpdateView();
-        decay.StartDecay(this);
+
+        if (restartDecay)
+            decay.StartDecay(this);
     }
 
-    public void ResetState()
+    public void ResetState() => ResetEnergy();
+
+    private void OnEnergyDepleted()
     {
-        model.Reset();
-        IsDepleted = false;
-        UpdateView();
+        Debug.Log("[EnergyController] Energy fully depleted from decay.");
+        TriggerEnergyDeath();
     }
 
-    private void OnEnergyChanged()
+    private void TriggerEnergyDeath()
     {
-        UpdateView();
+        if (IsDepleted) return;
+
+        Debug.Log("[EnergyController] Triggering energy death → Pausing game.");
+        IsDepleted = true;
+        Time.timeScale = 0f;
+        StartCoroutine(UnfreezeAndHandleDeath());
+    }
+
+    private IEnumerator UnfreezeAndHandleDeath()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        // Debug.Log("[EnergyController] Resuming game → Losing life.");
+        Time.timeScale = 1f;
+        livesManager?.LoseLife();
+        ResetEnergy();
     }
 
     private void UpdateView()
     {
+        // Debug.Log($"[EnergyController] Updating UI → Energy: {model.CurrentEnergy}/{totalBars}");
         energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
     }
 }

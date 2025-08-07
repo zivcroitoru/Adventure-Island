@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 331549158342719968}
   - component: {fileID: -6708361674831031366}
   - component: {fileID: 4851081990196758548}
+  - component: {fileID: 5122257194830659279}
+  - component: {fileID: -3954855575603999446}
   m_Layer: 0
   m_Name: GreenAnimal
   m_TagString: Animal
@@ -84,3 +86,29 @@ MonoBehaviour:
   spinSpeed: 180
   spinRadius: 0.6
   spinDuration: 0.3
+--- !u!114 &5122257194830659279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317465740608451009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e48c737197744cc4bae43c65f8d88e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallbackDamage: 20
+  destroyAfterHit: 0
+--- !u!114 &-3954855575603999446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317465740608451009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ece597d12112e44a168e7729910c70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

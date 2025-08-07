@@ -1,8 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Abstract base weapon handling equip state, cooldown, animations, and firing.
-/// </summary>
 public abstract class BaseWeapon : AnimatorAttackerBase, IWeapon
 {
     [Header("Weapon Settings")]

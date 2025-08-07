@@ -18,7 +18,6 @@ public class LivesController : MonoBehaviour, IResettable
         currentLives = startingLives;
         NotifyLivesChanged();
         SubscribeToEvents();
-
         GameResetManager.Instance?.Register(this);
     }
 
@@ -29,12 +28,12 @@ public class LivesController : MonoBehaviour, IResettable
 
     private void SubscribeToEvents()
     {
-        FruitController.OnBonusLifeEarned += GrantBonusLife;
+        FruitEffect.OnBonusLifeEarned += GrantBonusLife;
     }
 
     private void UnsubscribeFromEvents()
     {
-        FruitController.OnBonusLifeEarned -= GrantBonusLife;
+        FruitEffect.OnBonusLifeEarned -= GrantBonusLife;
     }
 
     public void LoseLife()

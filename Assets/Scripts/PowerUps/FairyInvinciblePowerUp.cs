@@ -5,7 +5,9 @@ using System.Collections;
 public class FairyInvinciblePowerUp : MonoBehaviour, IInvincible
 {
     private bool _isInvincible = false;
-    public bool IsInvincible => _isInvincible;
+    private bool _isTempInvincible = false;
+
+    public bool IsInvincible => _isInvincible || _isTempInvincible;
 
     [SerializeField] private float powerUpDuration = 10f;
 
@@ -22,4 +24,11 @@ public class FairyInvinciblePowerUp : MonoBehaviour, IInvincible
 
         onEnd?.Invoke();
     }
+
+    public void SetTemporaryInvincibility(bool state)
+    {
+        _isTempInvincible = state;
+    }
+
+    public bool IsTemporaryOnly => _isTempInvincible && !_isInvincible;
 }

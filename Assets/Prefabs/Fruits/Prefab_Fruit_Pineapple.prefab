@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8532540817954840777}
   - component: {fileID: 7575055025837459921}
   - component: {fileID: -5584086472611505090}
+  - component: {fileID: -7030994252717772086}
   m_Layer: 0
   m_Name: Prefab_Fruit_Pineapple
   m_TagString: Pickable
@@ -94,8 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20b9b011fe91a544bfdbd6c49d4a373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyBars: 2
-  fruitSprite: {fileID: 1320225213, guid: c0a2660568961ea4d8aa55860d05f27f, type: 3}
+  effect: {fileID: -7030994252717772086}
 --- !u!212 &-5584086472611505090
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -148,3 +148,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-7030994252717772086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2303736705558524048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed110da83f86acc418368065d3aa98f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyBars: 2

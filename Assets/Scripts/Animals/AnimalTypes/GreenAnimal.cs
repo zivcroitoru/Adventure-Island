@@ -22,6 +22,8 @@ public sealed class GreenAnimal : AnimalBase
         if (_isSpinning) return;
 
         _isSpinning = true;
+        SetRiderInvincible(true);
+
         Invoke(nameof(EndSpin), spinDuration);
         PerformSpinAttack();
     }
@@ -38,28 +40,33 @@ public sealed class GreenAnimal : AnimalBase
             if (hit.TryGetComponent<IObstacle>(out var obstacle) && CanDestroy(obstacle.Type))
             {
                 obstacle.DestroyObstacle();
-                Debug.Log("[GreenAnimal] 💥 Spin destroyed obstacle!");
                 continue;
             }
 
             if (hit.TryGetComponent<IDamageable>(out var damageable))
             {
                 damageable.TakeDamage(1);
-                Debug.Log($"[GreenAnimal] 💥 Damaged: {hit.gameObject.name}");
             }
         }
     }
 
-    private void EndSpin() => _isSpinning = false;
+    private void EndSpin()
+    {
+        _isSpinning = false;
+        SetRiderInvincible(false);
+    }
+
+    private void SetRiderInvincible(bool state)
+    {
+        if (Rider != null && Rider.TryGetComponent<IInvincible>(out var inv))
+        {
+            inv.SetTemporaryInvincibility(state);
+        }
+    }
 
     public override void Dismount()
     {
-        if (_isSpinning)
-        {
-            Debug.Log("[GreenAnimal] 🚫 Blocked dismount while spinning.");
-            return;
-        }
-
+        if (_isSpinning) return;
         base.Dismount();
     }
 

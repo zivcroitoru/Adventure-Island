@@ -5,14 +5,14 @@ using System;
 public sealed class ProjectileBoomerang : BaseProjectile
 {
     [Header("Flight")]
-    [SerializeField] float speed       = 10f;
-    [SerializeField] float spinSpeed   = 720f;
+    [SerializeField] float speed = 10f;
+    [SerializeField] float spinSpeed = 720f;
     [SerializeField] float returnDelay = 1.2f;
-    [SerializeField] float catchDist   = 0.5f;
+    [SerializeField] float catchDist = 0.5f;
 
-    private Rigidbody2D rb;
-    private Transform player;
-    private bool returning;
+    Rigidbody2D rb;
+    Transform player;
+    bool returning;
 
     public Action OnReturned;
 
@@ -21,23 +21,17 @@ public sealed class ProjectileBoomerang : BaseProjectile
     void OnEnable()
     {
         rb.gravityScale = 0f;
-        rb.velocity     = Vector2.zero;
-        returning       = false;
+        rb.velocity = Vector2.zero;
+        returning = false;
     }
 
-    public override void Shoot(Vector2 origin, Vector2 direction, float playerSpeed = 0f)
+    public void SetPlayer(Transform playerTransform) => player = playerTransform;
+
+    public override void Shoot(Vector2 origin, Vector2 dir, float _ = 0f)
     {
-        // Fallback, not used
-    }
-
-    public void Shoot(Transform playerTransform, Vector2 direction)
-    {
-        player = playerTransform;
-
-        transform.position   = player.position;
-        transform.localScale = new Vector3(Mathf.Sign(direction.x), 1f, 1f);
-        rb.velocity          = direction.normalized * speed;
-
+        transform.position = origin;
+        transform.localScale = new(Mathf.Sign(dir.x), 1, 1);
+        rb.velocity = dir.normalized * speed;
         Invoke(nameof(StartReturn), returnDelay);
     }
 
@@ -55,36 +49,21 @@ public sealed class ProjectileBoomerang : BaseProjectile
             Catch();
     }
 
-protected override void OnTriggerEnter2D(Collider2D other)
-{
-    // Catch boomerang if it hits the player during return
-    if (returning && other.transform == player)
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
-        Catch();
-        return;
+        if (returning && other.transform == player) { Catch(); return; }
+
+        if (other.TryGetComponent<IObstacle>(out var o))
+        {
+            if (o.Type == ObstacleType.Fire) return;
+            if (o.Type == ObstacleType.Rock) o.DestroyObstacle();
+        }
+
+        if (other.TryGetComponent<IDamageable>(out var d) && !other.TryGetComponent<Fire>(out _))
+            d.TakeDamage(_damage);
+
+        if (!returning) StartReturn();
     }
-
-    // Handle obstacles
-    if (other.TryGetComponent<IObstacle>(out var obstacle))
-    {
-        if (obstacle.Type == ObstacleType.Fire)
-            return; // Skip fire completely
-
-        if (obstacle.Type == ObstacleType.Rock)
-            obstacle.DestroyObstacle(); // If you want to break rocks ONLY
-    }
-
-    // Deal damage if it's damageable (excluding fire)
-    if (other.TryGetComponent<IDamageable>(out var dmg) && 
-        (!other.TryGetComponent<Fire>(out _))) // Exclude fire
-    {
-        dmg.TakeDamage(_damage);
-    }
-
-    // Always trigger return if it hit something (except fire)
-    if (!returning)
-        StartReturn();
-}
 
     void Catch()
     {
@@ -96,7 +75,7 @@ protected override void OnTriggerEnter2D(Collider2D other)
     {
         CancelInvoke();
         rb.velocity = Vector2.zero;
-        player      = null;
-        returning   = false;
+        player = null;
+        returning = false;
     }
 }

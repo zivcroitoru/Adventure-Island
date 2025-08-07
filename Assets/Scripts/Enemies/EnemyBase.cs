@@ -5,13 +5,17 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable, IResettable, IObst
 {
     public event System.Action<EnemyBase, Vector3, Quaternion> OnDeath;
 
+    [Header("Enemy Settings")]
+    [SerializeField] private EnemyType enemyType = EnemyType.Basic;
+
     private Vector3 _spawnPos;
     private Quaternion _spawnRot;
 
-    // --- IObstacle values ---
+    // ── IObstacle interface ──
     public ObstacleType Type => ObstacleType.Enemy;
-    public int ContactDamage => 999;  // or higher depending on enemy type
-    public int RidingDamage  => 999;
+    public int ContactDamage => 999;
+    public int RidingDamage => 999;
+    public EnemyType EnemyType => enemyType;
 
     protected virtual void Awake()
     {
@@ -27,6 +31,12 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable, IResettable, IObst
         OnDeath?.Invoke(this, transform.position, transform.rotation);
         gameObject.SetActive(false);
     }
+protected void Die()
+{
+    OnDeath?.Invoke(this, transform.position, transform.rotation);
+    gameObject.SetActive(false);
+}
+
 
     public virtual void ResetState()
     {
@@ -38,8 +48,5 @@ public abstract class EnemyBase : MonoBehaviour, IDamageable, IResettable, IObst
     public Vector3 GetSpawnPosition() => _spawnPos;
     public Quaternion GetSpawnRotation() => _spawnRot;
 
-    public void DestroyObstacle()
-    {
-        TakeDamage(999); // or just gameObject.SetActive(false);
-    }
+    public void DestroyObstacle() => TakeDamage(999);
 }

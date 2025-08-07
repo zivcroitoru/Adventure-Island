@@ -1,42 +1,27 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(GroundCheck))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private float speed = 5f;
 
-    [Header("Ground Check")]
-    [SerializeField] private GroundCheckProvider groundCheck;
-    [SerializeField] private LayerMask groundLayer;
-
     private Rigidbody2D rigid;
+    private GroundCheck groundCheck;
     private Animator animator;
 
     private float direction;
-    public bool IsGrounded { get; private set; }
+    public bool IsGrounded => groundCheck.IsGrounded;
 
-    void Start()
-    {
-        var col = GetComponent<Collider2D>();
-        if (col != null)
-        {
-            groundCheck?.SetCollider(col);
-        }
-    }
-
-    void Awake()
+    private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        groundCheck = GetComponent<GroundCheck>();
         animator = GetComponentInChildren<Animator>();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        var groundCollider = groundCheck?.CurrentGroundCollider;
-        if (groundCollider == null) return;
-
-        IsGrounded = groundCollider.IsGrounded(groundLayer);
         animator.SetBool("isGrounded", IsGrounded);
 
         direction = Input.GetAxisRaw("Horizontal");

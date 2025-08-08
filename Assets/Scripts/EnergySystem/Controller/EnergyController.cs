@@ -6,14 +6,14 @@ using System.Collections;
 public sealed class EnergyController : MonoBehaviour, IDamageable, IResettable
 {
     [Header("Config")]
-    [SerializeField] private int totalBars = 15;
-    [SerializeField] private float secondsPerBarLoss = 3f;
+    [SerializeField] private int totalBars = 15;           // integer bars in UI
+    [SerializeField] private float secondsPerBarLoss = 3f; // decay rate
 
     [Header("References")]
-    [SerializeField] private EnergyView energyView;
+    [SerializeField] private EnergyView energyView;        // assign in Inspector; auto-falls back in Awake
     [SerializeField] private LivesController livesManager;
 
-    private IEnergyModel model;
+    private IEnergyModel model;    // your implementation may be float-based
     private EnergyDecay decay;
 
     public bool IsDepleted { get; private set; }
@@ -22,84 +22,81 @@ public sealed class EnergyController : MonoBehaviour, IDamageable, IResettable
 
     private void Awake()
     {
-        // Debug.Log("[EnergyController] Awake → Registering for game reset.");
+        // Ensure model/UI exist even if we get hit before Start()
+        if (model == null) model = new EnergyModel(totalBars);
+        if (energyView == null) energyView = FindObjectOfType<EnergyView>(true);
+
         GameResetManager.Instance?.Register(this);
+        UpdateView();
     }
 
     private void Start()
     {
-        // Debug.Log("[EnergyController] Start → Initializing model and decay.");
-        model = new EnergyModel(totalBars);
-        decay = new EnergyDecay(model, secondsPerBarLoss, UpdateView, OnEnergyDepleted);
+        if (decay == null)
+            decay = new EnergyDecay(model, secondsPerBarLoss, UpdateView, OnEnergyDepleted);
+
         UpdateView();
         decay.StartDecay(this);
     }
 
-public void TakeDamage(int amount)
-{
-    // Check if the player is invincible
-    if (TryGetComponent<IInvincible>(out var invincibleComponent) && invincibleComponent.IsInvincible)
+    // === IDamageable (entry point for Damage.Deal) ===
+    public void TakeDamage(int amount, GameObject dealer)
     {
-        // Debug.Log("[EnergyController] Player is invincible → Damage blocked.");
-        return; // Block damage if invincible
+        Debug.Log($"[Energy] TakeDamage dealer={dealer?.name}, amount={amount}");
+        TakeDamage(amount);
     }
 
-    // If the player is riding, force dismount
-    if (TryGetComponent<RideController>(out var rc) && rc.IsRiding)
+    // Core damage handler (UI + life handling)
+    public void TakeDamage(int amount)
     {
-        // Debug.Log("[EnergyController] Player is riding → Forcing dismount.");
-        rc.DismountCurrentAnimal();
-        return;
+        if (amount <= 0 || IsDepleted) return;
+
+        int before = (int)model.CurrentEnergy;
+        model.Add(-amount); // your model supports negative deltas
+        int after = (int)model.CurrentEnergy;
+
+        Debug.Log($"[Energy] {before} -> {after} (max {(int)model.MaxEnergy})");
+
+        OnDamageTaken?.Invoke(amount);
+
+        if (energyView == null)
+            Debug.LogWarning("[Energy] energyView is NULL — UI won’t update!");
+
+        UpdateView();
+
+        if (model.CurrentEnergy <= 0f)
+            TriggerEnergyDeath();
     }
 
-    // Apply damage if not invincible
-    model.Decrease(amount);
-    // Debug.Log($"[EnergyController] Took {amount} damage → Energy: {model.CurrentEnergy}/{model.MaxEnergy}");
-
-    UpdateView();
-    OnDamageTaken?.Invoke(amount);
-
-    // Check if energy is depleted
-    if (model.CurrentEnergy <= 0)
-    {
-        Debug.Log("[EnergyController] Energy depleted from damage → Triggering death.");
-        TriggerEnergyDeath();
-    }
-}
-
-
+    // Positive gain (fruits, pickups)
     public void AddBars(int bars)
     {
         model.Add(bars);
-        // Debug.Log($"[EnergyController] Gained {bars} energy → Energy: {model.CurrentEnergy}/{model.MaxEnergy}");
+        Debug.Log($"[Energy] +{bars} → {(int)model.CurrentEnergy}/{totalBars}");
         UpdateView();
     }
 
+    // Reset API
     public void ResetEnergy(bool restartDecay = true)
     {
-        // Debug.Log("[EnergyController] ResetEnergy called.");
         model.Reset();
         IsDepleted = false;
         UpdateView();
-
-        if (restartDecay)
-            decay.StartDecay(this);
+        if (restartDecay) decay.StartDecay(this);
     }
 
     public void ResetState() => ResetEnergy();
 
     private void OnEnergyDepleted()
     {
-        // Debug.Log("[EnergyController] Energy fully depleted from decay.");
         TriggerEnergyDeath();
     }
 
     private void TriggerEnergyDeath()
     {
         if (IsDepleted) return;
-
-        // Debug.Log("[EnergyController] Triggering energy death → Pausing game.");
         IsDepleted = true;
+
         Time.timeScale = 0f;
         StartCoroutine(UnfreezeAndHandleDeath());
     }
@@ -107,15 +104,16 @@ public void TakeDamage(int amount)
     private IEnumerator UnfreezeAndHandleDeath()
     {
         yield return new WaitForSecondsRealtime(1f);
-        // Debug.Log("[EnergyController] Resuming game → Losing life.");
         Time.timeScale = 1f;
+
         livesManager?.LoseLife();
         ResetEnergy();
     }
 
     private void UpdateView()
     {
-        // Debug.Log($"[EnergyController] Updating UI → Energy: {model.CurrentEnergy}/{totalBars}");
-        energyView?.UpdateDisplay(model.CurrentEnergy, totalBars);
+        if (energyView == null) return;
+        energyView.UpdateDisplay((int)model.CurrentEnergy, totalBars);
+        // Debug.Log($"[EnergyView] UI set to {(int)model.CurrentEnergy}/{totalBars}");
     }
 }

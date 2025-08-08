@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FruitEffect : MonoBehaviour
+public class FruitEffect : MonoBehaviour, IResettable
 {
     [SerializeField] private int energyBars = 1;
 
@@ -28,7 +28,10 @@ public class FruitEffect : MonoBehaviour
             OnBonusLifeEarned?.Invoke();
         }
     }
+    private void Awake() =>
+        GameResetManager.Instance?.Register(this);   // join the reset list
 
+    public void ResetState() => ResetFruitCount();   // zero the counter
     public static void ResetFruitCount()
     {
         totalFruitsCollected = 0;

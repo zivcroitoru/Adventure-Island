@@ -1,65 +1,44 @@
 using UnityEngine;
-using System;
 
 public static class Damage
 {
-    // Chain of rules for resolving damage effects
-    private static readonly Func<DamageContext, bool>[] Chain =
+    public static void Deal(int amount, GameObject dealer, GameObject rawTarget)
     {
-        // Invincible player avoids damage (blocks damage completely)
-        ctx =>
-        {
-            if (ctx.Flags.HasFlag(DamageFlags.Invincible) && ctx.Target.TryGetComponent<IDamageable>(out var dmg))
-            {
-                Debug.Log("[Damage] Player is invincible. Damage blocked.");
-                return true;  // Block damage if the player is invincible
-            }
-            return false;
-        },
+        if (!dealer || !rawTarget) return;
 
-        // Invincible player destroys obstacle
-        ctx =>
-        {
-            if (ctx.Flags.HasFlag(DamageFlags.Invincible) &&
-                ctx.Dealer.TryGetComponent<IObstacle>(out var obs))
-            {
-                obs.DestroyObstacle();
-                return true;
-            }
-            return false;
-        },
+        var target = ResolveTarget(rawTarget);
 
-        // Riding player (not invincible) dismounts
-        ctx =>
-        {
-            if (ctx.Flags.HasFlag(DamageFlags.Riding) &&
-                !ctx.Flags.HasFlag(DamageFlags.Invincible) &&
-                ctx.Target.TryGetComponent<RideController>(out var rc))
-            {
-                rc.DismountCurrentAnimal();
-                return true;
-            }
-            return false;
-        },
+        // Skip self / same root
+        if (ReferenceEquals(target, dealer)) return;
+        if (target.transform.root == dealer.transform.root) return;
 
-        // Otherwise apply damage
-        ctx =>
+        // Target invincible → block normal damage
+        if (target.TryGetComponent<IInvincible>(out var targetInv) && targetInv.IsInvincible)
         {
-            if (ctx.Target.TryGetComponent<IDamageable>(out var dmg))
-                dmg.TakeDamage(ctx.Amount);
-            return true;
+            Debug.Log($"[Damage] Blocked: {target.name} is invincible. amount={amount}");
+            return;
         }
-    };
 
-    // Entry point
-    public static void Deal(int amount, GameObject dealer, GameObject target)
+        // === MAIN: find IDamageable on target OR ITS PARENTS ===
+        if (target.TryGetComponent<IDamageable>(out var dmg) ||
+            (dmg = target.GetComponentInParent<IDamageable>()) != null)
+        {
+            Debug.Log($"[Damage] Dealing {amount} from {dealer.name} -> {target.name}");
+            dmg.TakeDamage(amount, dealer);
+            return;
+        }
+
+        // Debug.Log($"[Damage] No IDamageable on {target.name} or its parents. amount={amount}, dealer={dealer.name}");
+    }
+
+    static GameObject ResolveTarget(GameObject hit)
     {
-        var ctx = new DamageContext(dealer, target, amount);
+        // Send damage to rider if on an animal
+        if (hit.TryGetComponent<AnimalBase>(out var animal) && animal.Rider != null)
+            return animal.Rider;
 
-        foreach (var rule in Chain)
-        {
-            if (rule(ctx))
-                break;
-        }
+        // Use RB root if present
+        var rb = hit.GetComponent<Rigidbody2D>() ?? hit.GetComponentInParent<Rigidbody2D>();
+        return rb ? rb.gameObject : hit;
     }
 }

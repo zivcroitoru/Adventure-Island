@@ -43,7 +43,7 @@ public class FairyInvinciblePowerUp : MonoBehaviour, IInvincible
     {
         if (_isInvincible || _isTempInvincible)
         {
-            Debug.Log("[FairyInvinciblePowerUp] Current invincibility state: " + IsInvincible);
+            // Debug.Log("[FairyInvinciblePowerUp] Current invincibility state: " + IsInvincible);
         }
     }
 }

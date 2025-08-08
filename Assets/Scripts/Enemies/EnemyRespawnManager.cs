@@ -6,7 +6,7 @@ public sealed class EnemyRespawnManager : MonoBehaviour
 {
     public static EnemyRespawnManager Instance { get; private set; }
 
-    [SerializeField] private float defaultRespawnDelay = 5f;
+    [SerializeField] private float defaultRespawnDelay = 10f;
 
     private void Awake()
     {

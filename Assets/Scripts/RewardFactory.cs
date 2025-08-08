@@ -61,33 +61,41 @@ public sealed class RewardFactory : MonoBehaviour
 
     private GameObject SelectRandomReward()
     {
-        float total = 0f;
-        foreach (var r in rewards)
+        if (rewards.Length == 0)
         {
-            total += r.weight;
-            Debug.Log($"Reward: {r.prefab.name}, Weight: {r.weight}");
+            Debug.LogWarning("No rewards available in the table.");
+            return null;
         }
 
-        if (total <= 0f)
+        // First, get the total weight of all rewards
+        float totalWeight = 0f;
+        foreach (var reward in rewards)
+        {
+            totalWeight += reward.weight;
+        }
+
+        if (totalWeight <= 0f)
         {
             Debug.LogWarning("Total weight is 0 or negative. Cannot select a reward.");
             return null;
         }
 
-        float roll = Random.value * total;
-        Debug.Log($"Roll value: {roll} / Total weight: {total}");
+        // Get a random value within the range of total weight
+        float randomValue = Random.Range(0f, totalWeight);
+        Debug.Log($"Random value: {randomValue} / Total weight: {totalWeight}");
 
-        foreach (var r in rewards)
+        // Loop through the rewards to find the selected one based on its weight
+        float accumulatedWeight = 0f;
+        foreach (var reward in rewards)
         {
-            roll -= r.weight;
-            if (roll <= 0f)
+            accumulatedWeight += reward.weight;
+            if (randomValue <= accumulatedWeight)
             {
-                Debug.Log($"Selected reward: {r.prefab.name}");
-                return r.prefab;
+                Debug.Log($"Selected reward: {reward.prefab.name}");
+                return reward.prefab;
             }
         }
 
-        Debug.LogWarning("No reward selected, check weights and table.");
         return null;
     }
 

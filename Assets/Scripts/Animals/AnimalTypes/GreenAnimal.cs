@@ -24,27 +24,30 @@ public sealed class GreenAnimal : AnimalBase
         PerformSpinAttack();
     }
 
-    private void PerformSpinAttack()
+private void PerformSpinAttack()
+{
+    var hits = Physics2D.OverlapCircleAll(transform.position, spinRadius);
+
+    foreach (var hit in hits)
     {
-        var hits = Physics2D.OverlapCircleAll(transform.position, spinRadius);
+        var target = hit.attachedRigidbody ? hit.attachedRigidbody.gameObject : hit.gameObject;
 
-        foreach (var hit in hits)
+        // Skip self and rider
+        if (target == gameObject || target == Rider)
+            continue;
+
+        // Obstacles the green animal can destroy
+        if (target.TryGetComponent<IObstacle>(out var obstacle) && CanDestroy(obstacle.Type))
         {
-            if (hit.gameObject == gameObject || hit.gameObject == Rider)
-                continue;
-
-            if (hit.TryGetComponent<IObstacle>(out var obstacle) && CanDestroy(obstacle.Type))
-            {
-                obstacle.DestroyObstacle();
-                continue;
-            }
-
-            if (hit.TryGetComponent<IDamageable>(out var damageable))
-            {
-                damageable.TakeDamage(1);
-            }
+            obstacle.DestroyObstacle();
+            continue;
         }
+
+        // Route everything else through central damage rules
+        Damage.Deal(1, gameObject, target);
     }
+}
+
 
     private void EndSpin()
     {

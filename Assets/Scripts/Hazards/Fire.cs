@@ -1,8 +1,9 @@
 using UnityEngine;
+using System;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(DamageDealer))] // lets Damage.Deal run on contact
+[RequireComponent(typeof(DamageDealer))]
 public sealed class Fire : MonoBehaviour, IObstacle, IResettable
 {
     [Header("Damage")]
@@ -10,38 +11,33 @@ public sealed class Fire : MonoBehaviour, IObstacle, IResettable
     [SerializeField] private int ridingDamage  = 0;
 
     [Header("Setup")]
-    [Tooltip("Ensure this stays a trigger so InvincibleObstacleBreaker can catch it cleanly.")]
     [SerializeField] private bool forceTrigger = true;
 
-    // IObstacle
-    public ObstacleType Type        => ObstacleType.Fire;
+    public ObstacleType Type         => ObstacleType.Fire;
     public int          ContactDamage => contactDamage;
     public int          RidingDamage  => ridingDamage;
 
     void Awake()
     {
-        // Make sure we’re a trigger (player usually has the Rigidbody2D).
         var col = GetComponent<Collider2D>();
         if (col && forceTrigger) col.isTrigger = true;
     }
+void OnDisable(){ Debug.LogWarning($"[Fire] OnDisable {name} root={transform.root.name}"); }
+void OnDestroy(){ Debug.LogError($"[Fire] OnDestroy {name}"); }
 
-    // IObstacle: external destruction (breaker / level logic calls this)
-    public void DestroyObstacle()
-    {
-        // No invincibility checks here—breaker handles that.
-        Destroy(gameObject);
-    }
+    // Only destroy if the instigator exists AND is invincible
+public void DestroyObstacle()
+{
+    Debug.LogError($"[FIRE] DestroyObstacle CALLED by: {name}. Stack:\n{Environment.StackTrace}");
+    Destroy(gameObject);
+}
 
-    // IResettable: revive this hazard on level reset
+
+
     public void ResetState()
     {
-        // Reactivate + re-enable visuals/colliders in case something turned them off
         if (!gameObject.activeSelf) gameObject.SetActive(true);
-
-        var col = GetComponent<Collider2D>();
-        if (col) col.enabled = true;
-
-        var sr = GetComponentInChildren<SpriteRenderer>(true);
-        if (sr) sr.enabled = true;
+        var col = GetComponent<Collider2D>(); if (col) col.enabled = true;
+        var sr  = GetComponentInChildren<SpriteRenderer>(true); if (sr) sr.enabled = true;
     }
 }

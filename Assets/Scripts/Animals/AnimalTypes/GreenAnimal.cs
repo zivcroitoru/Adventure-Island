@@ -12,16 +12,17 @@ public sealed class GreenAnimal : AnimalBase
     // Use 'new' keyword to hide the base 'Rider' property
     public new GameObject Rider => base.Rider;
 
-    protected override void OnAttack()
-    {
-        if (_isSpinning) return;
+protected override void OnAttack()
+{
+    if (_isSpinning) return;
 
-        _isSpinning = true;
-        SetRiderInvincible(true);
+    _isSpinning = true;
+    SetRiderInvincible(true); // now uses timed temp
 
-        Invoke(nameof(EndSpin), spinDuration);
-        PerformSpinAttack();
-    }
+    Invoke(nameof(EndSpin), spinDuration);
+    PerformSpinAttack();
+}
+
 
 private void PerformSpinAttack()
 {
@@ -54,13 +55,24 @@ private void PerformSpinAttack()
         SetRiderInvincible(false);
     }
 
-    private void SetRiderInvincible(bool state)
+private void SetRiderInvincible(bool state)
+{
+    if (Rider != null && Rider.TryGetComponent<IInvincible>(out var inv))
     {
-        if (Rider != null && Rider.TryGetComponent<IInvincible>(out var inv))
+        if (inv is FairyInvinciblePowerUp fairy)
         {
+            if (state)
+                fairy.ActivateTemp(spinDuration); // auto-clears after spin
+            else
+                fairy.SetTemporaryInvincibility(false); // manual clear if needed
+        }
+        else
+        {
+            // fallback for generic IInvincible
             inv.SetTemporaryInvincibility(state);
         }
     }
+}
 
     public override void Dismount()
     {

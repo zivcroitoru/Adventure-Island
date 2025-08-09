@@ -4,7 +4,7 @@ using System.Collections;
 [DisallowMultipleComponent]
 public sealed class EggPickup : PickUp, IResettable
 {
-    [SerializeField] private float pickupDelay = 0.5f; // seconds before pickup works
+    [SerializeField] private float pickupDelay = 0.5f; 
     private bool _rewardGiven = false;  
     private bool _canBePickedUp = false;
     private Collider2D _collider;
@@ -16,7 +16,6 @@ public sealed class EggPickup : PickUp, IResettable
 
     private void OnEnable()
     {
-        // When egg is enabled, start with pickup disabled
         _rewardGiven = false;
         _canBePickedUp = false;
 

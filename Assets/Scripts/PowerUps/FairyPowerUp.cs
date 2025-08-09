@@ -13,11 +13,10 @@ public class FairyPowerUp : IPowerUp
     {
         if (player.TryGetComponent<FairyInvinciblePowerUp>(out var invincible))
         {
-            invincible.ActivateInvincibility(() =>
-            {
-                Object.Destroy(_fairy);
-            });
-
+    invincible.ActivateInvincibility(null, () =>
+    {
+        Object.Destroy(_fairy);
+    });
             Debug.Log("[FairyPowerUp] Invincibility applied.");
         }
         else

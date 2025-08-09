@@ -60,9 +60,13 @@ public class RideController : MonoBehaviour
         ResetAnimatorToBase();
         OnAnimalDismounted?.Invoke(gameObject);
 
-        // Grant brief invulnerability after dismount (uses Fairy if present)
+        // Brief invulnerability after dismount
         GrantTempInvincibility(dismountInvincibleSeconds);
+
+        // Also suppress ramming during that temp window
+        GetComponent<InvincibleRammer>()?.SuppressFor(dismountInvincibleSeconds);
     }
+
 
     public void UnmountAnimal()
     {
@@ -115,30 +119,33 @@ public class RideController : MonoBehaviour
     private IEnumerator ClearFairyAfter(FairyInvinciblePowerUp fairy, float seconds)
     {
         yield return new WaitForSeconds(seconds);
+
         // Don’t cancel if a full fairy buff is active
-        if (fairy && fairy.IsTemporaryOnly) fairy.SetTemporaryInvincibility(false);
-    }
-}
-
-// Minimal helper used only when no FairyInvinciblePowerUp exists.
-// Implements IInvincible so your Damage gate “just works”.
-[DisallowMultipleComponent]
-sealed class TempInvincibleHelper : MonoBehaviour, IInvincible
-{
-    bool _temp;
-    public bool IsInvincible => _temp;
-    public void SetTemporaryInvincibility(bool state) => _temp = state;
-
-    public void Trigger(float seconds)
-    {
-        StopAllCoroutines();
-        StartCoroutine(Co(seconds));
+        if (fairy && fairy.IsTempActive && !fairy.IsPowerUpActive)
+            fairy.SetTemporaryInvincibility(false);
     }
 
-    System.Collections.IEnumerator Co(float s)
+
+    // Minimal helper used only when no FairyInvinciblePowerUp exists.
+    // Implements IInvincible so your Damage gate “just works”.
+    [DisallowMultipleComponent]
+    sealed class TempInvincibleHelper : MonoBehaviour, IInvincible
     {
-        _temp = true;
-        yield return new WaitForSeconds(s);
-        _temp = false;
+        bool _temp;
+        public bool IsInvincible => _temp;
+        public void SetTemporaryInvincibility(bool state) => _temp = state;
+
+        public void Trigger(float seconds)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Co(seconds));
+        }
+
+        System.Collections.IEnumerator Co(float s)
+        {
+            _temp = true;
+            yield return new WaitForSeconds(s);
+            _temp = false;
+        }
     }
 }

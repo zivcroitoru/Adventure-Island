@@ -35,27 +35,12 @@ public sealed class RewardFactory : MonoBehaviour
     public void SpawnRandomReward(Vector3 position)
     {
         GameObject prefab = SelectRandomReward();
-        if (prefab == null)
-        {
-            Debug.Log("No reward selected. Check if the reward table is populated and weights are set.");
-            return; // If no prefab is selected, exit
-        }
-
-        Debug.Log($"Spawning reward at position {position}");
         Spawn(prefab, position);
     }
 
     public GameObject Spawn(GameObject prefab, Vector3 position)
     {
         GameObject reward = _resolver.Instantiate(prefab, position, Quaternion.identity);
-        if (reward != null)
-        {
-            Debug.Log($"Reward spawned: {reward.name}");
-        }
-        else
-        {
-            Debug.LogError("Failed to instantiate reward prefab.");
-        }
         return reward;
     }
 
@@ -63,7 +48,6 @@ public sealed class RewardFactory : MonoBehaviour
     {
         if (rewards.Length == 0)
         {
-            Debug.LogWarning("No rewards available in the table.");
             return null;
         }
 
@@ -76,13 +60,11 @@ public sealed class RewardFactory : MonoBehaviour
 
         if (totalWeight <= 0f)
         {
-            Debug.LogWarning("Total weight is 0 or negative. Cannot select a reward.");
             return null;
         }
 
         // Get a random value within the range of total weight
         float randomValue = Random.Range(0f, totalWeight);
-        Debug.Log($"Random value: {randomValue} / Total weight: {totalWeight}");
 
         // Loop through the rewards to find the selected one based on its weight
         float accumulatedWeight = 0f;
@@ -97,11 +79,5 @@ public sealed class RewardFactory : MonoBehaviour
         }
 
         return null;
-    }
-
-    // Method to reset the reward state (you can call this from other parts of your game when the reward is collected or reset)
-    public void ResetRewardState()
-    {
-        Debug.Log("Reward state reset.");
     }
 }

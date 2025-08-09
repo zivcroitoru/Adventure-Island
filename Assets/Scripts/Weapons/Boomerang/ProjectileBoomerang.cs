@@ -4,110 +4,92 @@ using System;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public sealed class ProjectileBoomerang : BaseProjectile
 {
-    [Header("Flight")]
-    [SerializeField] float speed = 10f;
-    [SerializeField] float spinSpeed = 720f;
-    [SerializeField] float returnDelay = 1.2f;
-    [SerializeField] float catchDist = 0.5f;
+    [SerializeField] float speed = 10f, spinSpeed = 720f, returnDelay = 1.2f, catchDist = 0.5f;
 
     Transform player;
-    bool returning;
-    bool caught;                 // guard double-catch
-    public Action OnReturned;    // weapon listens: rearm, sfx, etc.
+    bool returning, caught;
+    public Action OnReturned;
 
-    void OnEnable()
-    {
-        Rb.gravityScale = 0f;
-        Rb.velocity = Vector2.zero;
-        returning = false;
-        caught = false;
-    }
-
-    public void SetPlayer(Transform playerTransform) => player = playerTransform;
+    void OnEnable() { Rb.gravityScale = 0f; Rb.velocity = Vector2.zero; returning = caught = false; }
+    public void SetPlayer(Transform t) => player = t;
 
     public override void Shoot(Vector2 origin, Vector2 dir, float _ = 0f)
     {
         var n = dir.sqrMagnitude > 0f ? dir.normalized : Vector2.right;
-
-        // Face along x sign (simple sprite flip)
         transform.localScale = new Vector3(Mathf.Sign(n.x == 0f ? 1f : n.x), 1f, 1f);
         transform.rotation = Quaternion.identity;
-
         base.Shoot(origin, n, speed);
         Invoke(nameof(StartReturn), returnDelay);
     }
-
-    void StartReturn() => returning = true;
 
     void Update()
     {
         transform.Rotate(0f, 0f, spinSpeed * Time.deltaTime);
         if (!returning || !player || caught) return;
-
-        Vector2 toPlayer = (player.position - transform.position);
-        if (toPlayer.sqrMagnitude > 1e-4f) Rb.velocity = toPlayer.normalized * speed;
-        if (toPlayer.magnitude <= catchDist) Catch();
+        var to = (player.position - transform.position);
+        if (to.sqrMagnitude > 1e-4f) Rb.velocity = to.normalized * speed;
+        if (to.magnitude <= catchDist) Catch();
     }
 
-    // Override to control boomerang behavior; skip base auto-despawn path.
-    protected override void OnTriggerEnter2D(Collider2D other)
-    {
-        if (caught) return;
+protected override void OnTriggerEnter2D(Collider2D other)
+{
+    if (caught) return;
 
-        // Catch by touching the player while returning
-        if (returning && player && (other.transform == player || other.transform.IsChildOf(player)))
+    // Catch on player while returning
+    if (returning && player && (other.transform == player || other.transform.IsChildOf(player)))
+    {
+        Catch();
+        return;
+    }
+
+    var hit = other.attachedRigidbody ? other.attachedRigidbody.gameObject : other.gameObject;
+    if (IsSelf(hit)) return;
+
+    // Check for obstacle
+    if (hit.TryGetComponent<IObstacle>(out var obs) ||
+        (obs = hit.GetComponentInParent<IObstacle>()) != null)
+    {
+        // Skip if Fire obstacle OR Ghost enemy
+        if (obs.Type == ObstacleType.Fire ||
+            (hit.GetComponentInParent<EnemyBase>()?.EnemyType == EnemyType.Ghost))
         {
-            Catch();
+            if (!returning) StartReturn();
             return;
         }
 
-        var rootGO = other.attachedRigidbody ? other.attachedRigidbody.gameObject : other.gameObject;
-        if (IsSelf(rootGO)) return;
-
-        // Special obstacle rules
-        var obstacle = rootGO.GetComponentInParent<IObstacle>();
-        if (obstacle != null)
-        {
-            if (obstacle.Type == ObstacleType.Fire)
-            {
-                if (!returning) StartReturn();
-                return;
-            }
-            if (obstacle.Type == ObstacleType.Rock)
-            {
-                obstacle.DestroyObstacle();
-                if (!returning) StartReturn();
-                return;
-            }
-        }
-
-        // Normal hit: deal damage and start returning (do not despawn).
-        HandleHit(rootGO);
+        // Break obstacle
+        obs.DestroyObstacle();
+        if (!returning) StartReturn();
+        return;
     }
 
-    // Do damage, but keep flying; boomerang returns to player instead of despawning.
-    protected override void HandleHit(GameObject hitGO)
+    // Not an obstacle → deal damage
+    HandleHit(hit);
+}
+
+
+    protected override void HandleHit(GameObject hit)
     {
-        Damage.Deal(_damage, gameObject, hitGO);
+        Damage.Deal(_damage, gameObject, hit);
         if (!returning) StartReturn();
     }
+
+    void StartReturn() => returning = true;
 
     void Catch()
     {
         if (caught) return;
         caught = true;
-        OnReturned?.Invoke();   // notify weapon first
-        ReturnToPool();         // then hand to pool (pool will call OnDespawn)
+        OnReturned?.Invoke();
+        ReturnToPool();
     }
 
     public override void OnDespawn()
     {
         base.OnDespawn();
         CancelInvoke();
-        OnReturned = null;      // avoid leaks / stale listeners
+        OnReturned = null;
         player = null;
-        returning = false;
-        caught = false;
-        // no events, no ReturnToPool() here
+        returning = caught = false;
     }
 }

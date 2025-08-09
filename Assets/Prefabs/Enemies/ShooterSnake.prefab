@@ -195,6 +195,7 @@ MonoBehaviour:
   destroyAfterHit: 0
   isWeaponOrProjectile: 0
   onlyWhenInvincible: 0
+  debug: 1
 --- !u!114 &5786917208032324107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1914dbfabc0fcc43afe51fb8fdc2681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireCooldown: 2
+  fireCooldown: 5
   fireDirection: {x: -1, y: 0}
   pool: {fileID: 0}

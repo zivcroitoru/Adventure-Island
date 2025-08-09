@@ -1,44 +1,58 @@
 using UnityEngine;
+using System.Collections;
 
 [DisallowMultipleComponent]
 public sealed class EggPickup : PickUp, IResettable
 {
-    private bool _rewardGiven = false;  // Flag to track if reward has been given
+    [SerializeField] private float pickupDelay = 0.5f; // seconds before pickup works
+    private bool _rewardGiven = false;  
+    private bool _canBePickedUp = false;
+    private Collider2D _collider;
 
-    /* -------- Public API -------- */
-    private void Start()
+    private void Awake()
     {
-        if (RewardFactory.Instance == null)
-        {
-            Debug.LogError("RewardFactory instance is not set. Ensure RewardFactory is initialized before EggPickup.");
-            return;
-        }
+        _collider = GetComponent<Collider2D>();
+    }
+
+    private void OnEnable()
+    {
+        // When egg is enabled, start with pickup disabled
+        _rewardGiven = false;
+        _canBePickedUp = false;
+
+        if (_collider != null)
+            _collider.enabled = false;
+
+        StartCoroutine(EnablePickupAfterDelay());
+    }
+
+    private IEnumerator EnablePickupAfterDelay()
+    {
+        yield return new WaitForSeconds(pickupDelay);
+        _canBePickedUp = true;
+        if (_collider != null)
+            _collider.enabled = true;
     }
 
     protected override void OnPickUp(GameObject player)
     {
-        // Prevent giving multiple rewards for the same egg
-        if (_rewardGiven) return;
+        if (!_canBePickedUp || _rewardGiven) return;
 
-        if (RewardFactory.Instance == null)
-        {
-            Debug.LogError("RewardFactory instance is still null when trying to pick up.");
-            return;
-        }
-
-        Debug.Log($"Egg picked up by {player.name}. Spawning reward at {transform.position}");
         RewardFactory.Instance.SpawnRandomReward(transform.position);
-
-        _rewardGiven = true;  // Mark the reward as given
-        Destroy(gameObject);  // Destroy the egg after it's been picked up
+        _rewardGiven = true;  
+        Destroy(gameObject);  
     }
 
     /* -------- IResettable -------- */
     public void ResetState()
     {
-        // If you need to reset the egg (for example, in a pool system),
-        // we can reactivate it and reset the reward state flag.
         _rewardGiven = false;
+        _canBePickedUp = false;
         gameObject.SetActive(true);
+
+        if (_collider != null)
+            _collider.enabled = false;
+
+        StartCoroutine(EnablePickupAfterDelay());
     }
 }

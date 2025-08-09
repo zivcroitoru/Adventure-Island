@@ -37,13 +37,4 @@ public class FairyInvinciblePowerUp : MonoBehaviour, IInvincible
     }
 
     public bool IsTemporaryOnly => _isTempInvincible && !_isInvincible;
-
-    // Optional: Log the current invincibility state whenever it's checked
-    private void Update()
-    {
-        if (_isInvincible || _isTempInvincible)
-        {
-            // Debug.Log("[FairyInvinciblePowerUp] Current invincibility state: " + IsInvincible);
-        }
-    }
 }

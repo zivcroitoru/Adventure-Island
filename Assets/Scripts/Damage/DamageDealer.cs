@@ -3,21 +3,26 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class DamageDealer : MonoBehaviour
 {
-    [SerializeField] int  fallbackDamage   = 20;   // for real weapons/projectiles
-    [SerializeField] bool destroyAfterHit  = false;
-    [SerializeField] bool onlyWhenInvincible = false; // set true on “ram” hitboxes
+    [SerializeField] int  fallbackDamage      = 20;   // for real weapons/projectiles
+    [SerializeField] bool destroyAfterHit     = false;
+
+    // ✅ Explicit: check this to treat this collider as a weapon/hitbox
+    [SerializeField] bool isWeaponOrProjectile = false;
+
+    // ✅ Ram/hurtbox should only work when rider is invincible (fairy etc.)
+    [SerializeField] bool onlyWhenInvincible   = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         var target = ResolveTarget(other);
-        if (target == null || target == gameObject) return;
+        if (!target || target == gameObject) return;
 
         // Must have something to damage
         var damageable = target.GetComponentInParent<IDamageable>();
         if (damageable == null) return;
 
-        // Optional gate: only allow this hitbox when invincible/ramming
-        if (onlyWhenInvincible && !(TryGetComponent<IInvincible>(out var inv) && inv.IsInvincible))
+        // Gate: ram/hurtbox only if ANY invincible on our root hierarchy is active
+        if (onlyWhenInvincible && !IsAnyInvincibleActiveOnSelfHierarchy())
             return;
 
         int amount = CalculateDamageAgainst(target);
@@ -31,11 +36,9 @@ public class DamageDealer : MonoBehaviour
 
     private GameObject ResolveTarget(Collider2D hit)
     {
-        // If we hit a mount with a rider, damage the rider (the player)
         if (hit.TryGetComponent<AnimalBase>(out var animal) && animal.Rider != null)
             return animal.Rider;
 
-        // Prefer the rigidbody root, then the parent that actually has IDamageable
         var root = hit.attachedRigidbody ? hit.attachedRigidbody.gameObject : hit.gameObject;
         var dmg  = root.GetComponentInParent<IDamageable>();
         return dmg != null ? ((Component)dmg).gameObject : root;
@@ -50,11 +53,20 @@ public class DamageDealer : MonoBehaviour
             return isRiding ? obs.RidingDamage : obs.ContactDamage;
         }
 
-        // If THIS is a projectile/weapon → fallbackDamage
-        if (GetComponent<BaseProjectile>() != null || GetComponent<IDamageDealer>() != null)
+        // ✅ Only deal fallbackDamage if this collider is explicitly configured as a weapon
+        if (isWeaponOrProjectile)
             return fallbackDamage;
 
-        // Otherwise (e.g., player/mount body) → no damage
+        // Otherwise (player/mount body) → no damage
         return 0;
+    }
+
+    private bool IsAnyInvincibleActiveOnSelfHierarchy()
+    {
+        // check self + parents + children (covers Fairy on rider or mount)
+        if (TryGetComponent<IInvincible>(out var inv) && inv.IsInvincible) return true;
+        foreach (var c in GetComponentsInChildren<IInvincible>(true)) if (c.IsInvincible) return true;
+        foreach (var p in GetComponentsInParent<IInvincible>(true))  if (p.IsInvincible) return true;
+        return false;
     }
 }

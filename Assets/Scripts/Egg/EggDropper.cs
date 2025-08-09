@@ -14,22 +14,7 @@ public sealed class EggDropper : MonoBehaviour, IResettable
 
     private void OnEnemyDeath(EnemyBase _, Vector3 pos, Quaternion rot)
     {
-        Debug.Log("OnEnemyDeath triggered");
-
-        if (eggPrefab == null)
-        {
-            Debug.Log("EggPrefab is null");
-            return;
-        }
-
-        if (RewardFactory.Instance == null)
-        {
-            Debug.Log("RewardFactory is null");
-            return;
-        }
-
         Debug.Log("enemy died - egg drop");
-
         // Spawn egg and wire up its RewardFactory reference
         EggPickup egg = Instantiate(eggPrefab, pos, rot);
         Debug.Log($"Egg spawned at {pos} with rotation {rot}");
@@ -39,7 +24,6 @@ public sealed class EggDropper : MonoBehaviour, IResettable
         if (enemy != null) enemy.OnDeath += OnEnemyDeath;
 
     }
-
     private void OnDisable()
     {
         if (enemy != null) enemy.OnDeath -= OnEnemyDeath;
@@ -48,8 +32,6 @@ public sealed class EggDropper : MonoBehaviour, IResettable
 
     public void ResetState()
     {
-        // If you need to reset the egg (for example, in a pool system),
-        // we can reactivate it and reset the reward state flag.
         gameObject.SetActive(true);
     }
 

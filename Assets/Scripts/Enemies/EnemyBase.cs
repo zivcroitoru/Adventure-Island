@@ -55,6 +55,23 @@ public virtual void TakeDamage(int amount)
     ApplyDamage(amount);
 }
 
+// Add this method
+public void PrepareForRespawn()
+{
+    _dead = false;
+    // if you don't want full heal, at least come back with 1 HP
+    _health = respawnWithFullHealth ? Mathf.Max(1, maxHealth) : Mathf.Max(1, _health);
+}
+
+// Optional but robust: ensure a re-enabled enemy can take damage
+private void OnEnable()
+{
+    if (_dead || _health <= 0)
+    {
+        _dead = false;
+        _health = respawnWithFullHealth ? Mathf.Max(1, maxHealth) : Mathf.Max(1, _health);
+    }
+}
 
     protected virtual void ApplyDamage(int amount)
     {

@@ -1,21 +1,23 @@
 using UnityEngine;
 
+[DisallowMultipleComponent]
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public sealed class ProjectileAxe : BaseProjectile
 {
-    [SerializeField] private float lifetime = 3f;
-    [SerializeField] private float horizontalSpeed = 7f;
-    [SerializeField] private float verticalBoost = 4f;
-    [SerializeField] private float spinSpeed = 720f; // degrees per second
+    [Header("Axe Motion")]
+    [SerializeField] float lifetime        = 3f;
+    [SerializeField] float horizontalSpeed = 7f;
+    [SerializeField] float verticalBoost   = 4f;
+    [SerializeField] float spinSpeed       = 720f; // deg/sec
 
-    private Rigidbody2D _rb;
-    private float _spinDirection = 1f;
-    private bool _spinning = false;
+    float _spinDirection = 1f;
+    bool  _spinning = false;
 
-    private void Awake()
+    void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _rb.freezeRotation = true; // manual rotation, so freeze physics
+        Rb.freezeRotation = true;
+        var col = GetComponent<Collider2D>();
+        if (col) col.isTrigger = true;
     }
 
     public override void Shoot(Vector2 origin, Vector2 dir, float _ = 0f)
@@ -23,38 +25,36 @@ public sealed class ProjectileAxe : BaseProjectile
         transform.position = origin;
         transform.rotation = Quaternion.identity;
 
-        float xDir = Mathf.Sign(dir.x);
-        Vector2 velocity = new Vector2(xDir * horizontalSpeed, verticalBoost);
+        float xDir = Mathf.Sign(dir.x == 0f ? 1f : dir.x);
+        Rb.gravityScale = 1f;
+        Rb.velocity     = new Vector2(xDir * horizontalSpeed, verticalBoost);
 
-        _rb.gravityScale = 1f;
-        _rb.velocity = velocity;
+        _spinDirection  = -xDir;
+        _spinning       = true;
 
-        _spinDirection = -xDir; // flip spin based on facing
-        _spinning = true;
-
+        CancelInvoke();
         Invoke(nameof(ReturnToPool), lifetime);
     }
 
-    private void Update()
+    void Update()
     {
         if (_spinning)
-        {
-            float rotationAmount = spinSpeed * Time.deltaTime * _spinDirection;
-            transform.Rotate(0f, 0f, rotationAmount);
-        }
+            transform.Rotate(0f, 0f, spinSpeed * Time.deltaTime * _spinDirection);
+    }
+
+    // ✅ match BaseProjectile's new signature
+    protected override void HandleHit(GameObject hitGO)
+    {
+        base.HandleHit(hitGO); // routes through Damage.Deal(...)
+        ReturnToPool();        // axes despawn on first valid hit
     }
 
     public override void OnDespawn()
     {
         CancelInvoke();
-        _rb.velocity = Vector2.zero;
-        _rb.gravityScale = 0f;
+        base.OnDespawn();
+        Rb.gravityScale = 0f;
         _spinning = false;
         transform.rotation = Quaternion.identity;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        ReturnToPool();
     }
 }

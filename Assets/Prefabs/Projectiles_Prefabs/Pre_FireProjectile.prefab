@@ -200,5 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e48c737197744cc4bae43c65f8d88e41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallbackDamage: 1
+  fallbackDamage: 999
   destroyAfterHit: 0
+  onlyWhenInvincible: 0

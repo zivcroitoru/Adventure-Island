@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 2206951148258226038}
   - component: {fileID: 3950810302147515482}
   - component: {fileID: -2161468228131472539}
-  - component: {fileID: -7336669548530243038}
   m_Layer: 8
   m_Name: Bird
   m_TagString: Enemy
@@ -160,6 +159,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 2
+  maxHealth: 1
+  respawnWithFullHealth: 1
+  contactDamage: 999
+  ridingDamage: 999
+  obstacleType: 3
   movementStrategy: {fileID: 2206951148258226038}
   attackStrategy: {fileID: 0}
 --- !u!114 &2206951148258226038
@@ -204,30 +208,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallbackDamage: 999
   destroyAfterHit: 0
---- !u!50 &-7336669548530243038
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1829278527213719595}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  isWeaponOrProjectile: 0
+  onlyWhenInvincible: 0

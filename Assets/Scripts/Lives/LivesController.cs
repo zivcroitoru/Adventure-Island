@@ -1,48 +1,44 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class LivesController : MonoBehaviour, IResettable
 {
-    [Header("Lives Config")]
+    [Header("Lives")]
     [SerializeField] private int startingLives = 3;
-    [SerializeField] private ResetPosition resetPosition;
+
+    [Header("Respawn")]
+    [SerializeField] private ResetPosition resetPosition;      // drag your spawn/reset helper
+    [SerializeField] private float respawnGraceSeconds = 0.25f; // avoid instant re-hit loops
 
     private int currentLives;
-
-    public event System.Action<int> OnLivesChanged;
-    public event System.Action OnOutOfLives;
+    private bool _respawning;
 
     public int CurrentLives => currentLives;
+    public event Action<int> OnLivesChanged;
+    public event Action OnOutOfLives;
 
-    private void Awake()
-    {
-        currentLives = startingLives;
-        NotifyLivesChanged();
-        SubscribeToEvents();
-        GameResetManager.Instance?.Register(this);
-    }
+    void Awake() => GameResetManager.Instance?.Register(this);
 
-    private void OnDestroy()
+    void Start()
     {
-        UnsubscribeFromEvents();
-    }
-
-    private void SubscribeToEvents()
-    {
-        FruitEffect.OnBonusLifeEarned += GrantBonusLife;
-    }
-
-    private void UnsubscribeFromEvents()
-    {
-        FruitEffect.OnBonusLifeEarned -= GrantBonusLife;
+        if (currentLives <= 0) ResetState(); // ensure proper init in fresh scene
     }
 
     public void LoseLife()
     {
+        if (_respawning || currentLives <= 0) return;
+
         ModifyLives(-1);
 
         if (currentLives > 0)
         {
-            HandleLifeLost();
+            // Reset only the “life-loss” group (eggs, pickups…)
+            GameResetManager.Instance?.ResetOnLifeLost();
+
+            // Reposition player and grant brief grace
+            resetPosition?.ResetPlayerPosition();
+            StartCoroutine(RespawnIFrames());
         }
         else
         {
@@ -50,45 +46,35 @@ public class LivesController : MonoBehaviour, IResettable
         }
     }
 
-    private void GrantBonusLife()
-    {
-        ModifyLives(+1);
-        Debug.Log("[LivesController] Bonus life granted from fruit collection!");
-    }
+    public void AddLife(int amount = 1) => ModifyLives(+Mathf.Abs(amount));
 
-    private void ModifyLives(int amount)
+    public void ResetState() // full reset (called on game over)
     {
-        currentLives += amount;
+        currentLives = Mathf.Max(0, startingLives); // back to 3 (or inspector value)
         NotifyLivesChanged();
-    }
-
-    private void NotifyLivesChanged()
-    {
-        OnLivesChanged?.Invoke(currentLives);
-    }
-
-    private void HandleLifeLost()
-    {
-        Debug.Log($"[LivesController] Life lost. Remaining: {currentLives}");
         resetPosition?.ResetPlayerPosition();
+        _respawning = false;
     }
+
+    private IEnumerator RespawnIFrames()
+    {
+        _respawning = true;
+        yield return new WaitForSeconds(respawnGraceSeconds);
+        _respawning = false;
+    }
+
+    private void ModifyLives(int delta)
+    {
+        int before = currentLives;
+        currentLives = Mathf.Clamp(currentLives + delta, 0, 99);
+        if (currentLives != before) NotifyLivesChanged();
+    }
+
+    private void NotifyLivesChanged() => OnLivesChanged?.Invoke(currentLives);
 
     private void HandleGameOver()
     {
-        Debug.Log("[LivesController] Out of lives. Resetting game state...");
-
         OnOutOfLives?.Invoke();
-
-        // Instead of reload scene:
-        GameResetManager.Instance?.ResetAll();
-    }
-
-    // IResettable implementation
-    public void ResetState()
-    {
-        currentLives = startingLives;
-        NotifyLivesChanged();
-        resetPosition?.ResetPlayerPosition();
-        Debug.Log("[LivesController] ResetState called: lives reset and player repositioned.");
+        GameResetManager.Instance?.ResetAll(); // this will call ResetState() on everyone incl. this
     }
 }

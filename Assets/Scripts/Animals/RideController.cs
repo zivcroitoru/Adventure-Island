@@ -1,4 +1,6 @@
+// RideController.cs
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class RideController : MonoBehaviour
@@ -7,6 +9,9 @@ public class RideController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private RuntimeAnimatorController baseController;
 
+    [Header("Dismount")]
+    [SerializeField] private float dismountInvincibleSeconds = 0.5f;
+
     public static event System.Action<GameObject> OnAnimalMounted;
     public static event System.Action<GameObject> OnAnimalDismounted;
 
@@ -14,29 +19,30 @@ public class RideController : MonoBehaviour
     private WeaponsHandler weaponHandler;
     private AnimalBase currentAnimal;
 
-    // === Public Properties ===
+    // Public API
     public AnimalBase CurrentAnimal => currentAnimal;
     public bool IsRiding => currentAnimal != null;
     public IAttacker CurrentAttacker => IsRiding ? currentAnimal : weaponHandler;
 
-    // === Init ===
-    private void Awake()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        weaponHandler = GetComponentInChildren<WeaponsHandler>();
+        weaponHandler = GetComponentInChildren<WeaponsHandler>(true);
+        if (!animator) animator = GetComponentInChildren<Animator>(true);
     }
 
     // === Mount System ===
     public bool SwitchAnimal(AnimalBase newAnimal)
     {
-        if (newAnimal == null) return false;
+        if (!newAnimal) return false;
 
-        newAnimal.transform.SetParent(null); // avoid accidental destroy
+        newAnimal.transform.SetParent(null);    // avoid accidental destroy with parent
         DismountCurrentAnimal();
 
         currentAnimal = newAnimal;
         currentAnimal.Mount(gameObject);
 
+        // Animator override & injection
         ApplyAnimatorOverride(currentAnimal.GetOverrideController());
         currentAnimal.SetAnimator(animator);
 
@@ -53,22 +59,14 @@ public class RideController : MonoBehaviour
 
         ResetAnimatorToBase();
         OnAnimalDismounted?.Invoke(gameObject);
+
+        // Grant brief invulnerability after dismount (uses Fairy if present)
+        GrantTempInvincibility(dismountInvincibleSeconds);
     }
 
     public void UnmountAnimal()
     {
-        if (IsRiding)
-            DismountCurrentAnimal();
-    }
-
-    private void ApplyAnimatorOverride(RuntimeAnimatorController overrideCtrl)
-    {
-        animator.runtimeAnimatorController = overrideCtrl ?? baseController;
-    }
-
-    public void ResetAnimatorToBase()
-    {
-        ApplyAnimatorOverride(baseController);
+        if (IsRiding) DismountCurrentAnimal();
     }
 
     // === Combat ===
@@ -78,16 +76,69 @@ public class RideController : MonoBehaviour
             CurrentAttacker.Attack();
     }
 
-    // === Obstacle Logic ===
+    // === Obstacles ===
     public bool TryDestroyObstacle(ObstacleType type)
     {
         if (!IsRiding) return false;
         return currentAnimal.CanDestroy(type);
     }
 
-    // === Weapon System ===
-    public void EquipWeapon(IWeapon weapon)
+    // === Weapons ===
+    public void EquipWeapon(IWeapon weapon) => weaponHandler?.Equip(weapon);
+
+    // === Animator helpers ===
+    private void ApplyAnimatorOverride(RuntimeAnimatorController overrideCtrl)
     {
-        weaponHandler?.Equip(weapon);
+        if (animator) animator.runtimeAnimatorController = overrideCtrl ? overrideCtrl : baseController;
+    }
+
+    public void ResetAnimatorToBase() => ApplyAnimatorOverride(baseController);
+
+    // === Invincibility glue ===
+    private void GrantTempInvincibility(float seconds)
+    {
+        // Prefer FairyInvinciblePowerUp if present (plays nice with full fairy power-up)
+        var fairy = GetComponentInChildren<FairyInvinciblePowerUp>(true);
+        if (fairy)
+        {
+            fairy.SetTemporaryInvincibility(true);
+            StartCoroutine(ClearFairyAfter(fairy, seconds));
+            return;
+        }
+
+        // Fallback: local helper that only provides temporary invincibility
+        var helper = GetComponent<TempInvincibleHelper>();
+        if (!helper) helper = gameObject.AddComponent<TempInvincibleHelper>();
+        helper.Trigger(seconds);
+    }
+
+    private IEnumerator ClearFairyAfter(FairyInvinciblePowerUp fairy, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        // Don’t cancel if a full fairy buff is active
+        if (fairy && fairy.IsTemporaryOnly) fairy.SetTemporaryInvincibility(false);
+    }
+}
+
+// Minimal helper used only when no FairyInvinciblePowerUp exists.
+// Implements IInvincible so your Damage gate “just works”.
+[DisallowMultipleComponent]
+sealed class TempInvincibleHelper : MonoBehaviour, IInvincible
+{
+    bool _temp;
+    public bool IsInvincible => _temp;
+    public void SetTemporaryInvincibility(bool state) => _temp = state;
+
+    public void Trigger(float seconds)
+    {
+        StopAllCoroutines();
+        StartCoroutine(Co(seconds));
+    }
+
+    System.Collections.IEnumerator Co(float s)
+    {
+        _temp = true;
+        yield return new WaitForSeconds(s);
+        _temp = false;
     }
 }

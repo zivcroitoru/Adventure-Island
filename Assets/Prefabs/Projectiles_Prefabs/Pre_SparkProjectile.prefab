@@ -162,9 +162,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d4d7f89c4d91a4c80c70e049e01f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 8
   _damage: 1
-  lifetime: 0.3
+  returnToPoolOnHit: 1
+  lifetime: 1
   flickerInterval: 0.05
 --- !u!114 &-2382845410170769880
 MonoBehaviour:
@@ -180,3 +181,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallbackDamage: 1
   destroyAfterHit: 0
+  onlyWhenInvincible: 0

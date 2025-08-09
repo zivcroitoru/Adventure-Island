@@ -64,7 +64,7 @@ Rigidbody2D:
   m_Mass: 3
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1.25
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01222d632616f434f95bf336938c7298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 1700
+  jumpSpeed: 2200
 --- !u!114 &1267336056828923930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingLives: 3
   resetPosition: {fileID: 8112309769582067828}
+  respawnGraceSeconds: 0.25
 --- !u!114 &7903131850102447463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,7 +328,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.6666667, g: 0.90196085, b: 0.9960785, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

@@ -139,6 +139,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 1
+  maxHealth: 1
+  respawnWithFullHealth: 1
+  contactDamage: 999
+  ridingDamage: 999
+  obstacleType: 3
   movementStrategy: {fileID: 8725307571143758888}
   attackStrategy: {fileID: 0}
 --- !u!114 &8725307571143758888
@@ -177,7 +182,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 739839852298812703}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -300,3 +305,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallbackDamage: 999
   destroyAfterHit: 0
+  isWeaponOrProjectile: 0
+  onlyWhenInvincible: 0

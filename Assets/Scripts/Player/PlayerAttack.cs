@@ -22,18 +22,30 @@ public class PlayerAttack : MonoBehaviour
     {
         IAttacker attacker = rideController?.CurrentAttacker ?? weaponsHandler;
 
+        Debug.Log($"[PlayerAttack] rideAttacker={(rideController?.CurrentAttacker != null)}, " +
+                  $"weaponsHandler={(weaponsHandler != null)}, " +
+                  $"chosen={(attacker != null ? attacker.GetType().Name : "null")}");
+
         if (attacker == null)
         {
-            Debug.Log("[PlayerAttack] No attacker found.");
+            Debug.Log("[PlayerAttack] ❌ No attacker found.");
             return;
         }
 
-        if (!attacker.CanAttack())
+        bool canAttack = attacker.CanAttack();
+        Debug.Log($"[PlayerAttack] Attacker={attacker.GetType().Name}, CanAttack={canAttack}");
+
+        if (!canAttack)
         {
-            Debug.Log("[PlayerAttack] Attacker can't attack right now.");
+            // Try to get more detail if attacker is a MonoBehaviour
+            if (attacker is MonoBehaviour mb)
+                Debug.Log($"[PlayerAttack] Attacker object: {mb.name} active={mb.isActiveAndEnabled}");
+
+            Debug.Log("[PlayerAttack] ❌ Attacker can't attack right now.");
             return;
         }
 
+        Debug.Log("[PlayerAttack] ✅ Attacking now!");
         attacker.Attack(); // Plays animation and logic inside
     }
 }

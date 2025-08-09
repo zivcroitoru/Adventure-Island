@@ -160,6 +160,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 5
+  maxHealth: 1
+  respawnWithFullHealth: 1
+  contactDamage: 999
+  ridingDamage: 999
+  obstacleType: 3
   movementStrategy: {fileID: 3563691272265515451}
   attackStrategy: {fileID: 0}
 --- !u!114 &3563691272265515451
@@ -211,6 +216,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallbackDamage: 999
   destroyAfterHit: 0
+  isWeaponOrProjectile: 0
+  onlyWhenInvincible: 0
 --- !u!1 &7306806049498623597
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,43 +1,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameResetManager : MonoBehaviour
+
+public sealed class GameResetManager : MonoBehaviour
 {
-    public static GameResetManager Instance;
+    public static GameResetManager Instance { get; private set; }
 
-    private readonly List<IResettable> resettables = new();
+    // Full reset (game over / level restart)
+    private readonly List<IResettable> _resettables = new();
+    // Light reset when a life is lost (eggs, pickups, loose projectiles…)
+    private readonly List<IResettable> _resettablesOnLifeLost = new();
 
-    private void Awake()
+    void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            // Debug.Log("[GameResetManager] Singleton instance created.");
-        }
-        else
-        {
-            // Debug.LogWarning("[GameResetManager] Duplicate instance destroyed.");
-            Destroy(gameObject);
-        }
+        if (Instance && Instance != this) { Destroy(gameObject); return; }
+        Instance = this;
+        // DontDestroyOnLoad(gameObject); // uncomment if needed
     }
 
-public void Register(IResettable resettable)
-{
-    Debug.Log($"[GameResetManager] Register() called for {resettable.GetType().Name} ({((MonoBehaviour)resettable).gameObject.name})");
-    if (!resettables.Contains(resettable))
+    // Register to full reset; set onLifeLostToo=true to also reset on death
+    public void Register(IResettable r, bool onLifeLostToo = false)
     {
-        resettables.Add(resettable);
-        // Debug.Log($"[GameResetManager] Registered: {resettable.GetType().Name} ({((MonoBehaviour)resettable).gameObject.name})");
+        if (r == null) return;
+        if (!_resettables.Contains(r)) _resettables.Add(r);
+        if (onLifeLostToo && !_resettablesOnLifeLost.Contains(r)) _resettablesOnLifeLost.Add(r);
     }
-}
+
+    public void Unregister(IResettable r)
+    {
+        if (r == null) return;
+        _resettables.Remove(r);
+        _resettablesOnLifeLost.Remove(r);
+    }
 
     public void ResetAll()
     {
-        // Debug.Log($"[GameResetManager] Resetting {resettables.Count} registered objects.");
-        foreach (var r in resettables)
-        {
-            // Debug.Log($"[GameResetManager] Resetting: {r.GetType().Name} ({r})");
-            r.ResetState();
-        }
+        Cleanup();
+        foreach (var r in _resettables) r?.ResetState();
+    }
+
+    public void ResetOnLifeLost()
+    {
+        Cleanup();
+        foreach (var r in _resettablesOnLifeLost) r?.ResetState();
+    }
+
+    private void Cleanup()
+    {
+        _resettables.RemoveAll(IsNull);
+        _resettablesOnLifeLost.RemoveAll(IsNull);
+        static bool IsNull(IResettable r) => r == null || (r is Object o && o == null);
     }
 }

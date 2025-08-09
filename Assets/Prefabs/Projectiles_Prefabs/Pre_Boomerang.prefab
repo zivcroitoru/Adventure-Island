@@ -278,9 +278,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _damage: 1
-  returnDelay: 1.2
-  speed: 10
+  _despawnOnHit: 1
+  speed: 20
   spinSpeed: 2000
+  returnDelay: 0.5
+  catchDist: 0.5
 --- !u!114 &-7879249836310488143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,4 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e48c737197744cc4bae43c65f8d88e41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  fallbackDamage: 20
+  destroyAfterHit: 0
+  isWeaponOrProjectile: 0
+  onlyWhenInvincible: 0

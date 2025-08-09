@@ -17,7 +17,7 @@ public class FruitViewUI : MonoBehaviour
     }
     private void UpdateUI(int fruitCount)
     {
-        Debug.Log($"[FruitViewUI] Updating Fruit Count: {fruitCount}");
+        // Debug.Log($"[FruitViewUI] Updating Fruit Count: {fruitCount}");
         fruitText.text = $"x {fruitCount}";
     }
 }

@@ -1,27 +1,47 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D), typeof(DamageDealer))]
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(DamageDealer))] // lets Damage.Deal run on contact
 public sealed class Fire : MonoBehaviour, IObstacle, IResettable
 {
-    public ObstacleType Type => ObstacleType.Fire;
-    public int ContactDamage => 999;
-    public int RidingDamage => 0;
+    [Header("Damage")]
+    [SerializeField] private int contactDamage = 999;
+    [SerializeField] private int ridingDamage  = 0;
 
-    // Destroy the fire only if the player is invincible
-    public void DestroyObstacle()
+    [Header("Setup")]
+    [Tooltip("Ensure this stays a trigger so InvincibleObstacleBreaker can catch it cleanly.")]
+    [SerializeField] private bool forceTrigger = true;
+
+    // IObstacle
+    public ObstacleType Type        => ObstacleType.Fire;
+    public int          ContactDamage => contactDamage;
+    public int          RidingDamage  => ridingDamage;
+
+    void Awake()
     {
-        // Check if the object hitting the fire has an IInvincible component and is invincible
-        GameObject rider = FindObjectOfType<AnimalBase>().Rider;  // Adjust if you have a direct reference to the rider or player
-        if (rider != null && rider.TryGetComponent<IInvincible>(out var invincibleComponent) && invincibleComponent.IsInvincible)
-        {
-            Debug.Log("[Fire] Fire destroyed because the player is invincible.");
-            Destroy(gameObject);  // Destroy the fire if the rider is invincible
-        }
-        else
-        {
-            Debug.Log("[Fire] Fire cannot be destroyed because the player is not invincible.");
-        }
+        // Make sure we’re a trigger (player usually has the Rigidbody2D).
+        var col = GetComponent<Collider2D>();
+        if (col && forceTrigger) col.isTrigger = true;
     }
 
-    public void ResetState() => gameObject.SetActive(true);
+    // IObstacle: external destruction (breaker / level logic calls this)
+    public void DestroyObstacle()
+    {
+        // No invincibility checks here—breaker handles that.
+        Destroy(gameObject);
+    }
+
+    // IResettable: revive this hazard on level reset
+    public void ResetState()
+    {
+        // Reactivate + re-enable visuals/colliders in case something turned them off
+        if (!gameObject.activeSelf) gameObject.SetActive(true);
+
+        var col = GetComponent<Collider2D>();
+        if (col) col.enabled = true;
+
+        var sr = GetComponentInChildren<SpriteRenderer>(true);
+        if (sr) sr.enabled = true;
+    }
 }

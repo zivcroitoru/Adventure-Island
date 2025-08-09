@@ -1,34 +1,38 @@
 using UnityEngine;
+
 public sealed class ProjectileSpark : BaseProjectile
 {
-    [SerializeField] private float lifetime = 0.3f;
+    [SerializeField] private float lifetime        = 0.3f;
     [SerializeField] private float flickerInterval = 0.05f;
 
-    private bool _flipState;
+    bool _flipState;
 
     public override void Shoot(Vector2 origin, Vector2 direction, float playerSpeed = 0f)
     {
-        transform.position = origin;
-        transform.rotation = Quaternion.identity;
+        var n = direction.sqrMagnitude > 0f ? direction.normalized : Vector2.right;
 
-        rb.velocity = direction.normalized * _speed;
-        _flipState = direction.x < 0;
-        if (sr != null) sr.flipX = _flipState;
+        transform.rotation = Quaternion.identity;
+        base.Shoot(origin, n, _speed);       // sets position + Rb.velocity
+
+        _flipState = n.x < 0f;
+        if (Sr) Sr.flipX = _flipState;
 
         InvokeRepeating(nameof(ToggleFlip), 0f, flickerInterval);
         Invoke(nameof(ReturnToPool), lifetime);
     }
 
-    private void ToggleFlip()
+    void ToggleFlip()
     {
         _flipState = !_flipState;
-        if (sr != null) sr.flipX = _flipState;
+        if (Sr) Sr.flipX = _flipState;
     }
 
     public override void OnDespawn()
     {
-        base.OnDespawn();
-        CancelInvoke(nameof(ToggleFlip));
+        base.OnDespawn();                   // zeros Rb.velocity
+        CancelInvoke(nameof(ToggleFlip));   // stop flicker
+        CancelInvoke();                     // stop lifetime if any
         _flipState = false;
+        if (Sr) Sr.flipX = false;          // reset for pooled reuse
     }
 }

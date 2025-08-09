@@ -3,7 +3,6 @@ using UnityEngine;
 public sealed class GreenAnimal : AnimalBase
 {
     [Header("Spin Settings")]
-    [SerializeField] private float spinSpeed = 180f;
     [SerializeField] private float spinRadius = 0.6f;
     [SerializeField] private float spinDuration = 0.3f;
 
